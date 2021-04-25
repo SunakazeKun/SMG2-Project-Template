@@ -1,0 +1,2 @@
+# SMG2 Project Template SRC
+Here is source code for all new custom objects and changes featured in the **Super Mario Galaxy 2 Project Template**. Compiled builds and the actual product can be found [here](https://www.youtube.com/watch?v=H9Luiho9Ftc&ab_channel=Aurum). This uses [Syati](https://github.com/shibbo/Syati), a toolchain by shibbo to inject custom code into SMG2. The header files as well as symbols haven't been cleaned up since shibbo's repository is constantly updating. The source code here is provided only for "educational" purposes.
