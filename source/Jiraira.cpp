@@ -1,4 +1,5 @@
 #include "spack/Actor/Jiraira.h"
+#include "Util/ActorAnimUtil.h"
 #include "Util/ActorMovementUtil.h"
 #include "Util/ActorSensorUtil.h"
 #include "Util/ActorSwitchUtil.h"
@@ -9,16 +10,7 @@
 #include "Util/PlayerUtil.h"
 #include "Util/SoundUtil.h"
 
-typedef void (*Func)(void);
-
-extern Func __ctor_loc;
-extern Func __ctor_end;
-
 Jiraira::Jiraira(const char* pName) : LiveActor(pName) {
-    // Instantiate nerves
-    for (Func* f = &__ctor_loc; f < &__ctor_end; f++)
-        (*f)();
-
     mExplosionRange = 500.0f;
 }
 
@@ -31,13 +23,13 @@ void Jiraira::init(const JMapInfoIter& rIter) {
     MR::useStageSwitchWriteDead(this, rIter);
 
     initHitSensor(2);
-    MR::addHitSensorMapObjMoveCollision(this, "Body", 16, 100.0f * mScale.y, JGeometry::TVec3<f32>(0.0f, 30.0f, 0.0f));
-    MR::addHitSensorEnemyAttack(this, "Explode", 16, mExplosionRange * mScale.y, JGeometry::TVec3<f32>(0.0f, 30.0f, 0.0f));
+    MR::addHitSensorMapObjMoveCollision(this, "Body", 16, 100.0f * mScale.y, TVec3f(0.0f, 30.0f, 0.0f));
+    MR::addHitSensorEnemyAttack(this, "Explode", 16, mExplosionRange * mScale.y, TVec3f(0.0f, 30.0f, 0.0f));
 
     MR::initCollisionParts(this, "Button", MR::getSensor(this, "Body"), NULL);
     MR::validateCollisionParts(this);
 
-    initSound(6, "Jiraira", 0, JGeometry::TVec3<f32>(0.0f, 0.0f, 0.0f));
+    initSound(6, "Jiraira", 0, TVec3f(0.0f, 0.0f, 0.0f));
     initEffectKeeper(0, NULL, false);
     initNerve(&NrvJiraira::NrvWait::sInstance, NULL);
     MR::invalidateClipping(this);

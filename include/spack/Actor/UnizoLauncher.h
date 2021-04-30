@@ -2,13 +2,13 @@
 
 #include "Actor/LiveActor/LiveActor.h"
 #include "Actor/Nerve/Nerve.h"
-#include "Actor/Enemy/Unizo.h"
+#include "Enemy/Unizo.h"
 
 class UnizoLauncher : public LiveActor {
 public:
-	UnizoLauncher(const char*);
+	UnizoLauncher(const char *);
 
-	virtual void init(JMapInfoIter const&);
+	virtual void init(const JMapInfoIter &);
 
 	void exeWait();
 	void exeLaunch();
@@ -23,7 +23,7 @@ namespace NrvUnizoLauncher {
 	class NrvWait : public Nerve {
 	public:
 		NrvWait() {};
-		virtual void execute(Spine*) const;
+		virtual void execute(Spine *) const;
 
 		static NrvWait sInstance;
 	};
@@ -31,7 +31,7 @@ namespace NrvUnizoLauncher {
 	class NrvLaunch : public Nerve {
 	public:
 		NrvLaunch() {};
-		virtual void execute(Spine*) const;
+		virtual void execute(Spine *) const;
 
 		static NrvLaunch sInstance;
 	};

@@ -22,7 +22,7 @@ void SensorDetector::init(const JMapInfoIter& rIter) {
     MR::useStageSwitchWriteDead(this, rIter);
 
     initHitSensor(1);
-    MR::addHitSensor(this, "Body", 0, 1, mHitbox, JGeometry::TVec3<f32>(0.0f, 0.0f, 0.0f));
+    MR::addHitSensor(this, "Body", 0, 1, mHitbox, TVec3f(0.0f, 0.0f, 0.0f));
 
     makeActorAppeared();
 }

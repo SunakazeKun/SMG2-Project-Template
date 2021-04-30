@@ -4,9 +4,9 @@
 
 class JumpSwitchArea : public AreaObj {
 public:
-    JumpSwitchArea(const char* pActorName) : AreaObj(pActorName) {}
+    JumpSwitchArea(const char * pActorName) : AreaObj(pActorName) {}
 
-    virtual void init(const JMapInfoIter&);
+    virtual void init(const JMapInfoIter &);
     virtual void movement();
     virtual const char* getManagerName() const;
 

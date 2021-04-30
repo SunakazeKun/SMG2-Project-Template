@@ -1,20 +1,12 @@
 ﻿#include "spack/Actor/UnizoLauncher.h"
 #include "spack/SPackUtil.h"
+#include "Util/ActorMovementUtil.h"
 #include "Util/ActorSensorUtil.h"
 #include "Util/LiveActorUtil.h"
 #include "Util/JMapUtil.h"
 #include "Util/ObjUtil.h"
 
-typedef void (*Func)(void);
-
-extern Func __ctor_loc;
-extern Func __ctor_end;
-
 UnizoLauncher::UnizoLauncher(const char* pName) : LiveActor(pName) {
-	// Instantiate nerves
-	for (Func* f = &__ctor_loc; f < &__ctor_end; f++)
-		(*f)();
-
 	mUnizoArray = NULL;
 	mUnizoType = UNIZO;
 	mNumUnizo = 4;
@@ -59,7 +51,7 @@ void UnizoLauncher::exeLaunch() {
 
 			if (MR::isDead(unizo)) {
 				MR::copyTransRotateScale(this, unizo);
-				unizo->mTranslation.z -= 1.0f * i;
+				unizo->mTranslation.z += i;
 				unizo->appear();
 				break;
 			}

@@ -4,11 +4,11 @@
 
 class SensorDetector : public LiveActor {
 public:
-    SensorDetector(const char*);
+    SensorDetector(const char *);
 
-    virtual void init(const JMapInfoIter& Iter);
+    virtual void init(const JMapInfoIter & Iter);
     virtual void control();
-    virtual s32 receiveMessage(u32, HitSensor*, HitSensor*);
+    virtual s32 receiveMessage(u32, HitSensor *, HitSensor *);
 
     s32 mMessage;
     f32 mHitbox;

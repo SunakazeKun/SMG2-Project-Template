@@ -1,16 +1,16 @@
 #pragma once
 
 #include "Actor/LiveActor/LiveActor.h"
-#include "Actor/Enemy/RingBeam.h"
+#include "Enemy/RingBeam.h"
 #include "Util/Functor.h"
 
 class BallBeamer : public LiveActor {
 public:
-	BallBeamer(const char*);
+	BallBeamer(const char *);
 
-	virtual void init(const JMapInfoIter&);
-	virtual void attackSensor(HitSensor*, HitSensor*);
-	virtual u32 receiveMsgPlayerAttack(u32, HitSensor*, HitSensor*);
+	virtual void init(const JMapInfoIter &);
+	virtual void attackSensor(HitSensor *, HitSensor *);
+	virtual u32 receiveMsgPlayerAttack(u32, HitSensor *, HitSensor *);
 
 	void syncSwitchOnA();
 	void syncSwitchOffA();
@@ -32,7 +32,7 @@ namespace NrvBallBeamer {
 	class NrvWait : public Nerve {
 	public:
 		NrvWait() {}
-		virtual void execute(Spine*) const;
+		virtual void execute(Spine *) const;
 
 		static NrvWait sInstance;
 	};
@@ -40,7 +40,7 @@ namespace NrvBallBeamer {
 	class NrvAttack : public Nerve {
 	public:
 		NrvAttack() {}
-		virtual void execute(Spine*) const;
+		virtual void execute(Spine *) const;
 
 		static NrvAttack sInstance;
 	};
@@ -48,7 +48,7 @@ namespace NrvBallBeamer {
 	class NrvInter : public Nerve {
 	public:
 		NrvInter() {}
-		virtual void execute(Spine*) const;
+		virtual void execute(Spine *) const;
 
 		static NrvInter sInstance;
 	};

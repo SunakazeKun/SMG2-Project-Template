@@ -4,7 +4,7 @@
 
 class MorphItemNeoIce : public MorphItemObjNeo {
 public:
-	MorphItemNeoIce(const char*);
+	MorphItemNeoIce(const char *);
 
 	virtual u32 getPowerUp();
 	virtual void emitAppearEffects();

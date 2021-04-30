@@ -4,10 +4,10 @@
 
 class DeadLeaves : public MapObjActor {
 public:
-	DeadLeaves(const char*);
+	DeadLeaves(const char *);
 
-	virtual void init(const JMapInfoIter&);
-	virtual u32 receiveMsgPlayerAttack(u32, HitSensor*, HitSensor*);
+	virtual void init(const JMapInfoIter &);
+	virtual u32 receiveMsgPlayerAttack(u32, HitSensor *, HitSensor *);
 
 	void exeSpin();
 
@@ -18,7 +18,7 @@ namespace NrvDeadLeaves {
 	class NrvWait : public Nerve {
 	public:
 		NrvWait() {}
-		virtual void execute(Spine*) const;
+		virtual void execute(Spine *) const;
 
 		static NrvWait sInstance;
 	};
@@ -26,7 +26,7 @@ namespace NrvDeadLeaves {
 	class NrvSpin : public Nerve {
 	public:
 		NrvSpin() {}
-		virtual void execute(Spine*) const;
+		virtual void execute(Spine *) const;
 
 		static NrvSpin sInstance;
 	};

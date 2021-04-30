@@ -1,7 +1,7 @@
 ﻿#include "spack/Actor/JumpGuarder.h"
 #include "spack/SPackUtil.h"
-#include "Actor/Animation/BckControl.h"
-#include "Actor/Enemy/BegomanBaby.h"
+#include "spack/MR2/BegomanBaby.h"
+#include "Util/ActorAnimUtil.h"
 #include "Util/ActorMovementUtil.h"
 #include "Util/ActorSensorUtil.h"
 #include "Util/ActorShadowUtil.h"
@@ -16,16 +16,7 @@
 #include "Util/SoundUtil.h"
 #include "mtx.h"
 
-typedef void (*Func)(void);
-
-extern Func __ctor_loc;
-extern Func __ctor_end;
-
 JumpGuarder::JumpGuarder(const char* pName) : JumpEmitter(pName) {
-	// Instantiate nerves
-	for (Func* f = &__ctor_loc; f < &__ctor_end; f++)
-		(*f)();
-
 	mBabys = NULL;
 	mNumBabys = 4;
 	mStaggerDelay = 0;
@@ -43,11 +34,11 @@ void JumpGuarder::init(const JMapInfoIter& rIter) {
 
 	initHitSensor(2);
 
-	JGeometry::TVec3<f32>* vec = new JGeometry::TVec3<f32>(0.0f, -100.0f, 0.0f);
+	TVec3f* vec = new TVec3f(0.0f, -100.0f, 0.0f);
 	Mtx4* jointMtx = (Mtx4*)MR::getJointMtx(mHead, "SpringJoint3");
 	MR::addHitSensorMtx(this, "Jump", 0x23, 8, 145.0f, jointMtx, *vec);
 
-	vec = new JGeometry::TVec3<f32>(0.0f, 35.0f, 0.0f);
+	vec = new TVec3f(0.0f, 35.0f, 0.0f);
 	jointMtx = (Mtx4*)MR::getJointMtx(this, "Body");
 	MR::addHitSensorMtxEnemy(this, "Body", 8, 145.0f, jointMtx, *vec);
 
@@ -56,7 +47,7 @@ void JumpGuarder::init(const JMapInfoIter& rIter) {
 	MR::invalidateHitSensor(this, "Jump");
 
 	MR::initShadowVolumeSphere(this, 140.0f);
-	initSound(8, "JumpGuarder", false, JGeometry::TVec3<f32>(0.0f, 0.0f, 0.0f));
+	initSound(8, "JumpGuarder", false, TVec3f(0.0f, 0.0f, 0.0f));
 	MR::invalidateClipping(this);
 	initNerve(&NrvJumpGuarder::NrvHide::sInstance, 0);
 
@@ -91,7 +82,7 @@ void JumpGuarder::init(const JMapInfoIter& rIter) {
 
 void JumpGuarder::control() {
 	Mtx mtxTRS;
-	MR::makeMtxTRS(mtxTRS, JGeometry::TVec3<f32>(0.0f, 44.0f, 0.0f), mHead->mRotation, mHead->mScale);
+	MR::makeMtxTRS(mtxTRS, TVec3f(0.0f, 44.0f, 0.0f), mHead->mRotation, mHead->mScale);
 	PSMTXCopy((Mtx4*)mJointMtx, _94);
 	PSMTXConcat(_94, mtxTRS, _94);
 
@@ -127,7 +118,7 @@ void JumpGuarder::attackSensor(HitSensor* pHit1, HitSensor* pHit2) {
 u32 JumpGuarder::receiveMsgPlayerAttack(u32 msg, HitSensor* pHit1, HitSensor* pHit2) {
 	if (MR::isMsgPlayerTrample(msg)) {
 		if (pHit2->isType(0x23)) {
-			JGeometry::TVec3<f32> upVec;
+			TVec3f upVec;
 			MR::calcUpVec(&upVec, this);
 			MR::setPlayerJumpVec(upVec);
 
@@ -139,7 +130,7 @@ u32 JumpGuarder::receiveMsgPlayerAttack(u32 msg, HitSensor* pHit1, HitSensor* pH
 		return 1;
 	}
 	else if (MR::isMsgPlayerHipDrop(msg)) {
-		MR::forceJumpPlayer(JGeometry::TVec3<f32>(-mGravity.x, -mGravity.y, -mGravity.z));
+		MR::forceJumpPlayer(TVec3f(-mGravity.x, -mGravity.y, -mGravity.z));
 		return 1;
 	}
 	else if (MR::isMsgPlayerSpinAttack(msg)) {
@@ -153,12 +144,12 @@ u32 JumpGuarder::receiveMsgPlayerAttack(u32 msg, HitSensor* pHit1, HitSensor* pH
 }
 
 u32 JumpGuarder::receiveOtherMsg(u32 msg, HitSensor* pHit1, HitSensor* pHit2) {
-	if (msg == ACTMES_GROUP_ATTACK) {
+	if (msg == 0x7C) {
 		MR::invalidateClipping(this);
 		setNerve(&NrvJumpGuarder::NrvUp::sInstance);
 		return 1;
 	}
-	else if (msg == ACTMES_GROUP_HIDE) {
+	else if (msg == 0x7E) {
 		setNerve(&NrvJumpGuarder::NrvDown::sInstance);
 		return 1;
 	}
@@ -175,7 +166,7 @@ void JumpGuarder::exeHide() {
 		MR::setShadowVolumeSphereRadius(this, NULL, 110.0f);
 	}
 	else if (MR::enableGroupAttack(this, 2000.0f, 500.0f))
-		MR::sendMsgToGroupMember(ACTMES_GROUP_ATTACK, this, getSensor("Body"), "Body");
+		MR::sendMsgToGroupMember(0x7C, this, getSensor("Body"), "Body");
 }
 
 void JumpGuarder::exeUp() {
@@ -184,7 +175,7 @@ void JumpGuarder::exeUp() {
 		MR::startLevelSound(this, "EmJguarderAppear", -1, -1, -1);
 	}
 
-	f32 bckMaxFrame = MR::getBckCtrl(this)->_8;
+	f32 bckMaxFrame = MR::getBckFrameMax(this);
 	f32 bckFrame = MR::getBckFrame(this);
 	f32 radius = 110.0f + (bckFrame / bckMaxFrame) * 30.0f;
 	MR::setShadowVolumeSphereRadius(this, NULL, radius);
@@ -199,7 +190,7 @@ void JumpGuarder::exeWait() {
 	updateRotate();
 
 	if (!MR::enableGroupAttack(this, 2200.0f, 500.0f))
-		MR::sendMsgToGroupMember(ACTMES_GROUP_HIDE, this, getSensor("Body"), "Body");
+		MR::sendMsgToGroupMember(0x7E, this, getSensor("Body"), "Body");
 	else if (enableAttack())
 		setNerve(&NrvJumpGuarder::NrvPreOpen::sInstance);
 }
@@ -210,7 +201,7 @@ void JumpGuarder::exeDown() {
 		MR::startLevelSound(this, "EmJguarderHide", -1, -1, -1);
 	}
 
-	f32 bckMaxFrame = MR::getBckCtrl(this)->_8;
+	f32 bckMaxFrame = MR::getBckFrameMax(this);
 	f32 bckFrame = MR::getBckFrame(this);
 	f32 radius = 110.0f + (1.0f - (bckFrame / bckMaxFrame)) * 30.0f;
 	MR::setShadowVolumeSphereRadius(this, NULL, radius);
@@ -284,7 +275,7 @@ void JumpGuarder::exePreOpen() {
 	updateRotate();
 
 	if (!MR::enableGroupAttack(this, 2200.0f, 500.0f))
-		MR::sendMsgToGroupMember(ACTMES_GROUP_HIDE, this, getSensor("Body"), "Body");
+		MR::sendMsgToGroupMember(0x7E, this, getSensor("Body"), "Body");
 
 	if (MR::isFirstStep(this))
 		setNerve(&NrvJumpGuarder::NrvOpen::sInstance);
@@ -307,8 +298,8 @@ void JumpGuarder::exeOpen() {
 		}
 
 		Mtx* headBaseMtx = mHead->getBaseMtx();
-		JGeometry::TVec3<f32> ydir;
-		JGeometry::TVec3<f32> zdir;
+		TVec3f ydir;
+		TVec3f zdir;
 		MR::extractMtxYDir(*headBaseMtx, &ydir);
 		MR::extractMtxZDir(*headBaseMtx, &zdir);
 
@@ -317,7 +308,7 @@ void JumpGuarder::exeOpen() {
 
 			MR::rotateVecDegree(&zdir, ydir, 360.0f / mNumPendingBabys);
 			baby->mTranslation.set<f32>(mTranslation + zdir * 64.0f);
-			baby->mVelocity.set<f32>(JGeometry::TVec3<f32>(0.0f, 0.0f, 0.0f));
+			baby->mVelocity.set<f32>(TVec3f(0.0f, 0.0f, 0.0f));
 
 			baby->appearFromGuarder();
 		}
@@ -325,8 +316,8 @@ void JumpGuarder::exeOpen() {
 	// Keep BegomanBabys inside until launch
 	else if (MR::isLessStep(this, 70)) {
 		Mtx* headBaseMtx = mHead->getBaseMtx();
-		JGeometry::TVec3<f32> ydir;
-		JGeometry::TVec3<f32> zdir;
+		TVec3f ydir;
+		TVec3f zdir;
 		MR::extractMtxYDir(*headBaseMtx, &ydir);
 		MR::extractMtxZDir(*headBaseMtx, &zdir);
 
@@ -335,14 +326,14 @@ void JumpGuarder::exeOpen() {
 
 			MR::rotateVecDegree(&zdir, ydir, 360.0f / mNumPendingBabys);
 			baby->mTranslation.set<f32>(mTranslation + zdir * 64.0f);
-			baby->mVelocity.set<f32>(JGeometry::TVec3<f32>(0.0f, 0.0f, 0.0f));
+			baby->mVelocity.set<f32>(TVec3f(0.0f, 0.0f, 0.0f));
 		}
 	}
 	// Finally, launch BegomanBabys
 	else if (MR::isStep(this, 70)) {
 		Mtx* headBaseMtx = mHead->getBaseMtx();
-		JGeometry::TVec3<f32> ydir;
-		JGeometry::TVec3<f32> zdir;
+		TVec3f ydir;
+		TVec3f zdir;
 		MR::extractMtxYDir(*headBaseMtx, &ydir);
 		MR::extractMtxZDir(*headBaseMtx, &zdir);
 
@@ -377,7 +368,7 @@ void JumpGuarder::exeInter() {
 	updateRotate();
 
 	if (!MR::enableGroupAttack(this, 2200.0f, 500.0f))
-		MR::sendMsgToGroupMember(ACTMES_GROUP_HIDE, this, getSensor("Body"), "Body");
+		MR::sendMsgToGroupMember(0x7E, this, getSensor("Body"), "Body");
 
 	setNerve(&NrvJumpGuarder::NrvWait::sInstance);
 }

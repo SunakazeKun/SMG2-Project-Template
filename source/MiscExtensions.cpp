@@ -3,7 +3,9 @@
 #include "MapObj/MorphItemCollection.h"
 #include "MapObj/Shellfish.h"
 #include "MapObj/SuperSpinDriver.h"
+#include "System/GalaxyStatusAccessor.h"
 #include "System/ScenarioDataParser.h"
+#include "Util/ActorAnimUtil.h"
 #include "Util/JMapUtil.h"
 #include "Util/LiveActorUtil.h"
 #include "Util/SceneUtil.h"
@@ -114,11 +116,11 @@ namespace SPack {
 	*/
 	void putShellfishItem(Shellfish* pActor) {
 		Mtx* mtx = pActor->getBaseMtx();
-		JGeometry::TVec3<f32>* offset;
+		TVec3f* offset;
 
 		if (pActor->mItemType == 4) {
-			offset = new JGeometry::TVec3<f32>(0.0f, 50.0f, 30.0f);
-			PSMTXMultVec(*mtx, offset, &pActor->mItem->mTranslation);
+			offset = new TVec3f(0.0f, 50.0f, 30.0f);
+			PSMTXMultVec((Mtx4*)mtx, (const Vec*)offset, (Vec*)&pActor->mItem->mTranslation);
 		}
 		else
 			pActor->putItem();
@@ -135,7 +137,7 @@ namespace SPack {
 	*/
 	void initQuakeEffectGeneratorSound(LiveActor* pActor) {
 		MR::invalidateClipping(pActor);
-		pActor->initSound(1, "QuakeEffectGenerator", false, JGeometry::TVec3<f32>(0.0f, 0.0f, 0.0f));
+		pActor->initSound(1, "QuakeEffectGenerator", false, TVec3f(0.0f, 0.0f, 0.0f));
 	}
 
 	kmCall(0x8026360C, initQuakeEffectGeneratorSound);
@@ -153,9 +155,9 @@ namespace SPack {
 	* 5: "Blue"
 	*/
 	s32 getPowerStarColor(const char* stage, s32 scenario) {
-		GalaxyStatusAccessor* gsa = MR::makeGalaxyStatusAccessor(stage);
 		const char* type;
-		gsa->getScenarioString("PowerStarType", scenario, &type);
+		GalaxyStatusAccessor gsa(MR::makeGalaxyStatusAccessor(stage));
+		gsa.mScenarioData->getScenarioString("PowerStarType", scenario, &type);
 
 		if (MR::isEqualString(type, "Bronze"))
 			return 1;

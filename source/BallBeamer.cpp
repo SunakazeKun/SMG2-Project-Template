@@ -1,5 +1,6 @@
 ﻿#include "spack/Actor/BallBeamer.h"
 #include "spack/SPackUtil.h"
+#include "Util/ActorAnimUtil.h"
 #include "Util/ActorMovementUtil.h"
 #include "Util/ActorSensorUtil.h"
 #include "Util/ActorShadowUtil.h"
@@ -12,16 +13,7 @@
 #include "Util/SoundUtil.h"
 #include "mtx.h"
 
-typedef void (*Func)(void);
-
-extern Func __ctor_loc;
-extern Func __ctor_end;
-
 BallBeamer::BallBeamer(const char* pName) : LiveActor(pName) {
-	// Instantiate nerves
-	for (Func* f = &__ctor_loc; f < &__ctor_end; f++)
-		(*f)();
-
 	mBeams = NULL;
 	mNumMaxBeams = 3;
 	mAttackDuration = 360;
@@ -36,11 +28,11 @@ void BallBeamer::init(const JMapInfoIter& rIter) {
 	MR::initLightCtrl(this);
 
 	initHitSensor(1);
-	MR::addHitSensorPush(this, "Body", 8, 120.0f, JGeometry::TVec3<f32>(0.0f, -20.0f, 0.0f));
+	MR::addHitSensorPush(this, "Body", 8, 120.0f, TVec3f(0.0f, -20.0f, 0.0f));
 
 	MR::initShadowVolumeSphere(this, 120.0f);
 	initEffectKeeper(2, NULL, false);
-	initSound(2, "BallBeamer", false, JGeometry::TVec3<f32>(0.0f, 0.0f, 0.0f));
+	initSound(2, "BallBeamer", false, TVec3f(0.0f, 0.0f, 0.0f));
 
 	initNerve(&NrvBallBeamer::NrvWait::sInstance, 0);
 	makeActorAppeared();

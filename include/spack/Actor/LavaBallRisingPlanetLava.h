@@ -9,9 +9,9 @@
 
 class LavaBallRisingPlanetLava : public MapObjActor {
 public:
-	LavaBallRisingPlanetLava(const char*);
+	LavaBallRisingPlanetLava(const char *);
 
-	virtual void init(const JMapInfoIter&);
+	virtual void init(const JMapInfoIter &);
 	
 	void exeWait();
 	void exeScaleUp();
@@ -31,7 +31,7 @@ namespace NrvLavaBallRisingPlanetLava {
 	class NrvWaitSmall : public Nerve {
 	public:
 		NrvWaitSmall() {}
-		virtual void execute(Spine*) const;
+		virtual void execute(Spine *) const;
 
 		static NrvWaitSmall sInstance;
 	};
@@ -39,7 +39,7 @@ namespace NrvLavaBallRisingPlanetLava {
 	class NrvWaitBig : public Nerve {
 	public:
 		NrvWaitBig() {}
-		virtual void execute(Spine*) const;
+		virtual void execute(Spine *) const;
 
 		static NrvWaitBig sInstance;
 	};
@@ -47,7 +47,7 @@ namespace NrvLavaBallRisingPlanetLava {
 	class NrvScaleUp : public Nerve {
 	public:
 		NrvScaleUp() {}
-		virtual void execute(Spine*) const;
+		virtual void execute(Spine *) const;
 
 		static NrvScaleUp sInstance;
 	};
@@ -55,7 +55,7 @@ namespace NrvLavaBallRisingPlanetLava {
 	class NrvScaleDown : public Nerve {
 	public:
 		NrvScaleDown() {}
-		virtual void execute(Spine*) const;
+		virtual void execute(Spine *) const;
 
 		static NrvScaleDown sInstance;
 	};

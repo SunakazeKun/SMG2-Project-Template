@@ -1,4 +1,5 @@
 #include "spack/Actor/PowerStarSpawner.h"
+#include "Util/ActorMovementUtil.h"
 #include "Util/ActorSwitchUtil.h"
 #include "Util/JMapUtil.h"
 #include "Util/LiveActorUtil.h"
@@ -35,7 +36,7 @@ void PowerStarSpawner::movement() {
 		mElapsed++;
 
 		if (mElapsed >= mDelay) {
-			JGeometry::TVec3<f32> spawnpos = mFromMario ? *MR::getPlayerPos() : mTranslation;
+			TVec3f spawnpos = mFromMario ? *MR::getPlayerPos() : mTranslation;
 
 			if (mScenario == -1)
 				MR::requestAppearPowerStar(this, spawnpos);

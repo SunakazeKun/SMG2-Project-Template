@@ -1,18 +1,18 @@
 #pragma once
 
-#include "Actor/Enemy/JumpEmitter.h"
+#include "Enemy/JumpEmitter.h"
 
 class BegomanBaby;
 
 class JumpGuarder : public JumpEmitter {
 public:
-	JumpGuarder(const char*);
+	JumpGuarder(const char *);
 
-	virtual void init(const JMapInfoIter&);
+	virtual void init(const JMapInfoIter &);
 	virtual void control();
-	virtual void attackSensor(HitSensor*, HitSensor*);
-	virtual u32 receiveMsgPlayerAttack(u32, HitSensor*, HitSensor*);
-	virtual u32 receiveOtherMsg(u32, HitSensor*, HitSensor*);
+	virtual void attackSensor(HitSensor *, HitSensor *);
+	virtual u32 receiveMsgPlayerAttack(u32, HitSensor *, HitSensor *);
+	virtual u32 receiveOtherMsg(u32, HitSensor *, HitSensor *);
 
 	void exeHide();
 	void exeUp();
@@ -27,8 +27,8 @@ public:
 	void exeClose();
 	void exeInter();
 	bool enableAttack();
-	bool isHit(const LiveActor*) const;
-	void appearBabyFromGuarder(BegomanBaby*);
+	bool isHit(const LiveActor *) const;
+	void appearBabyFromGuarder(BegomanBaby *);
 
 	BegomanBaby** mBabys;
 	s32 mNumBabys;
@@ -42,7 +42,7 @@ namespace NrvJumpGuarder {
 	class NrvHide : public Nerve {
 	public:
 		NrvHide() {}
-		virtual void execute(Spine*) const;
+		virtual void execute(Spine *) const;
 
 		static NrvHide sInstance;
 	};
@@ -50,7 +50,7 @@ namespace NrvJumpGuarder {
 	class NrvUp : public Nerve {
 	public:
 		NrvUp() {}
-		virtual void execute(Spine*) const;
+		virtual void execute(Spine *) const;
 
 		static NrvUp sInstance;
 	};
@@ -58,7 +58,7 @@ namespace NrvJumpGuarder {
 	class NrvWait : public Nerve {
 	public:
 		NrvWait() {}
-		virtual void execute(Spine*) const;
+		virtual void execute(Spine *) const;
 
 		static NrvWait sInstance;
 	};
@@ -66,7 +66,7 @@ namespace NrvJumpGuarder {
 	class NrvDown : public Nerve {
 	public:
 		NrvDown() {}
-		virtual void execute(Spine*) const;
+		virtual void execute(Spine *) const;
 
 		static NrvDown sInstance;
 	};
@@ -74,7 +74,7 @@ namespace NrvJumpGuarder {
 	class NrvHopStart : public Nerve {
 	public:
 		NrvHopStart() {}
-		virtual void execute(Spine*) const;
+		virtual void execute(Spine *) const;
 
 		static NrvHopStart sInstance;
 	};
@@ -82,7 +82,7 @@ namespace NrvJumpGuarder {
 	class NrvHopWait : public Nerve {
 	public:
 		NrvHopWait() {}
-		virtual void execute(Spine*) const;
+		virtual void execute(Spine *) const;
 
 		static NrvHopWait sInstance;
 	};
@@ -90,7 +90,7 @@ namespace NrvJumpGuarder {
 	class NrvHopJump : public Nerve {
 	public:
 		NrvHopJump() {}
-		virtual void execute(Spine*) const;
+		virtual void execute(Spine *) const;
 
 		static NrvHopJump sInstance;
 	};
@@ -98,7 +98,7 @@ namespace NrvJumpGuarder {
 	class NrvHopEnd : public Nerve {
 	public:
 		NrvHopEnd() {}
-		virtual void execute(Spine*) const;
+		virtual void execute(Spine *) const;
 
 		static NrvHopEnd sInstance;
 	};
@@ -106,7 +106,7 @@ namespace NrvJumpGuarder {
 	class NrvPreOpen : public Nerve {
 	public:
 		NrvPreOpen() {}
-		virtual void execute(Spine*) const;
+		virtual void execute(Spine *) const;
 
 		static NrvPreOpen sInstance;
 	};
@@ -114,7 +114,7 @@ namespace NrvJumpGuarder {
 	class NrvOpen : public Nerve {
 	public:
 		NrvOpen() {}
-		virtual void execute(Spine*) const;
+		virtual void execute(Spine *) const;
 
 		static NrvOpen sInstance;
 	};
@@ -122,7 +122,7 @@ namespace NrvJumpGuarder {
 	class NrvClose : public Nerve {
 	public:
 		NrvClose() {}
-		virtual void execute(Spine*) const;
+		virtual void execute(Spine *) const;
 
 		static NrvClose sInstance;
 	};
@@ -130,7 +130,7 @@ namespace NrvJumpGuarder {
 	class NrvInter : public Nerve {
 	public:
 		NrvInter() {}
-		virtual void execute(Spine*) const;
+		virtual void execute(Spine *) const;
 
 		static NrvInter sInstance;
 	};

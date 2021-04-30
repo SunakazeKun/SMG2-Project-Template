@@ -6,7 +6,7 @@ class PowerStarSpawner : public LiveActor {
 public:
 	PowerStarSpawner(const char *);
 
-	virtual void init(JMapInfoIter const&);
+	virtual void init(JMapInfoIter const &);
 	virtual void movement();
 
 	s32 mScenario;

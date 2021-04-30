@@ -4,13 +4,13 @@
 
 class Jiraira : public LiveActor {
 public:
-    Jiraira(const char*);
+    Jiraira(const char *);
 
-    virtual void init(const JMapInfoIter& Iter);
+    virtual void init(const JMapInfoIter & Iter);
     virtual void kill();
-    virtual void attackSensor(HitSensor*, HitSensor*);
-    virtual u32 receiveMsgPlayerAttack(u32, HitSensor*, HitSensor*);
-    virtual u32 receiveMsgEnemyAttack(u32, HitSensor*, HitSensor*);
+    virtual void attackSensor(HitSensor *, HitSensor *);
+    virtual u32 receiveMsgPlayerAttack(u32, HitSensor *, HitSensor *);
+    virtual u32 receiveMsgEnemyAttack(u32, HitSensor *, HitSensor *);
 
     void exeWait();
     void exeStepped();
@@ -26,7 +26,7 @@ namespace NrvJiraira {
     public:
         NrvWait() {}
 
-        virtual void execute(Spine*) const;
+        virtual void execute(Spine *) const;
 
         static NrvWait sInstance;
     };
@@ -35,7 +35,7 @@ namespace NrvJiraira {
     public:
         NrvStepped() {}
 
-        virtual void execute(Spine*) const;
+        virtual void execute(Spine *) const;
 
         static NrvStepped sInstance;
     };
@@ -44,7 +44,7 @@ namespace NrvJiraira {
     public:
         NrvExplode() {}
 
-        virtual void execute(Spine*) const;
+        virtual void execute(Spine *) const;
 
         static NrvExplode sInstance;
     };
@@ -53,7 +53,7 @@ namespace NrvJiraira {
     public:
         NrvPreRecover() {}
 
-        virtual void execute(Spine*) const;
+        virtual void execute(Spine *) const;
 
         static NrvPreRecover sInstance;
     };
@@ -62,7 +62,7 @@ namespace NrvJiraira {
     public:
         NrvRecover() {}
 
-        virtual void execute(Spine*) const;
+        virtual void execute(Spine *) const;
 
         static NrvRecover sInstance;
     };

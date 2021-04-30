@@ -1,13 +1,13 @@
 #pragma once
 
 #include "Actor/NameObj/NameObj.h"
-#include "Actor/Switch/StageSwitch.h"
+#include "Map/Switch/StageSwitch.h"
 
 class CollectCounter : public NameObj {
 public:
-	CollectCounter(const char*);
+	CollectCounter(const char *);
 
-	virtual void init(const JMapInfoIter&);
+	virtual void init(const JMapInfoIter &);
 	virtual void movement();
 
 	StageSwitchCtrl* mStageSwitchCtrl;

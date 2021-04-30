@@ -4,12 +4,12 @@
 
 class CrystalSwitch : public LiveActor {
 public:
-    CrystalSwitch(const char*);
+    CrystalSwitch(const char *);
 
-    virtual void init(const JMapInfoIter&);
+    virtual void init(const JMapInfoIter &);
     virtual void control();
-    virtual void attackSensor(HitSensor*, HitSensor*);
-    virtual u32 receiveMsgPlayerAttack(u32, HitSensor*, HitSensor*);
+    virtual void attackSensor(HitSensor *, HitSensor *);
+    virtual u32 receiveMsgPlayerAttack(u32, HitSensor *, HitSensor *);
 
     void exeOff();
     void exeSwitchDown();
@@ -27,7 +27,7 @@ namespace NrvCrystalSwitch {
     public:
         NrvOff() { }
 
-        virtual void execute(Spine*) const;
+        virtual void execute(Spine *) const;
 
         static NrvOff sInstance;
     };
@@ -36,7 +36,7 @@ namespace NrvCrystalSwitch {
     public:
         NrvSwitchDown() { }
 
-        virtual void execute(Spine*) const;
+        virtual void execute(Spine *) const;
 
         static NrvSwitchDown sInstance;
     };
@@ -45,7 +45,7 @@ namespace NrvCrystalSwitch {
     public:
         NrvOn() { }
 
-        virtual void execute(Spine*) const;
+        virtual void execute(Spine *) const;
 
         static NrvOn sInstance;
     };
@@ -54,7 +54,7 @@ namespace NrvCrystalSwitch {
     public:
         NrvSwitchUp() { }
 
-        virtual void execute(Spine*) const;
+        virtual void execute(Spine *) const;
 
         static NrvSwitchUp sInstance;
     };

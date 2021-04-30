@@ -1,4 +1,5 @@
 #include "spack/Actor/CollectCounter.h"
+#include "System/GameDataFunction.h"
 #include "Util/ActorSwitchUtil.h"
 #include "Util/EventUtil.h"
 #include "Util/JMapUtil.h"
@@ -38,7 +39,7 @@ void CollectCounter::movement() {
 	else if (mItem == 2)
 		count = MR::getStarPieceNum();
 	else if (mItem == 3)
-		count = MR::getPowerStarNum();
+		count = GameDataFunction::calcCurrentPowerStarNum();
 
 	// Compare actual count with expected count
 	bool state = false;

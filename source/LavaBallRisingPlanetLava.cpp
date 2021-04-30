@@ -10,10 +10,6 @@ extern Func __ctor_loc;
 extern Func __ctor_end;
 
 LavaBallRisingPlanetLava::LavaBallRisingPlanetLava(const char* pName) : MapObjActor(pName) {
-	// Instantiate nerves
-	for (Func* f = &__ctor_loc; f < &__ctor_end; f++)
-		(*f)();
-
 	mMinScale = 1000.0f;
 	mMaxScale = 1100.0f;
 	mWaitTime = 120;

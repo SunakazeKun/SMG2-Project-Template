@@ -1,4 +1,5 @@
 #include "spack/Actor/DeadLeaves.h"
+#include "Util/ActorAnimUtil.h"
 #include "Util/ActorSensorUtil.h"
 #include "Util/ActorSwitchUtil.h"
 #include "Util/JMapUtil.h"
@@ -6,16 +7,7 @@
 #include "Util/ObjUtil.h"
 #include "Util/SoundUtil.h"
 
-typedef void (*Func)(void);
-
-extern Func __ctor_loc;
-extern Func __ctor_end;
-
 DeadLeaves::DeadLeaves(const char* pName) : MapObjActor(pName) {
-	// Instantiate nerves
-	for (Func* f = &__ctor_loc; f < &__ctor_end; f++)
-		(*f)();
-
 	mItemType = -1;
 }
 
@@ -24,7 +16,7 @@ void DeadLeaves::init(const JMapInfoIter& rIter) {
 	MapObjActorInitInfo initInfo;
 	MapObjActorUtil::setupInitInfoSimpleMapObj(&initInfo);
 	initInfo.setupHitSensor();
-	initInfo.setupHitSensorParam(8, 70.0f, JGeometry::TVec3<f32>(0.0f, 30.0f, 0.0f));
+	initInfo.setupHitSensorParam(8, 70.0f, TVec3f(0.0f, 30.0f, 0.0f));
 	initInfo.setupNerve(&NrvDeadLeaves::NrvWait::sInstance);
 	initialize(rIter, initInfo);
 

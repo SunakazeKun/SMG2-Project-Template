@@ -1,4 +1,6 @@
 #include "spack/Actor/CrystalSwitch.h"
+#include "Util/ActorAnimUtil.h"
+#include "Util/ActorMovementUtil.h"
 #include "Util/ActorSensorUtil.h"
 #include "Util/ActorSwitchUtil.h"
 #include "Util/JMapUtil.h"
@@ -6,16 +8,7 @@
 #include "Util/ObjUtil.h"
 #include "Util/SoundUtil.h"
 
-typedef void (*Func)(void);
-
-extern Func __ctor_loc;
-extern Func __ctor_end;
-
 CrystalSwitch::CrystalSwitch(const char* pName) : LiveActor(pName) {
-    // Instantiate nerves
-    for (Func* f = &__ctor_loc; f < &__ctor_end; f++)
-        (*f)();
-
     mActiveTime = -1;
     mRotSpeed = 0.0f;
     mStartSpin = false;
@@ -27,10 +20,10 @@ void CrystalSwitch::init(const JMapInfoIter& rIter) {
     MR::connectToSceneMapObj(this);
 
     initHitSensor(1);
-    MR::addHitSensorMapObj(this, "Body", 16, 100.0f, JGeometry::TVec3<f32>(0.0f, 100.0f, 0.0f));
+    MR::addHitSensorMapObj(this, "Body", 16, 100.0f, TVec3f(0.0f, 100.0f, 0.0f));
 
-    initSound(1, "CrystalSwitch", false, JGeometry::TVec3<f32>(0.0f, 0.0f, 0.0f));
-    MR::needStageSwitchWriteA(this, rIter);
+    initSound(1, "CrystalSwitch", false, TVec3f(0.0f, 0.0f, 0.0f));
+    MR::useStageSwitchWriteA(this, rIter);
     MR::getJMapInfoArg0NoInit(rIter, &mActiveTime);
     initNerve(&NrvCrystalSwitch::NrvOff::sInstance, 0);
 

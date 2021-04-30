@@ -13,4 +13,5 @@ namespace SPack {
 	}
 
 	void clamp(s32, s32, s32*);
+	void clamp(f32, f32, f32*);
 };

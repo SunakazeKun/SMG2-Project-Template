@@ -17,9 +17,9 @@ namespace SPack {
 	*/
 	void createChipHolder(s32 type) {
 		if (type == CHIP_BLUE)
-			MR::createSceneObj(SCENEOBJ_BLUE_CHIP_HOLDER);
+			MR::createSceneObj(110);
 		else if (type == CHIP_YELLOW)
-			MR::createSceneObj(SCENEOBJ_YELLOW_CHIP_HOLDER);
+			MR::createSceneObj(107);
 	}
 
 	kmCall(0x80282580, createChipHolder); // redirect hook in ChipBase::init(const JMapInfo&)
@@ -31,7 +31,7 @@ namespace SPack {
 	* However, we can simply insert a call to return our new blue chip holder here.
 	*/
 	ChipHolder* getBlueChipHolder() {
-		return (ChipHolder*)MR::getSceneObjHolder()->getObj(SCENEOBJ_BLUE_CHIP_HOLDER);
+		return (ChipHolder*)MR::getSceneObjHolder()->getObj(110);
 	}
 
 	kmCall(0x80284E80, getBlueChipHolder); // reinsert call
