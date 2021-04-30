@@ -49,11 +49,11 @@ void WatchTowerRotateStep::init(const JMapInfoIter& rIter) {
 
 void WatchTowerRotateStep::calcAndSetBaseMtx() {
     TVec3f mUpVec;
-    JGeometry::TPosition3<JGeometry::TMatrix34<JGeometry::SMatrix34C<f32> > > mfrontUp;
+    JGeometry::TPosition3<JGeometry::TMatrix34<JGeometry::SMatrix34C<f32> > > mFrontUp;
 
     MR::calcFrontVec(&mUpVec, this);
-    MR::makeMtxFrontUpPos(&mfrontUp, mUpVec, mRotateDeg, mTranslation);
-    MR::setBaseTRMtx(this, mfrontUp);
+    MR::makeMtxFrontUpPos(&mFrontUp, mUpVec, mRotateDeg, mTranslation);
+    MR::setBaseTRMtx(this, mFrontUp);
 }
 
 void WatchTowerRotateStep::initLift(const JMapInfoIter& rIter) {
@@ -61,22 +61,22 @@ void WatchTowerRotateStep::initLift(const JMapInfoIter& rIter) {
 
     for (s32 i = 0; i < 4; i++) {
         JGeometry::TMatrix34<f32>* mtx = MR::getJointMtx(this, i + 1);
-        PartsModel* mdl = new PartsModel(this, "物見の塔リフト", "WatchTowerRotateStepLift", mtx->val, -1, 0);
-        mParts[i] = mdl;
-        MR::initCollisionParts(mdl, "WatchTowerRotateStepLift", getSensor("Body"), NULL);
+        PartsModel* platform = new PartsModel(this, "物見の塔リフト", "WatchTowerRotateStepLift", mtx->val, -1, 0);
+        mParts[i] = platform;
+        MR::initCollisionParts(platform, "WatchTowerRotateStepLift", getSensor("Body"), NULL);
 
-        mdl->initShadowControllerList(1);
+        platform->initShadowControllerList(1);
         TVec3f shadowOffs(600.0f, 200.0f, 400.0f);
-        MR::addShadowVolumeBox(mdl, "Body", shadowOffs, *mdl->getBaseMtx());
+        MR::addShadowVolumeBox(platform, "Body", shadowOffs, *platform->getBaseMtx());
 
-        MR::setShadowVolumeStartDropOffset(mdl, "WatchTowerRotateStepLift", 300.0f);
-        MR::setShadowDropLength(mdl, "WatchTowerRotateStepLift", 370.0f);
-        mdl->_9C = 0;
+        MR::setShadowVolumeStartDropOffset(platform, "WatchTowerRotateStepLift", 300.0f);
+        MR::setShadowDropLength(platform, "WatchTowerRotateStepLift", 370.0f);
+        platform->_9C = 0;
 
         if (MR::isDemoCast(this, NULL))
-            MR::tryRegisterDemoCast(mdl, rIter);
+            MR::tryRegisterDemoCast(platform, rIter);
 
-        mdl->initWithoutIter();
+        platform->initWithoutIter();
     }
 }
 
@@ -110,11 +110,11 @@ void WatchTowerRotateStep::exeMoveStart() {
 void WatchTowerRotateStep::attachLift() {
     for (s32 i = 0; i < 4; i++) {
         JGeometry::TMatrix34<f32>* mtx = MR::getJointMtx(this, i + 1);
-        PartsModel* curMdl = mParts[i];
+        PartsModel* platform = mParts[i];
 
-        curMdl->mTranslation.x = mtx->val[0][3];
-        curMdl->mTranslation.y = mtx->val[1][3];
-        curMdl->mTranslation.z = mtx->val[2][3];
+        platform->mTranslation.x = mtx->val[0][3];
+        platform->mTranslation.y = mtx->val[1][3];
+        platform->mTranslation.z = mtx->val[2][3];
     }
 }
 
