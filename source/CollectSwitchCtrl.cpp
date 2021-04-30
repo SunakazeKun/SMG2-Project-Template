@@ -1,4 +1,4 @@
-#include "spack/Actor/CollectCounter.h"
+#include "spack/Actor/CollectSwitchCtrl.h"
 #include "System/GameDataFunction.h"
 #include "Util/ActorSwitchUtil.h"
 #include "Util/EventUtil.h"
@@ -6,7 +6,7 @@
 #include "Util/ObjUtil.h"
 #include "Util/SceneUtil.h"
 
-CollectCounter::CollectCounter(const char* pName) : NameObj(pName) {
+CollectSwitchCtrl::CollectSwitchCtrl(const char* pName) : NameObj(pName) {
 	mStageSwitchCtrl = NULL;
 	mItem = 0;
 	mCount = 0;
@@ -14,7 +14,7 @@ CollectCounter::CollectCounter(const char* pName) : NameObj(pName) {
 	mSwitchOnce = false;
 }
 
-void CollectCounter::init(const JMapInfoIter& rIter) {
+void CollectSwitchCtrl::init(const JMapInfoIter& rIter) {
 	MR::connectToSceneMapObjMovement(this);
 	MR::getJMapInfoArg0NoInit(rIter, &mItem);
 	MR::getJMapInfoArg1NoInit(rIter, &mCount);
@@ -29,7 +29,7 @@ void CollectCounter::init(const JMapInfoIter& rIter) {
 	mStageSwitchCtrl = MR::createStageSwitchCtrl(this, rIter);
 }
 
-void CollectCounter::movement() {
+void CollectSwitchCtrl::movement() {
 	// Fetch specified item count
 	s32 count = 0;
 	if (mItem == 0)

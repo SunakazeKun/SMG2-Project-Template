@@ -3,9 +3,9 @@
 #include "Actor/NameObj/NameObj.h"
 #include "Map/Switch/StageSwitch.h"
 
-class CollectCounter : public NameObj {
+class CollectSwitchCtrl : public NameObj {
 public:
-	CollectCounter(const char *);
+	CollectSwitchCtrl(const char *);
 
 	virtual void init(const JMapInfoIter &);
 	virtual void movement();

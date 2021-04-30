@@ -2,17 +2,17 @@
 
 #include "Actor/AreaObj/AreaObj.h"
 #include "Actor/NameObj/NameObjFactory.h"
-#include "MapObj/ChipHolder.h"
 #include "Actor/NameObj/PlanetCreator.h"
+#include "MapObj/ChipHolder.h"
+#include "MapObj/JetTurtle.h"
 #include "MapObj/MorphItemCollection.h"
 #include "MapObj/SuperSpinDriver.h"
 #include "Scene/SceneObjHolder.h"
 #include "spack/Actor/BallBeamer.h"
 #include "spack/Actor/BlueChip.h"
-#include "spack/Actor/CollectCounter.h"
+#include "spack/Actor/CollectSwitchCtrl.h"
 #include "spack/Actor/CrystalSwitch.h"
 #include "spack/Actor/DeadLeaves.h"
-#include "MapObj/JetTurtle.h"
 #include "spack/Actor/Jiraira.h"
 #include "spack/Actor/JumpGuarder.h"
 #include "spack/Actor/JumpSwitchArea.h"
@@ -95,8 +95,8 @@ namespace ExtendedActorFactory {
     }
 
     template<>
-    NameObj* createExtActor<CollectCounter>(const char * pName) {
-        return new CollectCounter(pName);
+    NameObj* createExtActor<CollectSwitchCtrl>(const char * pName) {
+        return new CollectSwitchCtrl(pName);
     }
 
     template<>
@@ -164,7 +164,7 @@ namespace ExtendedActorFactory {
         { "ShellfishPurpleCoin", (NameObj* (*)(const char *))0x80340710 },
         { "UnizoLauncher", createExtActor<UnizoLauncher> },
         // Controllers
-        { "CollectCounter", createExtActor<CollectCounter> },
+        { "CollectSwitchCtrl", createExtActor<CollectSwitchCtrl> },
         { "PlayerSwitchCtrl", createExtActor<PlayerSwitchCtrl> },
         { "PowerStarSpawner", createExtActor<PowerStarSpawner> },
         { "SensorDetector", createExtActor<SensorDetector> },
