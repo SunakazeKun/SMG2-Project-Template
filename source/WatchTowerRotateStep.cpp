@@ -40,7 +40,7 @@ void WatchTowerRotateStep::init(const JMapInfoIter& rIter) {
     initLift(rIter);
 
     if (registerDemoCast)
-        initNerve(&WatchTowerRotateStepNrv::NrvWait::sInstance, NULL);
+        initNerve(&WatchTowerRotateStepNrv::NrvWait::sInstance, 0);
     else
         initNerve(&WatchTowerRotateStepNrv::NrvMove::sInstance, 0);
 
