@@ -1,8 +1,17 @@
 ﻿#include "spack/Actor/NewMorphItemNeo.h"
 #include "Util/EffectUtil.h"
 #include "Util/SoundUtil.h"
-#include "kamek.h"
 
+/*
+* Created by Aurum
+* 
+* Two Power-Ups from SMG1, the Ice Flower and Flying Star, didn't make the cut when SMG2 was made.
+* Luckily enough, all of their transformation code still remains in the game, the only thing that
+* is missing, beside the actual models, are the collectible power-up items.
+* 
+* It appears that the developers attempted to delete some of the Flying Star's functionality since
+* wall jumping and pulling coins does not work anymore.
+*/
 MorphItemNeoIce::MorphItemNeoIce(const char* pName) : MorphItemObjNeo(pName) {}
 
 /*

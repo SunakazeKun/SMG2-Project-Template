@@ -1,14 +1,17 @@
 ﻿#include "spack/Actor/LavaBallRisingPlanetLava.h"
-#include "Util/ActorSwitchUtil.h"
+#include "Util/ActorInitUtil.h"
 #include "Util/JMapUtil.h"
 #include "Util/LiveActorUtil.h"
 #include "Util/SoundUtil.h"
 
-typedef void (*Func)(void);
-
-extern Func __ctor_loc;
-extern Func __ctor_end;
-
+/*
+* Created by Aurum
+* 
+* The scaling lava from Melty Molten Galaxy was my first ported object since it appeared to be very
+* easy to port. Since its SMG1 counterpart has fixed scales and times, I had to make them editable
+* using a wide set of Obj_arg settings. To make this even more flexible, I also added this class as
+* a ProductMapObjDataTable class.
+*/
 LavaBallRisingPlanetLava::LavaBallRisingPlanetLava(const char* pName) : MapObjActor(pName) {
 	mMinScale = 1000.0f;
 	mMaxScale = 1100.0f;
@@ -67,7 +70,7 @@ void LavaBallRisingPlanetLava::init(const JMapInfoIter& rIter) {
 	initialize(rIter, *initInfo);
 
 	// Apply initial scale
-	mScale.set<f32>(scale, scale, scale);
+	mScale.setAll<f32>(scale);
 }
 
 void LavaBallRisingPlanetLava::exeWait() {
@@ -87,7 +90,7 @@ void LavaBallRisingPlanetLava::exeScaleUp() {
 
 	if (mDoScale) {
 		f32 scale = MR::calcNerveValue(this, mScaleUpTime, mMinScale, mMaxScale);
-		mScale.set(scale, scale, scale);
+		mScale.setAll<f32>(scale);
 
 		if (MR::isStep(this, mScaleUpTime)) {
 			setNerve(&NrvLavaBallRisingPlanetLava::NrvWaitBig::sInstance);
@@ -102,7 +105,7 @@ void LavaBallRisingPlanetLava::exeScaleDown() {
 
 	if (mDoScale) {
 		f32 scale = MR::calcNerveValue(this, mScaleDownTime, mMaxScale, mMinScale);
-		mScale.set(scale, scale, scale);
+		mScale.setAll<f32>(scale);
 
 		if (MR::isStep(this, mScaleDownTime)) {
 			setNerve(&NrvLavaBallRisingPlanetLava::NrvWaitSmall::sInstance);

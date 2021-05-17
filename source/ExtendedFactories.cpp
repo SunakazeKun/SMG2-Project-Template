@@ -5,16 +5,15 @@
 
 namespace SPack {
     /*
-    * This is a modified version of shibbs' ExtendedActorFactory code, however, that one
-    * did not pass the actor's name to the creation function. This makes adding different
-    * objects of the same class a bit difficult. It was a simple fix, though.
+    * This is shibbo's ExtendedActorFactory code that allows us to easily add new objects to the game
+    * without having to modify the game's NameObjFactory creation table.
     */
     void* getNameObjCreator(const char* pName) {
         void* creator = NameObjFactory::getCreator(pName);
 
         if (!creator) {
             for (s32 i = 0; i < NUM_ACTORS; i++) {
-                const ActorExtEntry* e = &ExtendedActorFactory::cCreateTable[i];
+                const CreateActorEntry* e = &SPack::cNewCreateNameObjTable[i];
 
                 if (MR::isEqualStringCase(e->pActorName, pName)) {
                     creator = e->mCreationFunc;
@@ -26,21 +25,22 @@ namespace SPack {
         return creator;
     }
 
-    kmCall(0x804564D4, getNameObjCreator); // redirection hook
+    kmCall(0x803394C0, getNameObjCreator); // redirection hook
     kmCall(0x803430C8, getNameObjCreator);
+    kmCall(0x804564D4, getNameObjCreator);
 
     /*
-    * Luckily, SMG2 added ProductMapObjDataTable to easily add many basic objects such
-    * as platforms, skies, effects and more. However, a lot of classes are not supported
-    * by this. In order to allow better customizability, a bunch of classes were added,
-    * including AssemblyBlock and the new ScaleMapObj.
+    * Luckily, SMG2 added ProductMapObjDataTable to easily add many basic objects such as skies,
+    * platforms, effects and more. However, a lot of classes are not supported by this. In order to
+    * allow better customizability, a bunch of classes were added, including AssemblyBlock and the
+    * new ScaleMapObj.
     */
     void* getMapObjCreator(PlanetCreator* pFactory, const char* pName) {
         void* creator = pFactory->getObjClassName(pName);
 
         if (!creator) {
             for (s32 i = 0; i < NUM_CLASSES; i++) {
-                const MapObjCreatorEntry* e = &ExtendedMapObjFactory::cCreateTable[i];
+                const CreateActorEntry* e = &SPack::cNewCreateMapObjTable[i];
 
                 if (MR::isEqualStringCase(e->pActorName, pName)) {
                     creator = e->mCreationFunc;
@@ -55,16 +55,16 @@ namespace SPack {
     kmCall(0x8026305C, getMapObjCreator); // redirection hook
 
     /*
-    * A few slots for SceneObj instances are still free to use, but accessing them can
-    * be quite difficult. This is necessary for some object's like blue chips which use
-    * a special ChipHolder instance to control the collection counter.
+    * A few slots for new SceneObj instances are free to use, but accessing them can be a bit
+    * tricky. New SceneObjs are necessary for some object's, such as blue chips, which use a
+    * special ChipHolder instance to control the collection counter.
     */
     NameObj* createSceneObj(SceneObjHolder* pHolder, s32 type) {
         NameObj* sceneObj = pHolder->newEachObj(type);
 
         if (!sceneObj) {
             for (s32 i = 0; i < NUM_SCENEOBJS; i++) {
-                const SceneObjExtEntry* e = &ExtendedSceneObjFactory::cCreateTable[i];
+                const CreateSceneObjEntry* e = &SPack::cNewCreateSceneObjTable[i];
 
                 if (e->mSlotId == type) {
                     sceneObj = e->mCreationFunc();

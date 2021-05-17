@@ -1,4 +1,5 @@
 #include "spack/Actor/PowerStarSpawner.h"
+#include "Util/ActorInitUtil.h"
 #include "Util/ActorMovementUtil.h"
 #include "Util/ActorSwitchUtil.h"
 #include "Util/JMapUtil.h"
@@ -6,6 +7,12 @@
 #include "Util/ObjUtil.h"
 #include "Util/PlayerUtil.h"
 
+/*
+* Created by Aurum, Evanbowl & Someone
+* 
+* Spawns the specified Power Star if its SW_A is activated. The delay until the star spawns as well
+* as the position from where the star spawns can be specified as well.
+*/
 PowerStarSpawner::PowerStarSpawner(const char* pName) : LiveActor(pName) {
 	mScenario = -1;
 	mDelay = 0;

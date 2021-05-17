@@ -1,4 +1,6 @@
 ﻿#include "spack/Actor/WatchTowerRotateStep.h"
+#include "spack/SPackUtil.h"
+#include "Util/ActorInitUtil.h"
 #include "Util/ActorMovementUtil.h"
 #include "Util/ActorSensorUtil.h"
 #include "Util/ActorShadowUtil.h"
@@ -11,8 +13,13 @@
 #include "Util/ObjUtil.h"
 #include "Util/SoundUtil.h"
 
+/*
+* Created by Someone with help by shibboleet and Aurum
+* 
+* The windmill from Honeyhive is a unique kind of platform object. Unlike SMG1, the rotation speed
+* can be changed now.
+*/
 WatchTowerRotateStep::WatchTowerRotateStep(const char* pName) : LiveActor(pName) {
-    mParts = NULL;
     mRotSpeed = 300.0f;
 }
 
@@ -24,9 +31,9 @@ void WatchTowerRotateStep::init(const JMapInfoIter& rIter) {
 
     HitSensor* senBody = MR::addBodyMessageSensorMapObj(this);
     MR::initCollisionParts(this, "WatchTowerRotateStep", senBody, NULL);
-    initEffectKeeper(0, NULL, false);
+    //initEffectKeeper(0, NULL, false);
 
-    initSound(4, "WatchTowerRotateStep", 0, TVec3f(0.0f, 0.0f, 0.0f));
+    initSound(4, "WatchTowerRotateStep", false, TVec3f(0.0f, 0.0f, 0.0f));
     MR::setClippingTypeSphereContainsModelBoundingBox(this, 1500.0f);
 
     bool registerDemoCast = MR::tryRegisterDemoCast(this, rIter);
@@ -49,7 +56,7 @@ void WatchTowerRotateStep::init(const JMapInfoIter& rIter) {
 
 void WatchTowerRotateStep::calcAndSetBaseMtx() {
     TVec3f mUpVec;
-    JGeometry::TPosition3<JGeometry::TMatrix34<JGeometry::SMatrix34C<f32> > > mFrontUp;
+    TPositionMtx mFrontUp;
 
     MR::calcFrontVec(&mUpVec, this);
     MR::makeMtxFrontUpPos(&mFrontUp, mUpVec, mRotateDeg, mTranslation);
@@ -57,20 +64,18 @@ void WatchTowerRotateStep::calcAndSetBaseMtx() {
 }
 
 void WatchTowerRotateStep::initLift(const JMapInfoIter& rIter) {
-    mParts = new PartsModel*[4];
-
     for (s32 i = 0; i < 4; i++) {
         JGeometry::TMatrix34<f32>* mtx = MR::getJointMtx(this, i + 1);
-        PartsModel* platform = new PartsModel(this, "物見の塔リフト", "WatchTowerRotateStepLift", mtx->val, -1, 0);
+        PartsModel* platform = new PartsModel(this, "物見の塔リフト", "WatchTowerRotateStepLift", (Mtx4*)mtx, -1, 0);
         mParts[i] = platform;
+
         MR::initCollisionParts(platform, "WatchTowerRotateStepLift", getSensor("Body"), NULL);
 
         platform->initShadowControllerList(1);
-        TVec3f shadowOffs(600.0f, 200.0f, 400.0f);
-        MR::addShadowVolumeBox(platform, "Body", shadowOffs, *platform->getBaseMtx());
-
+        MR::addShadowVolumeBox(platform, "Body", TVec3f(600.0f, 200.0f, 400.0f), *platform->getBaseMtx());
         MR::setShadowVolumeStartDropOffset(platform, "WatchTowerRotateStepLift", 300.0f);
         MR::setShadowDropLength(platform, "WatchTowerRotateStepLift", 370.0f);
+
         platform->_9C = 0;
 
         if (MR::isDemoCast(this, NULL))
@@ -101,6 +106,7 @@ void WatchTowerRotateStep::exeMoveStart() {
     f32 easeIn = MR::getEaseInValue(getNerveStep(), 0.0f, mRotSpeed, 180.0f);
     MR::calcFrontVec(&mUpVec, this);
     MR::rotateVecDegree(&mRotateDeg, mUpVec, easeIn);
+
     attachLift();
 
     if (MR::isStep(this, 180))

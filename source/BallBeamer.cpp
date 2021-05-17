@@ -1,9 +1,11 @@
 ﻿#include "spack/Actor/BallBeamer.h"
 #include "spack/SPackUtil.h"
 #include "Util/ActorAnimUtil.h"
+#include "Util/ActorInitUtil.h"
 #include "Util/ActorMovementUtil.h"
 #include "Util/ActorSensorUtil.h"
 #include "Util/ActorShadowUtil.h"
+#include "Util/ActorStateUtil.h"
 #include "Util/ActorSwitchUtil.h"
 #include "Util/EffectUtil.h"
 #include "Util/JMapUtil.h"
@@ -11,9 +13,19 @@
 #include "Util/LiveActorUtil.h"
 #include "Util/ObjUtil.h"
 #include "Util/SoundUtil.h"
+#include "Util/StarPointerUtil.h"
+#include "Util/SupportTicoUtil.h"
 #include "mtx.h"
 
+/*
+* Created by Aurum
+* 
+* BallBeamer is the spherical Ring Beamer from Buoy Base Galaxy. Since the code for ring beams to
+* follow spherical gravity is left unused in SMG2, recreating this enemy wasn't very difficult.
+* Like with all ported enemies in this pack, this also contains proper Two-Player behavior.
+*/
 BallBeamer::BallBeamer(const char* pName) : LiveActor(pName) {
+	mBindStarPointer = NULL;
 	mBeams = NULL;
 	mNumMaxBeams = 3;
 	mAttackDuration = 360;
@@ -37,7 +49,11 @@ void BallBeamer::init(const JMapInfoIter& rIter) {
 	initNerve(&NrvBallBeamer::NrvWait::sInstance, 0);
 	makeActorAppeared();
 
-	// Setup Switch event functors
+	// Setup 2P Star Pointer
+	MR::initStarPointerTarget(this, 200.0f, TVec3f(0.0f, 200.0f, 0.0f));
+	mBindStarPointer = new WalkerStateBindStarPointer(this, NULL);
+
+	// Setup switch event functors
 	if (MR::useStageSwitchReadA(this, rIter)) {
 		MR::listenStageSwitchOnOffA(this,
 			SPack::createFunctor(this, &BallBeamer::syncSwitchOnA),
@@ -79,9 +95,14 @@ void BallBeamer::init(const JMapInfoIter& rIter) {
 	}
 
 	// Copy and store head matrix, then create head collision
-	PSMTXCopy(MR::getJointMtx(this, "Head")->val, mHeadMtx);
+	PSMTXCopy((Mtx4*)MR::getJointMtx(this, "Head"), mHeadMtx);
 	MR::initCollisionParts(this, "Head", getSensor("Body"), mHeadMtx);
 	MR::validateCollisionParts(this);
+}
+
+void BallBeamer::control() {
+	if (mBindStarPointer->tryStartPointBind())
+		setNerve(&NrvBallBeamer::NrvBind::sInstance);
 }
 
 void BallBeamer::attackSensor(HitSensor* pHit1, HitSensor* pHit2) {
@@ -165,6 +186,13 @@ void BallBeamer::exeInter() {
 	}
 }
 
+void BallBeamer::exeBind() {
+	if (MR::isFirstStep(this))
+		MR::tryDeleteEffect(this, "Charge");
+	MR::startDPDFreezeLevelSound(this);
+	MR::updateActorStateAndNextNerve(this, (ActorStateBaseInterface*)mBindStarPointer , &NrvBallBeamer::NrvWait::sInstance);
+}
+
 namespace NrvBallBeamer {
 	void NrvWait::execute(Spine* spine) const {
 		BallBeamer* pActor = (BallBeamer*)spine->mExecutor;
@@ -181,7 +209,13 @@ namespace NrvBallBeamer {
 		pActor->exeInter();
 	}
 
+	void NrvBind::execute(Spine* spine) const {
+		BallBeamer* pActor = (BallBeamer*)spine->mExecutor;
+		pActor->exeBind();
+	}
+
 	NrvWait(NrvWait::sInstance);
 	NrvAttack(NrvAttack::sInstance);
 	NrvInter(NrvInter::sInstance);
+	NrvBind(NrvBind::sInstance);
 }

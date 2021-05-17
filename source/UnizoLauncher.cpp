@@ -1,11 +1,18 @@
 ﻿#include "spack/Actor/UnizoLauncher.h"
 #include "spack/SPackUtil.h"
+#include "Util/ActorInitUtil.h"
 #include "Util/ActorMovementUtil.h"
 #include "Util/ActorSensorUtil.h"
 #include "Util/LiveActorUtil.h"
 #include "Util/JMapUtil.h"
 #include "Util/ObjUtil.h"
 
+/*
+* Created by Aurum
+* 
+* One of my first ported objects from SMG1. This is the Urchin Spawner from Freezeflame Galaxy. It
+* can be used to spawn all types of Urchins whereas in SMG1 it always generated Land Urchins.
+*/
 UnizoLauncher::UnizoLauncher(const char* pName) : LiveActor(pName) {
 	mUnizoArray = NULL;
 	mUnizoType = UNIZO;

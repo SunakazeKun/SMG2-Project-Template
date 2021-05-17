@@ -7,6 +7,13 @@
 #include "Util/ObjUtil.h"
 #include "Util/SoundUtil.h"
 
+/*
+* Created by Aurum
+* 
+* This is the Autumn Leaves from Gold Leaf Galaxy that can spawn items when using the Spin Attack
+* in its range. Since this seemed to be a simple object to port, it is included here. It functions
+* exactly like in SMG1, but it can activate SW_A after using the Spin Attack if enabled.
+*/
 DeadLeaves::DeadLeaves(const char* pName) : MapObjActor(pName) {
 	mItemType = -1;
 }
@@ -15,9 +22,11 @@ void DeadLeaves::init(const JMapInfoIter& rIter) {
 	MapObjActor::init(rIter);
 	MapObjActorInitInfo initInfo;
 	MapObjActorUtil::setupInitInfoSimpleMapObj(&initInfo);
+
 	initInfo.setupHitSensor();
 	initInfo.setupHitSensorParam(8, 70.0f, TVec3f(0.0f, 30.0f, 0.0f));
 	initInfo.setupNerve(&NrvDeadLeaves::NrvWait::sInstance);
+
 	initialize(rIter, initInfo);
 
 	MR::getJMapInfoArg0NoInit(rIter, &mItemType);

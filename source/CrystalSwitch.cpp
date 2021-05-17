@@ -1,5 +1,7 @@
 #include "spack/Actor/CrystalSwitch.h"
+#include "spack/SPackUtil.h"
 #include "Util/ActorAnimUtil.h"
+#include "Util/ActorInitUtil.h"
 #include "Util/ActorMovementUtil.h"
 #include "Util/ActorSensorUtil.h"
 #include "Util/ActorSwitchUtil.h"
@@ -7,7 +9,18 @@
 #include "Util/LiveActorUtil.h"
 #include "Util/ObjUtil.h"
 #include "Util/SoundUtil.h"
+#include "Util/StarPointerUtil.h"
+#include "Util/SupportTicoUtil.h"
 
+/*
+* Created by Evanbowl & Someone with help by Aurum
+* 
+* CrystalSwitch is one of SMG1's many unused switch controllers. It has a unique crystal design not
+* seen anywhere else in the game. In SMG1 the event is always activated and the crystal spins won't
+* stop spinning once activated. However, unused code suggests that it was planned to make it stop
+* spinning and deactivate the event again. This removed behavior has been restored here and can be
+* utilized with Obj_arg0.
+*/
 CrystalSwitch::CrystalSwitch(const char* pName) : LiveActor(pName) {
     mActiveTime = -1;
     mRotSpeed = 0.0f;
@@ -20,7 +33,9 @@ void CrystalSwitch::init(const JMapInfoIter& rIter) {
     MR::connectToSceneMapObj(this);
 
     initHitSensor(1);
-    MR::addHitSensorMapObj(this, "Body", 16, 100.0f, TVec3f(0.0f, 100.0f, 0.0f));
+    TVec3f offSensor(0.0f, 100.0f, 0.0f);
+    MR::addHitSensorMapObj(this, "Body", 16, 100.0f, offSensor);
+    MR::initStarPointerTarget(this, 70.0f, offSensor);
 
     initSound(1, "CrystalSwitch", false, TVec3f(0.0f, 0.0f, 0.0f));
     MR::useStageSwitchWriteA(this, rIter);
@@ -36,6 +51,7 @@ void CrystalSwitch::init(const JMapInfoIter& rIter) {
 void CrystalSwitch::control() {
     calcRotSpeed();
     mStartSpin = false;
+    MR::attachSupportTicoToTarget(this);
 }
 
 void CrystalSwitch::attackSensor(HitSensor* pHit1, HitSensor* pHit2) {
@@ -46,7 +62,7 @@ void CrystalSwitch::attackSensor(HitSensor* pHit1, HitSensor* pHit2) {
 u32 CrystalSwitch::receiveMsgPlayerAttack(u32 msg, HitSensor* pHitA, HitSensor* pHitB) {
     if (MR::isMsgPlayerHitAll(msg) || MR::isMsgPlayerHipDrop(msg) || MR::isMsgPlayerTrample(msg) || MR::isMsgStarPieceReflect(msg)) {
         mStartSpin = true;
-        return 1;
+        return !MR::isMsgPlayerHitAll(msg);
     }
 
     return 0;

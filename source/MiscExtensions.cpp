@@ -10,7 +10,6 @@
 #include "Util/LiveActorUtil.h"
 #include "Util/SceneUtil.h"
 #include "Util/StringUtil.h"
-#include "kamek.h"
 #include "mtx.h"
 
 namespace SPack {
@@ -119,8 +118,8 @@ namespace SPack {
 		TVec3f* offset;
 
 		if (pActor->mItemType == 4) {
-			offset = new TVec3f(0.0f, 50.0f, 30.0f);
-			PSMTXMultVec((Mtx4*)mtx, (const Vec*)offset, (Vec*)&pActor->mItem->mTranslation);
+			TVec3f offset(0.0f, 50.0f, 30.0f);
+			PSMTXMultVec(*mtx, (Vec*)&offset, (Vec*)&pActor->mItem->mTranslation);
 		}
 		else
 			pActor->putItem();
@@ -149,7 +148,7 @@ namespace SPack {
 	* their corresponding string names.
 	* 0: "Normal", "Hidden", anything else
 	* 1: "Bronze"
-	* 2: "Green", "Legacy"
+	* 2: "Green", "LegacyGreen"
 	* 3: "Red"
 	* 4: nothing, this is the transparent color
 	* 5: "Blue"

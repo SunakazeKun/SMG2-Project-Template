@@ -7,7 +7,9 @@ public:
     Jiraira(const char *);
 
     virtual void init(const JMapInfoIter & Iter);
+    virtual void appear();
     virtual void kill();
+    virtual void control();
     virtual void attackSensor(HitSensor *, HitSensor *);
     virtual u32 receiveMsgPlayerAttack(u32, HitSensor *, HitSensor *);
     virtual u32 receiveMsgEnemyAttack(u32, HitSensor *, HitSensor *);
@@ -18,6 +20,7 @@ public:
     void exePreRecover();
     void exeRecover();
 
+    CollisionParts* mButtonCollision;
     f32 mExplosionRange;
 };
 

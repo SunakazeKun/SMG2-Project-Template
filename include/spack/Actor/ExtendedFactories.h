@@ -8,35 +8,50 @@
 #include "MapObj/MorphItemCollection.h"
 #include "MapObj/SuperSpinDriver.h"
 #include "Scene/SceneObjHolder.h"
+#include "spack/Actor/Anagon.h"
 #include "spack/Actor/BallBeamer.h"
 #include "spack/Actor/BlueChip.h"
 #include "spack/Actor/CollectSwitchCtrl.h"
 #include "spack/Actor/CrystalSwitch.h"
 #include "spack/Actor/DeadLeaves.h"
+#include "spack/Actor/HitWallTimerSwitch.h"
 #include "spack/Actor/Jiraira.h"
 #include "spack/Actor/JumpGuarder.h"
 #include "spack/Actor/JumpSwitchArea.h"
 #include "spack/Actor/LavaBallRisingPlanetLava.h"
 #include "spack/Actor/NewMorphItemNeo.h"
 #include "spack/Actor/PlayerSwitchCtrl.h"
+#include "spack/Actor/Poihana.h"
+#include "spack/Actor/PomponPlant.h"
 #include "spack/Actor/PowerStarSpawner.h"
 #include "spack/Actor/SensorDetector.h"
-#include "spack/Actor/SwingRope.h"
+#include "spack/Actor/ScrewSwitchBase.h"
 #include "spack/Actor/UnizoLauncher.h"
 #include "spack/Actor/WatchTowerRotateStep.h"
+#include "spack/Actor/WaterLeakPipe.h"
+#include "spack/MR2/SwingRope.h"
 
-#include "os.h"
+#define NUM_ACTORS 38
+#define NUM_CLASSES 16
+#define NUM_SCENEOBJS 1
 
-#define NUM_ACTORS 30
+typedef NameObj* (*ExternCreator)(const char *);
 
-struct ActorExtEntry {
+struct CreateActorEntry {
     const char* pActorName;
     NameObj* (*mCreationFunc)(const char *);
 };
 
-namespace ExtendedActorFactory {
+struct CreateSceneObjEntry {
+    s32 mSlotId;
+    NameObj* (*mCreationFunc)(void);
+};
+
+namespace SPack {
     template<typename T>
     NameObj* createExtActor(const char *);
+
+    // NameObjFactory extensions
 
     template<>
     NameObj* createExtActor<JumpSwitchArea>(const char * pName) {
@@ -75,6 +90,11 @@ namespace ExtendedActorFactory {
     }
 
     template<>
+    NameObj* createExtActor<Anagon>(const char * pName) {
+        return new Anagon(pName);
+    }
+
+    template<>
     NameObj* createExtActor<BallBeamer>(const char * pName) {
         return new BallBeamer(pName);
     }
@@ -87,6 +107,11 @@ namespace ExtendedActorFactory {
     template<>
     NameObj* createExtActor<Jiraira>(const char * pName) {
         return new Jiraira(pName);
+    }
+
+    template<>
+    NameObj* createExtActor<Poihana>(const char * pName) {
+        return new Poihana(pName);
     }
 
     template<>
@@ -120,8 +145,33 @@ namespace ExtendedActorFactory {
     }
 
     template<>
+    NameObj* createExtActor<HitWallTimerSwitch>(const char * pName) {
+        return new HitWallTimerSwitch(pName);
+    }
+
+    template<>
+    NameObj* createExtActor<ScrewSwitch>(const char * pName) {
+        return new ScrewSwitch(pName);
+    }
+
+    template<>
+    NameObj* createExtActor<ScrewSwitchReverse>(const char * pName) {
+        return new ScrewSwitchReverse(pName);
+    }
+
+    template<>
+    NameObj* createExtActor<ValveSwitch>(const char * pName) {
+        return new ValveSwitch(pName);
+    }
+
+    template<>
     NameObj* createExtActor<DeadLeaves>(const char * pName) {
         return new DeadLeaves(pName);
+    }
+
+    template<>
+    NameObj* createExtActor<PomponPlant>(const char * pName) {
+        return new PomponPlant(pName);
     }
 
     template<>
@@ -139,92 +189,91 @@ namespace ExtendedActorFactory {
         return new WatchTowerRotateStep(pName);
     }
 
-    const ActorExtEntry cCreateTable[NUM_ACTORS] = {
+    template<>
+    NameObj* createExtActor<WaterLeakPipe>(const char * pName) {
+        return new WaterLeakPipe(pName);
+    }
+
+    const CreateActorEntry cNewCreateNameObjTable[NUM_ACTORS] = {
         // Areas
-        { "ExtraWallCheckCylinder", (NameObj* (*)(const char *))0x8033B6D0 },
-        { "ForbidJumpArea", (NameObj* (*)(const char *))0x8033B6D0 },
-        { "ForbidWaterSearchArea", (NameObj* (*)(const char *))0x8033B6D0 },
-        { "PipeModeArea", (NameObj* (*)(const char *))0x8033B6D0 },
-        { "PlaneCircularModeArea", (NameObj* (*)(const char *))0x8033B6D0 },
-        { "QuakeEffectArea", createQuakeEffectArea },
+        { "ExtraWallCheckCylinder", (ExternCreator)0x8033B6D0 },
+        { "ForbidJumpArea", (ExternCreator)0x8033B6D0 },
+        { "ForbidWaterSearchArea", (ExternCreator)0x8033B6D0 },
         { "JumpSwitchArea", createExtActor<JumpSwitchArea> },
+        { "PipeModeArea", (ExternCreator)0x8033B6D0 },
+        { "PlaneCircularModeArea", (ExternCreator)0x8033B6D0 },
+        { "QuakeEffectArea", createQuakeEffectArea },
         // Collectibles
         { "BlueChip", createExtActor<BlueChip> },
         { "BlueChipGroup", createExtActor<BlueChipGroup> },
         { "GoldenTurtle", createExtActor<GoldenTurtle> },
-        { "MorphItemCollectionFoo", (NameObj* (*)(const char *))0x8033F9B0 },
-        { "MorphItemCollectionIce", (NameObj* (*)(const char *))0x8033F9B0 },
         { "MorphItemNeoFoo", createExtActor<MorphItemNeoFoo> },
         { "MorphItemNeoIce", createExtActor<MorphItemNeoIce> },
         // Enemies
+        { "Anagon", createExtActor<Anagon> },
         { "BallBeamer", createExtActor<BallBeamer> },
         { "JumpGuarder", createExtActor<JumpGuarder> },
         { "Jiraira", createExtActor<Jiraira> },
-        { "ShellfishBlueChip", (NameObj* (*)(const char *))0x80340710 },
-        { "ShellfishPurpleCoin", (NameObj* (*)(const char *))0x80340710 },
+        { "Poihana", createExtActor<Poihana> },
+        { "ShellfishBlueChip", (ExternCreator)0x80340710 },
+        { "ShellfishPurpleCoin", (ExternCreator)0x80340710 },
         { "UnizoLauncher", createExtActor<UnizoLauncher> },
         // Controllers
         { "CollectSwitchCtrl", createExtActor<CollectSwitchCtrl> },
         { "PlayerSwitchCtrl", createExtActor<PlayerSwitchCtrl> },
         { "PowerStarSpawner", createExtActor<PowerStarSpawner> },
         { "SensorDetector", createExtActor<SensorDetector> },
-        // Obstacles
+        // Switches
         { "CrystalSwitch", createExtActor<CrystalSwitch> },
+        { "HitWallTimerSwitch", createExtActor<HitWallTimerSwitch> },
+        { "ScrewSwitch", createExtActor<ScrewSwitch> },
+        { "ScrewSwitchReverse", createExtActor<ScrewSwitchReverse> },
+        { "ValveSwitch", createExtActor<ValveSwitch> },
+        // Decoration
         { "DeadLeaves", createExtActor<DeadLeaves> },
+        { "MorphItemCollectionFoo", (ExternCreator)0x8033F9B0 },
+        { "MorphItemCollectionIce", (ExternCreator)0x8033F9B0 },
+        { "Pompon2Plant", createExtActor<PomponPlant> },
+        // Platforms
+        { "UFOBlueStarCupsule", (ExternCreator)0x8033EC70 },
+        { "WatchTowerRotateStep", createExtActor<WatchTowerRotateStep>},
+        { "WaterLeakPipe", createExtActor<WaterLeakPipe>},
+        // Miscellaneous
         { "SuperSpinDriverGreen", createExtActor<SuperSpinDriver> },
-        { "SwingRope", createExtActor<SwingRope> },
-        { "UFOBlueStarCupsule", (NameObj * (*)(const char *))0x8033EC70 },
-        { "WatchTowerRotateStep", createExtActor<WatchTowerRotateStep>}
+        { "SwingRope", createExtActor<SwingRope> }
     };
-};
 
-#define NUM_CLASSES 16
-
-struct MapObjCreatorEntry {
-    const char* pActorName;
-    NameObj* (*mCreationFunc)(const char *);
-};
-
-namespace ExtendedMapObjFactory {
-    template<typename T>
-    NameObj* createExtClass(const char *);
+    // ProductMapObjDataTable classes
 
     template<>
-    NameObj* createExtClass<LavaBallRisingPlanetLava>(const char * pName) {
+    NameObj* createExtActor<LavaBallRisingPlanetLava>(const char* pName) {
         return new LavaBallRisingPlanetLava(pName);
     }
 
-    const MapObjCreatorEntry cCreateTable[NUM_CLASSES] = {
-        { "AirFar100m", (NameObj* (*)(const char *))0x80341C10 },
-        { "AssemblyBlock", (NameObj* (*)(const char *))0x803419D0 },
-        { "BallOpener", (NameObj* (*)(const char *))0x8033E980 },
-        { "BeeJumpBall", (NameObj* (*)(const char *))0x8033EA40 },
-        { "CollapseRailMoveObj", (NameObj* (*)(const char *))0x803416D0 },
-        { "GoroRockLaneParts", (NameObj * (*)(const char *))0x80341320 },
-        { "GravityFallBlock", (NameObj* (*)(const char *))0x8033F2B0 },
-        { "InvisiblePolygonObj", (NameObj* (*)(const char *))0x80342670 },
-        { "JumpHole", (NameObj* (*)(const char *))0x8033F3B0 },
-        { "ManholeCover", (NameObj* (*)(const char *))0x80340BB0 },
-        { "RandomEffectObj", (NameObj* (*)(const char *))0x80342570 },
-        { "RotateSeesawMoveObj", (NameObj* (*)(const char *))0x80341710 },
-        { "ScaleMapObj", createExtClass<LavaBallRisingPlanetLava>},
-        { "SimpleEnvironmentObj", (NameObj* (*)(const char *))0x80340130 },
-        { "SoundSyncBlock", (NameObj* (*)(const char *))0x80341600 },
-        { "WoodBox", (NameObj* (*)(const char *))0x803400B0 }
+    const CreateActorEntry cNewCreateMapObjTable[NUM_CLASSES] = {
+        { "AirFar100m", (ExternCreator)0x80341C10 },
+        { "AssemblyBlock", (ExternCreator)0x803419D0 },
+        { "BallOpener", (ExternCreator)0x8033E980 },
+        { "BeeJumpBall", (ExternCreator)0x8033EA40 },
+        { "CollapseRailMoveObj", (ExternCreator)0x803416D0 },
+        { "GoroRockLaneParts", (ExternCreator)0x80341320 },
+        { "GravityFallBlock", (ExternCreator)0x8033F2B0 },
+        { "InvisiblePolygonObj", (ExternCreator)0x80342670 },
+        { "JumpHole", (ExternCreator)0x8033F3B0 },
+        { "ManholeCover", (ExternCreator)0x80340BB0 },
+        { "RandomEffectObj", (ExternCreator)0x80342570 },
+        { "RotateSeesawMoveObj", (ExternCreator)0x80341710 },
+        { "ScaleMapObj", createExtActor<LavaBallRisingPlanetLava>},
+        { "SimpleEnvironmentObj", (ExternCreator)0x80340130 },
+        { "SoundSyncBlock", (ExternCreator)0x80341600 },
+        { "WoodBox", (ExternCreator)0x803400B0 }
     };
-};
 
-#define NUM_SCENEOBJS 1
-
-struct SceneObjExtEntry {
-    s32 mSlotId;
-    NameObj* (*mCreationFunc)(void);
-};
-
-namespace ExtendedSceneObjFactory {
     NameObj* createBlueChipHolder() {
         return new ChipHolder("ブルーチップホルダー", CHIP_BLUE);
     }
+
+    // SceneObjHolder instances
 
     /*
     * Some SceneObj slots are unused and we are free to use these. Free
@@ -241,7 +290,7 @@ namespace ExtendedSceneObjFactory {
     * - 0x6E (taken by BlueChipHolder)
     * - 0x7B
     */
-    const SceneObjExtEntry cCreateTable[NUM_SCENEOBJS] = {
+    const CreateSceneObjEntry cNewCreateSceneObjTable[NUM_SCENEOBJS] = {
         { 0x6E, createBlueChipHolder }
     };
 };

@@ -1,8 +1,7 @@
 #pragma once
 
+#include "spack/MR2/BegomanBaby.h"
 #include "Enemy/JumpEmitter.h"
-
-class BegomanBaby;
 
 class JumpGuarder : public JumpEmitter {
 public:

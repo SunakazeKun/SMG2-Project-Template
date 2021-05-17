@@ -3,6 +3,13 @@
 #include "MapObj/ChipHolder.h"
 #include "Scene/SceneObjHolder.h"
 
+/*
+* Created by Aurum
+* 
+* Since YellowChip is still in the game, restoring BlueChip was quite easy. In fact, some leftover
+* code related to it remains intact. Therefore, I didn't have to deal with sound stuff. The only
+* difficulty was restoring the BlueChipHolder SceneObj controller as well as loading the proper UI.
+*/
 BlueChip::BlueChip(const char* pName) : ChipBase(pName, CHIP_BLUE, "BlueChip") {}
 
 BlueChipGroup::BlueChipGroup(const char* pName) : ChipGroup(pName, CHIP_BLUE) {}

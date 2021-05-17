@@ -24,8 +24,6 @@ public:
 	virtual void setNerveReturn();
 	virtual void setNerveWait();
 
-	void appearFromGuarder();
-
 	s32 _10C;
 	f32 _110[12];
 	LiveActor* mHost;

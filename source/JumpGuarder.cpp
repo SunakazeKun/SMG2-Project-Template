@@ -1,7 +1,7 @@
 ﻿#include "spack/Actor/JumpGuarder.h"
 #include "spack/SPackUtil.h"
-#include "spack/MR2/BegomanBaby.h"
 #include "Util/ActorAnimUtil.h"
+#include "Util/ActorInitUtil.h"
 #include "Util/ActorMovementUtil.h"
 #include "Util/ActorSensorUtil.h"
 #include "Util/ActorShadowUtil.h"
@@ -14,8 +14,20 @@
 #include "Util/ObjUtil.h"
 #include "Util/PlayerUtil.h"
 #include "Util/SoundUtil.h"
+#include "Util/StarPointerUtil.h"
+#include "Util/SupportTicoUtil.h"
 #include "mtx.h"
 
+/*
+* Created by Aurum
+* 
+* JumpGuarder is the green, stationary Spring Topman from Buoy Base Galaxy. This was one of SMG1's
+* unique enemies that I always wanted to see in SMG2 for some reason. Together with BallBeamer,
+* this was my first ported enemy and it was a difficult ride at first, since most of the functions
+* weren't documented in earlier Syati versions. And I was completely new to C++ as well, which lead
+* to even more problems. Nevertheless, I finally figured out how to port it properly. This was the
+* first big thing I worked on.
+*/
 JumpGuarder::JumpGuarder(const char* pName) : JumpEmitter(pName) {
 	mBabys = NULL;
 	mNumBabys = 4;
@@ -60,7 +72,8 @@ void JumpGuarder::init(const JMapInfoIter& rIter) {
 	JumpEmitter::init(rIter);
 	MR::joinToGroupArray(this, rIter, 0, 0x20);
 
-	makeActorAppeared();
+	// Initialize SupportTico target
+	MR::initStarPointerTarget(this, 150.0f, TVec3f(0.0f, 50.0f, 0.0f));
 
 	// Read Obj_arg entries
 	MR::getJMapInfoArg1NoInit(rIter, &mLaunchVelocity);
@@ -78,12 +91,16 @@ void JumpGuarder::init(const JMapInfoIter& rIter) {
 		baby->makeActorDead();
 		mBabys[i] = baby;
 	}
+
+	makeActorAppeared();
 }
 
 void JumpGuarder::control() {
+	MR::attachSupportTicoToTarget(this);
+
 	Mtx mtxTRS;
 	MR::makeMtxTRS(mtxTRS, TVec3f(0.0f, 44.0f, 0.0f), mHead->mRotation, mHead->mScale);
-	PSMTXCopy((Mtx4*)mJointMtx, _94);
+	PSMTXCopy(*mJointMtx, _94);
 	PSMTXConcat(_94, mtxTRS, _94);
 
 	// Decrement stagger delay and ensure the value does not fall below 0
@@ -133,10 +150,11 @@ u32 JumpGuarder::receiveMsgPlayerAttack(u32 msg, HitSensor* pHit1, HitSensor* pH
 		MR::forceJumpPlayer(TVec3f(-mGravity.x, -mGravity.y, -mGravity.z));
 		return 1;
 	}
-	else if (MR::isMsgPlayerSpinAttack(msg)) {
-		if (!isNerve(&NrvJumpGuarder::NrvHopStart::sInstance))
+	else if (MR::isMsgPlayerSpinAttackOrSupportTico(msg)) {
+		if (!isNerve(&NrvJumpGuarder::NrvHopStart::sInstance)) {
 			setNerve(&NrvJumpGuarder::NrvHopStart::sInstance);
-		return 1;
+			return 1;
+		}
 	}
 	else
 		return MR::isMsgStarPieceReflect(msg);
@@ -308,9 +326,9 @@ void JumpGuarder::exeOpen() {
 
 			MR::rotateVecDegree(&zdir, ydir, 360.0f / mNumPendingBabys);
 			baby->mTranslation.set<f32>(mTranslation + zdir * 64.0f);
-			baby->mVelocity.set<f32>(TVec3f(0.0f, 0.0f, 0.0f));
+			baby->mVelocity.setAll<f32>(0.0f);
 
-			baby->appearFromGuarder();
+			appearBabyFromGuarder(baby);
 		}
 	}
 	// Keep BegomanBabys inside until launch
@@ -326,7 +344,7 @@ void JumpGuarder::exeOpen() {
 
 			MR::rotateVecDegree(&zdir, ydir, 360.0f / mNumPendingBabys);
 			baby->mTranslation.set<f32>(mTranslation + zdir * 64.0f);
-			baby->mVelocity.set<f32>(TVec3f(0.0f, 0.0f, 0.0f));
+			baby->mVelocity.setAll<f32>(0.0f);
 		}
 	}
 	// Finally, launch BegomanBabys
@@ -394,9 +412,9 @@ bool JumpGuarder::isHit(const LiveActor* pActor) const {
 	return true;
 }
 
-void BegomanBaby::appearFromGuarder() {
-	BegomanBase::appear();
-	setNerve(&NrvBegomanBaby::HostTypeNrvLaunchFromGuarder::sInstance);
+void JumpGuarder::appearBabyFromGuarder(BegomanBaby* pBaby) {
+	pBaby->BegomanBase::appear();
+	pBaby->setNerve(&NrvBegomanBaby::HostTypeNrvLaunchFromGuarder::sInstance);
 }
 
 namespace NrvJumpGuarder {

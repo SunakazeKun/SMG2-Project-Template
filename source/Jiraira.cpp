@@ -1,15 +1,25 @@
 #include "spack/Actor/Jiraira.h"
+#include "spack/SPackUtil.h"
 #include "Util/ActorAnimUtil.h"
+#include "Util/ActorInitUtil.h"
 #include "Util/ActorMovementUtil.h"
 #include "Util/ActorSensorUtil.h"
 #include "Util/ActorSwitchUtil.h"
 #include "Util/EffectUtil.h"
 #include "Util/JMapUtil.h"
+#include "Util/JointUtil.h"
 #include "Util/LiveActorUtil.h"
 #include "Util/ObjUtil.h"
 #include "Util/PlayerUtil.h"
 #include "Util/SoundUtil.h"
 
+/*
+* Created by Someone with help by Aurum
+* 
+* Yet another unique unused object from SMG1 that has been ported. This land mine explodes if the
+* player, enemies or MapParts step on it. This is pretty much an exact port from SMG1, but its
+* scaling not work properly as of now.
+*/
 Jiraira::Jiraira(const char* pName) : LiveActor(pName) {
     mExplosionRange = 500.0f;
 }
@@ -26,8 +36,9 @@ void Jiraira::init(const JMapInfoIter& rIter) {
     MR::addHitSensorMapObjMoveCollision(this, "Body", 16, 100.0f * mScale.y, TVec3f(0.0f, 30.0f, 0.0f));
     MR::addHitSensorEnemyAttack(this, "Explode", 16, mExplosionRange * mScale.y, TVec3f(0.0f, 30.0f, 0.0f));
 
-    MR::initCollisionParts(this, "Button", MR::getSensor(this, "Body"), NULL);
-    MR::validateCollisionParts(this);
+    MR::initCollisionPartsAutoEqualScaleOne(this, "Jiraira", getSensor("Body"), (Mtx4*)MR::getJointMtx(this, "Jiraira"));
+    mButtonCollision = MR::createCollisionPartsFromLiveActor(this, "Button", getSensor("Body"), (Mtx4*)MR::getJointMtx(this, "Button"), MR::CollisionScaleType_1);
+    MR::validateCollisionParts(mButtonCollision);
 
     initSound(6, "Jiraira", 0, TVec3f(0.0f, 0.0f, 0.0f));
     initEffectKeeper(0, NULL, false);
@@ -37,6 +48,11 @@ void Jiraira::init(const JMapInfoIter& rIter) {
     makeActorAppeared();
 }
 
+void Jiraira::appear() {
+    LiveActor::appear();
+    MR::invalidateHitSensor(this, "Explode");
+}
+
 void Jiraira::kill() {
     LiveActor::kill();
 
@@ -44,13 +60,19 @@ void Jiraira::kill() {
         MR::onSwitchDead(this);
 }
 
+void Jiraira::control() {
+    mButtonCollision->setMtx();
+}
+
 void Jiraira::attackSensor(HitSensor* pHit1, HitSensor* pHit2) {
-    if (pHit1 == MR::getSensor(this, "Explode") && (MR::isSensorPlayer(pHit2) || MR::isSensorEnemy(pHit2) || MR::isSensorMapObj(pHit2)))
-        MR::sendMsgEnemyAttackExplosion(pHit2, pHit1);
+    if (pHit1 == MR::getSensor(this, "Explode") && (MR::isSensorPlayer(pHit2) || MR::isSensorEnemy(pHit2) || MR::isSensorMapObj(pHit2))) {
+        if (isNerve(&NrvJiraira::NrvExplode::sInstance))
+            MR::sendMsgEnemyAttackExplosion(pHit2, pHit1);
+    }
 }
 
 u32 Jiraira::receiveMsgPlayerAttack(u32 msg, HitSensor* pHit1, HitSensor* pHit2) {
-    if (isNerve(&NrvJiraira::NrvExplode::sInstance) || isNerve(&NrvJiraira::NrvPreRecover::sInstance) || isNerve(&NrvJiraira::NrvRecover::sInstance))
+    if (isNerve(&NrvJiraira::NrvExplode::sInstance) || isNerve(&NrvJiraira::NrvPreRecover::sInstance))
         return 0;
 
     if (MR::isMsgStarPieceAttack(msg)) {
@@ -62,7 +84,7 @@ u32 Jiraira::receiveMsgPlayerAttack(u32 msg, HitSensor* pHit1, HitSensor* pHit2)
 }
 
 u32 Jiraira::receiveMsgEnemyAttack(u32 msg, HitSensor* pHit1, HitSensor* pHit2) {
-    if (isNerve(&NrvJiraira::NrvExplode::sInstance) || isNerve(&NrvJiraira::NrvPreRecover::sInstance))
+    if (isNerve(&NrvJiraira::NrvExplode::sInstance))
         return 0;
 
     if (MR::isMsgExplosionAttack(msg)) {
@@ -76,7 +98,7 @@ void Jiraira::exeWait() {
     if (MR::isFirstStep(this)) {
         MR::startBck(this, "Wait");
         MR::startBrk(this, "Wait");
-        MR::invalidateHitSensor(this, "Explode");
+        //MR::invalidateHitSensor(this, "Explode");
     }
 
     if (MR::isOnPlayer(MR::getSensor(this, "Body")))

@@ -1,4 +1,6 @@
 #include "spack/Actor/SensorDetector.h"
+#include "spack/SPackUtil.h"
+#include "Util/ActorInitUtil.h"
 #include "Util/ActorMovementUtil.h"
 #include "Util/ActorSensorUtil.h"
 #include "Util/ActorSwitchUtil.h"
@@ -6,6 +8,12 @@
 #include "Util/LiveActorUtil.h"
 #include "Util/ObjUtil.h"
 
+/*
+* Created by Someone and Evanbowl
+* 
+* Detects whether the specified message is in its sensor range. If so, the specified SW_A gets
+* activated. It can also be set to rumble the Wiimote if the player is in its range.
+*/
 SensorDetector::SensorDetector(const char* pName) : LiveActor(pName) {
     mMessage = 0;
     mHitbox = 100.0f;

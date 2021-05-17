@@ -6,6 +6,12 @@
 #include "Util/ObjUtil.h"
 #include "Util/SceneUtil.h"
 
+/*
+* Created by Aurum
+* 
+* This is a switch controller that activates an event when the specified amount of the specified
+* item is collected. It can be used to check for Coins, Purple Coins, Star Bits and Power Stars.
+*/
 CollectSwitchCtrl::CollectSwitchCtrl(const char* pName) : NameObj(pName) {
 	mStageSwitchCtrl = NULL;
 	mItem = 0;

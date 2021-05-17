@@ -18,7 +18,7 @@ public:
     void exeMoveStart();
 
     TVec3f mRotateDeg;
-    PartsModel** mParts;
+    PartsModel* mParts[4];
     f32 mRotSpeed;
 };
 
