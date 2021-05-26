@@ -117,10 +117,7 @@ void WatchTowerRotateStep::attachLift() {
     for (s32 i = 0; i < 4; i++) {
         JGeometry::TMatrix34<f32>* mtx = MR::getJointMtx(this, i + 1);
         PartsModel* platform = mParts[i];
-
-        platform->mTranslation.x = mtx->val[0][3];
-        platform->mTranslation.y = mtx->val[1][3];
-        platform->mTranslation.z = mtx->val[2][3];
+        MR::extractMtxTrans((Mtx4*)mtx, &platform->mTranslation);
     }
 }
 

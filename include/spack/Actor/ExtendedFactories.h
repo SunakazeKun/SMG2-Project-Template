@@ -19,6 +19,7 @@
 #include "spack/Actor/JumpGuarder.h"
 #include "spack/Actor/JumpSwitchArea.h"
 #include "spack/Actor/LavaBallRisingPlanetLava.h"
+#include "spack/Actor/Mogu.h"
 #include "spack/Actor/NewMorphItemNeo.h"
 #include "spack/Actor/PlayerSwitchCtrl.h"
 #include "spack/Actor/Poihana.h"
@@ -30,8 +31,9 @@
 #include "spack/Actor/WatchTowerRotateStep.h"
 #include "spack/Actor/WaterLeakPipe.h"
 #include "spack/MR2/SwingRope.h"
+#include "spack/MR2/SwitchDice.h"
 
-#define NUM_ACTORS 38
+#define NUM_ACTORS 40
 #define NUM_CLASSES 16
 #define NUM_SCENEOBJS 1
 
@@ -90,6 +92,11 @@ namespace SPack {
     }
 
     template<>
+    NameObj* createExtActor<SwitchDice>(const char * pName) {
+        return new SwitchDice(pName);
+    }
+
+    template<>
     NameObj* createExtActor<Anagon>(const char * pName) {
         return new Anagon(pName);
     }
@@ -107,6 +114,11 @@ namespace SPack {
     template<>
     NameObj* createExtActor<Jiraira>(const char * pName) {
         return new Jiraira(pName);
+    }
+
+    template<>
+    NameObj* createExtActor<Mogu>(const char * pName) {
+        return new Mogu(pName);
     }
 
     template<>
@@ -174,8 +186,7 @@ namespace SPack {
         return new PomponPlant(pName);
     }
 
-    template<>
-    NameObj* createExtActor<SuperSpinDriver>(const char * pName) {
+    NameObj* createSuperSpinDriverGreen(const char * pName) {
         return new SuperSpinDriver(pName, SUPER_SPIN_DRIVER_GREEN);
     }
 
@@ -209,11 +220,13 @@ namespace SPack {
         { "GoldenTurtle", createExtActor<GoldenTurtle> },
         { "MorphItemNeoFoo", createExtActor<MorphItemNeoFoo> },
         { "MorphItemNeoIce", createExtActor<MorphItemNeoIce> },
+        { "SwitchDice", createExtActor<SwitchDice> },
         // Enemies
         { "Anagon", createExtActor<Anagon> },
         { "BallBeamer", createExtActor<BallBeamer> },
         { "JumpGuarder", createExtActor<JumpGuarder> },
         { "Jiraira", createExtActor<Jiraira> },
+        { "Mogu", createExtActor<Mogu> },
         { "Poihana", createExtActor<Poihana> },
         { "ShellfishBlueChip", (ExternCreator)0x80340710 },
         { "ShellfishPurpleCoin", (ExternCreator)0x80340710 },
@@ -239,7 +252,7 @@ namespace SPack {
         { "WatchTowerRotateStep", createExtActor<WatchTowerRotateStep>},
         { "WaterLeakPipe", createExtActor<WaterLeakPipe>},
         // Miscellaneous
-        { "SuperSpinDriverGreen", createExtActor<SuperSpinDriver> },
+        { "SuperSpinDriverGreen", createSuperSpinDriverGreen },
         { "SwingRope", createExtActor<SwingRope> }
     };
 

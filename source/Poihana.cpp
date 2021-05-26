@@ -440,8 +440,9 @@ void Poihana::exeRecover() {
 }
 
 void Poihana::exeShake() {
-	f32 _f31 = 0.2f - 0.01f * getNerveStep();
-	f32 scale = sin(36.0f * getNerveStep() * 0.01745329251f) * _f31 + 1.0f;
+	s32 step = getNerveStep();
+	f32 _f31 = 0.2f - 0.01f * step;
+	f32 scale = sin(36.0f * step * 0.01745329251f) * _f31 + 1.0f;
 	mScale.setAll<f32>(scale);
 
 	if (MR::isStep(this, 20)) {
@@ -617,9 +618,7 @@ void Poihana::controlVelocity() {
 			JMAVECScaleAdd((Vec*)&gravity, (Vec*)&mVelocity, (Vec*)&mVelocity, dot);
 		}
 
-		mVelocity.x *= 0.95f;
-		mVelocity.y *= 0.95f;
-		mVelocity.z *= 0.95f;
+		mVelocity.scale(0.95f);
 	}
 
 	JMAVECScaleAdd((Vec*)&gravity, (Vec*)&mVelocity, (Vec*)&mVelocity, 2.0f);

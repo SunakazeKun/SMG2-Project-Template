@@ -65,7 +65,7 @@ void Jiraira::control() {
 }
 
 void Jiraira::attackSensor(HitSensor* pHit1, HitSensor* pHit2) {
-    if (pHit1 == MR::getSensor(this, "Explode") && (MR::isSensorPlayer(pHit2) || MR::isSensorEnemy(pHit2) || MR::isSensorMapObj(pHit2))) {
+    if (pHit1 == getSensor("Explode") && (MR::isSensorPlayer(pHit2) || MR::isSensorEnemy(pHit2) || MR::isSensorMapObj(pHit2))) {
         if (isNerve(&NrvJiraira::NrvExplode::sInstance))
             MR::sendMsgEnemyAttackExplosion(pHit2, pHit1);
     }
@@ -101,7 +101,7 @@ void Jiraira::exeWait() {
         //MR::invalidateHitSensor(this, "Explode");
     }
 
-    if (MR::isOnPlayer(MR::getSensor(this, "Body")))
+    if (MR::isOnPlayer(getSensor("Body")))
         setNerve(&NrvJiraira::NrvStepped::sInstance);
 }
 
