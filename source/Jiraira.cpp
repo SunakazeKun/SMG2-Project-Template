@@ -96,7 +96,7 @@ u32 Jiraira::receiveMsgEnemyAttack(u32 msg, HitSensor* pHit1, HitSensor* pHit2) 
 
 void Jiraira::exeWait() {
     if (MR::isFirstStep(this)) {
-        MR::startBck(this, "Wait");
+        MR::startAction(this, "Wait");
         MR::startBrk(this, "Wait");
         //MR::invalidateHitSensor(this, "Explode");
     }
@@ -107,7 +107,7 @@ void Jiraira::exeWait() {
 
 void Jiraira::exeStepped() {
     if (MR::isFirstStep(this)) {
-        MR::startBck(this, "Stepped");
+        MR::startAction(this, "Stepped");
         MR::startBrk(this, "Stepped");
         MR::tryRumblePadMiddle(this, NULL);
         MR::startLevelSound(this, "OjJirairaStepped", -1, -1, -1);
@@ -123,7 +123,7 @@ void Jiraira::exeExplode() {
     if (MR::isFirstStep(this)) {
         MR::emitEffect(this, "Explosion");
         MR::startLevelSound(this, "OjJirairaExplode", -1, -1, -1);
-        MR::startBck(this, "Down");
+        MR::startAction(this, "Down");
         MR::startBrk(this, "Down");
         MR::validateHitSensor(this, "Explode");
         MR::tryRumblePadAndCameraDistanceStrong(this, 800.0f, 1200.0f, 2000.0f);
@@ -140,7 +140,7 @@ void Jiraira::exeExplode() {
 
 void Jiraira::exePreRecover() {
     if (MR::isFirstStep(this)) {
-        MR::startBck(this, "Down");
+        MR::startAction(this, "Down");
         MR::startBrk(this, "RecoveryLoop");
     }
 
@@ -152,7 +152,7 @@ void Jiraira::exePreRecover() {
 
 void Jiraira::exeRecover() {
     if (MR::isFirstStep(this)) {
-        MR::startBck(this, "Recovery");
+        MR::startAction(this, "Recovery");
         MR::startBrk(this, "Recovery");
         MR::startLevelSound(this, "OjJirairaRecover", -1, -1, -1);
     }

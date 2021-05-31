@@ -42,7 +42,7 @@ void CrystalSwitch::init(const JMapInfoIter& rIter) {
     MR::getJMapInfoArg0NoInit(rIter, &mActiveTime);
     initNerve(&NrvCrystalSwitch::NrvOff::sInstance, 0);
 
-    MR::startBck(this, "Wait");
+    MR::startAction(this, "Wait");
     MR::startBpk(this, "Off");
 
     makeActorAppeared();

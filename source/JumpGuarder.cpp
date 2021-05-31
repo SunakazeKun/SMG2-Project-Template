@@ -63,7 +63,7 @@ void JumpGuarder::init(const JMapInfoIter& rIter) {
 	MR::invalidateClipping(this);
 	initNerve(&NrvJumpGuarder::NrvHide::sInstance, 0);
 
-	MR::startBckWithInterpole(this, "Down", 0);
+	MR::startActionWithInterpole(this, "Down", 0);
 	MR::setBckFrame(this, 0.0f);
 	MR::calcAnimDirect(this);
 	mJointMtx = (Mtx*)MR::getJointMtx(this, "Body")->val;
@@ -115,7 +115,7 @@ void JumpGuarder::attackSensor(HitSensor* pHit1, HitSensor* pHit2) {
 		MR::sendMsgEnemyAttack(pHit2, pHit1);
 
 		if (isNerve(&NrvJumpGuarder::NrvWait::sInstance) && !MR::isOnGround(pHit2->mParentActor)) {
-			MR::startBck(this, "Hit");
+			MR::startAction(this, "Hit");
 			MR::startLevelSound(this, "EmJguarderHit", -1, -1, -1);
 		}
 	}
@@ -125,7 +125,7 @@ void JumpGuarder::attackSensor(HitSensor* pHit1, HitSensor* pHit2) {
 		if (isNerve(&NrvJumpGuarder::NrvWait::sInstance) || isNerve(&NrvJumpGuarder::NrvHopWait::sInstance)) {
 			if (MR::isPlayerStaggering() && mStaggerDelay == 0) {
 				mStaggerDelay = 60;
-				MR::startBck(this, "Hit");
+				MR::startAction(this, "Hit");
 				MR::startLevelSound(this, "EmJguarderHit", -1, -1, -1);
 			}
 		}
@@ -178,7 +178,7 @@ void JumpGuarder::exeHide() {
 	updateRotate();
 
 	if (MR::isFirstStep(this)) {
-		MR::startBck(mHead, "Wait");
+		MR::startAction(mHead, "Wait");
 		MR::startBrk(mHead, "Green");
 		MR::validateClipping(this);
 		MR::setShadowVolumeSphereRadius(this, NULL, 110.0f);
@@ -189,7 +189,7 @@ void JumpGuarder::exeHide() {
 
 void JumpGuarder::exeUp() {
 	if (MR::isFirstStep(this)) {
-		MR::startBck(this, "Up");
+		MR::startAction(this, "Up");
 		MR::startLevelSound(this, "EmJguarderAppear", -1, -1, -1);
 	}
 
@@ -215,7 +215,7 @@ void JumpGuarder::exeWait() {
 
 void JumpGuarder::exeDown() {
 	if (MR::isFirstStep(this)) {
-		MR::startBck(this, "Down");
+		MR::startAction(this, "Down");
 		MR::startLevelSound(this, "EmJguarderHide", -1, -1, -1);
 	}
 
@@ -230,9 +230,9 @@ void JumpGuarder::exeDown() {
 
 void JumpGuarder::exeHopStart() {
 	if (MR::isFirstStep(this)) {
-		MR::startBck(mHead, "HopStart");
+		MR::startAction(mHead, "HopStart");
 		MR::startBrk(mHead, "OnAndOff");
-		MR::startBck(this, "Damage");
+		MR::startAction(this, "Damage");
 		MR::startLevelSound(this, "EmJguarderHit", -1, -1, -1);
 		getSensor("Body")->_10 = 120.0f;
 	}
@@ -254,7 +254,7 @@ void JumpGuarder::exeHopStart() {
 void JumpGuarder::exeHopWait() {
 	if (MR::isFirstStep(this)) {
 		MR::stopBck(this);
-		MR::startBck(mHead, "HopWait");
+		MR::startAction(mHead, "HopWait");
 		MR::validateHitSensor(this, "Jump");
 	}
 
@@ -266,7 +266,7 @@ void JumpGuarder::exeHopWait() {
 
 void JumpGuarder::exeHopJump() {
 	if (MR::isFirstStep(this)) {
-		MR::startBck(mHead, "HopJump");
+		MR::startAction(mHead, "HopJump");
 		MR::startLevelSound(this, "EmJguarderTrample", -1, -1, -1);
 	}
 
@@ -276,8 +276,8 @@ void JumpGuarder::exeHopJump() {
 
 void JumpGuarder::exeHopEnd() {
 	if (MR::isFirstStep(this)) {
-		MR::startBck(this, "HopEnd");
-		MR::startBck(mHead, "HopEnd");
+		MR::startAction(this, "HopEnd");
+		MR::startAction(mHead, "HopEnd");
 		MR::startBrk(mHead, "Green");
 		MR::startLevelSound(this, "EmJguarderCloseSpring", -1, -1, -1);
 	}
@@ -305,7 +305,7 @@ void JumpGuarder::exeOpen() {
 
 	// Collect and prepare new BegomanBabys to be launched
 	if (MR::isFirstStep(this)) {
-		MR::startBck(this, "Open");
+		MR::startAction(this, "Open");
 		MR::startLevelSound(this, "EmJguarderShutterOpen", -1, -1, -1);
 
 		// Collect dead BegomanBabys to "revive" them
@@ -374,7 +374,7 @@ void JumpGuarder::exeOpen() {
 
 void JumpGuarder::exeClose() {
 	if (MR::isFirstStep(this))
-		MR::startBck(this, "Close");
+		MR::startAction(this, "Close");
 
 	MR::startLevelSound(this, "EmLvJguarderShutterClose", -1, -1, -1);
 

@@ -93,7 +93,7 @@ bool PomponPlant::tryGenItem() {
 void PomponPlant::exeSwingDpd() {
     if (MR::isFirstStep(this)) {
         MR::startLevelSound(this, "OjPomponPlantDpdHit", -1, -1, -1);
-        MR::startBck(this, "Dpdhit");
+        MR::startAction(this, "Dpdhit");
     }
 
     if (MR::isActionEnd(this))
@@ -103,7 +103,7 @@ void PomponPlant::exeSwingDpd() {
 void PomponPlant::exeSwingPlayer() {
     if (MR::isFirstStep(this)) {
         MR::startLevelSound(this, "OjPomponPlantHit", -1, -1, -1);
-        MR::startBck(this, "Hit");
+        MR::startAction(this, "Hit");
         tryGenItem();
     }
 

@@ -141,7 +141,7 @@ void BallBeamer::setupAttack() {
 void BallBeamer::exeWait() {
 	if (MR::isFirstStep(this)) {
 		MR::validateClipping(this);
-		MR::startBck(this, "Wait");
+		MR::startAction(this, "Wait");
 	}
 
 	if (MR::isNearPlayer(this, mActiveRange))
@@ -162,7 +162,7 @@ void BallBeamer::exeAttack() {
 			MR::emitEffect(this, "Charge");
 
 		if (step == 119) {
-			MR::startBck(this, "Sign");
+			MR::startAction(this, "Sign");
 			MR::startLevelSound(this, "EmBallbeamerRotHead", -1, -1, -1);
 
 			for (s32 i = 0; i < mNumMaxBeams; i++) {

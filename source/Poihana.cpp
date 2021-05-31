@@ -243,7 +243,7 @@ u32 Poihana::receiveOtherMsg(u32 msg, HitSensor* pHit1, HitSensor* pHit2) {
 
 void Poihana::exeWait() {
 	if (MR::isFirstStep(this)) {
-		MR::startBckNoInterpole(this, "Wait");
+		MR::startActionNoInterpole(this, "Wait");
 		updateBinderSensor();
 	}
 
@@ -256,7 +256,7 @@ void Poihana::exeWait() {
 void Poihana::exeWalkAround() {
 	if (MR::isFirstStep(this)) {
 		if (!MR::isBckPlaying(this, "Walk"))
-			MR::startBck(this, "Walk");
+			MR::startAction(this, "Walk");
 		mRandDir = MR::getRandom((s32)-2, (s32)2);
 	}
 
@@ -277,7 +277,7 @@ void Poihana::exeWalkAround() {
 
 void Poihana::exeSleepStart() {
 	if (MR::isFirstStep(this)) {
-		MR::startBck(this, "SleepStart");
+		MR::startAction(this, "SleepStart");
 		MR::startLevelSound(this, "EvPoihanaSleepStart", -1, -1, -1);
 		MR::invalidateHitSensor(this, "binder");
 	}
@@ -288,7 +288,7 @@ void Poihana::exeSleepStart() {
 
 void Poihana::exeSleep() {
 	if (MR::isFirstStep(this)) {
-		MR::startBck(this, "Sleep");
+		MR::startAction(this, "Sleep");
 		MR::invalidateHitSensor(this, "binder");
 	}
 
@@ -298,7 +298,7 @@ void Poihana::exeSleep() {
 
 void Poihana::exeGetUp() {
 	if (MR::isFirstStep(this)) {
-		MR::startBck(this, "GetUp");
+		MR::startAction(this, "GetUp");
 		MR::startLevelSound(this, "EvPoihanaWakeup", -1, -1, -1);
 		MR::startLevelSound(this, "EmPoihanaWakeup", -1, -1, -1);
 	}
@@ -311,7 +311,7 @@ void Poihana::exeGetUp() {
 
 void Poihana::exeSearch() {
 	if (MR::isFirstStep(this)) {
-		MR::startBck(this, "Search");
+		MR::startAction(this, "Search");
 		MR::startLevelSound(this, "EvPoihanaFind", -1, -1, -1);
 	}
 
@@ -323,7 +323,7 @@ void Poihana::exeSearch() {
 
 void Poihana::exeChasePlayer() {
 	if (MR::isFirstStep(this)) {
-		MR::startBck(this, "Run");
+		MR::startAction(this, "Run");
 		updateBinderSensor();
 	}
 
@@ -336,7 +336,7 @@ void Poihana::exeChasePlayer() {
 
 void Poihana::exeShootUpCharge() {
 	if (MR::isFirstStep(this))
-		MR::startBck(this, "ThrowStart");
+		MR::startAction(this, "ThrowStart");
 
 	f32 dot = mGravity.dot(mVelocity);
 	mVelocity.scale(dot, mGravity);
@@ -347,7 +347,7 @@ void Poihana::exeShootUpCharge() {
 
 void Poihana::exeShootUp() {
 	if (MR::isFirstStep(this)) {
-		MR::startBck(this, "Throw");
+		MR::startAction(this, "Throw");
 		MR::startLevelSound(this, "EvPoihanaShootUp", -1, -1, -1);
 
 		MR::startActorCameraNoTarget(this, mCamInfo, -1);
@@ -383,7 +383,7 @@ void Poihana::endShootUp() {
 
 void Poihana::exeGoBack() {
 	if (MR::isFirstStep(this) && !MR::isBckPlaying(this, "Walk"))
-		MR::startBck(this, "Walk");
+		MR::startAction(this, "Walk");
 
 	MR::turnDirectionToTargetUseGroundNormalDegree(this, &mFrontVec, mHomePos, 2.0f);
 	JMAVECScaleAdd((Vec*)&mFrontVec, (Vec*)&mVelocity, (Vec*)&mVelocity, 0.5f);
@@ -396,7 +396,7 @@ void Poihana::exeGoBack() {
 
 void Poihana::exeShock() {
 	if (MR::isFirstStep(this)) {
-		MR::startBck(this, "PunchDamage");
+		MR::startAction(this, "PunchDamage");
 		MR::startBlowHitSound(this);
 		MR::invalidateHitSensor(this, "binder");
 	}
@@ -407,7 +407,7 @@ void Poihana::exeShock() {
 
 void Poihana::exeSwoonLand() {
 	if (MR::isFirstStep(this)) {
-		MR::startBckNoInterpole(this, "SwoonLand");
+		MR::startActionNoInterpole(this, "SwoonLand");
 		MR::startLevelSound(this, "EvPoihanaSwoon", -1, -1, -1);
 	}
 
@@ -417,7 +417,7 @@ void Poihana::exeSwoonLand() {
 
 void Poihana::exeSwoon() {
 	if (MR::isFirstStep(this))
-		MR::startBck(this, "Swoon");
+		MR::startAction(this, "Swoon");
 
 	MR::startLevelSound(this, "EmLvSwoonS", -1, -1, -1);
 
@@ -427,7 +427,7 @@ void Poihana::exeSwoon() {
 
 void Poihana::exeRecover() {
 	if (MR::isFirstStep(this)) {
-		MR::startBck(this, "Recover");
+		MR::startAction(this, "Recover");
 		MR::startLevelSound(this, "EmPoihanaRecover", -1, -1, -1);
 		MR::startLevelSound(this, "EvPoihanaRecover", -1, -1, -1);
 		mScale.setAll<f32>(1.0f);
@@ -453,7 +453,7 @@ void Poihana::exeShake() {
 
 void Poihana::exeDrown() {
 	if (MR::isFirstStep(this)) {
-		MR::startBck(this, "Drown");
+		MR::startAction(this, "Drown");
 		MR::invalidateClipping(this);
 		MR::invalidateHitSensors(this);
 		MR::startLevelSound(this, "EmFallIntoWaterS", -1, -1, -1);
@@ -487,7 +487,7 @@ void Poihana::exeAppear() {
 
 	if (MR::isStep(this, 60)) {
 		MR::showModel(this);
-		MR::startBck(this, "Appear");
+		MR::startAction(this, "Appear");
 		MR::startLevelSound(this, "EmPoihanaReviveAppear", -1, -1, -1);
 	}
 
@@ -533,7 +533,7 @@ bool Poihana::tryToStartBind(HitSensor* pHit1) {
 	if (mBindedActor == NULL && !MR::isInWater(this, TVec3f(0.0f, 0.0f, 0.0f))) {
 		MR::tryRumblePadMiddle(this, 0);
 		mBindedActor = pHit1->mParentActor;
-		MR::startBckPlayer("Rise", NULL);
+		MR::startActionPlayer("Rise", NULL);
 		MR::invalidateClipping(this);
 		return true;
 	}

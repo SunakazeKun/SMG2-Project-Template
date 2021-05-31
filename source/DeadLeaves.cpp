@@ -48,7 +48,7 @@ u32 DeadLeaves::receiveMsgPlayerAttack(u32 msg, HitSensor* pHit1, HitSensor* pHi
 
 void DeadLeaves::exeSpin() {
 	if (MR::isFirstStep(this)) {
-		MR::startBck(this, "Spin");
+		MR::startAction(this, "Spin");
 		MR::startLevelSound(this, "OjLeavesSwing", -1, -1, -1);
 
 		if (mItemType == 0)

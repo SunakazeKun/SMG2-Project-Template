@@ -41,12 +41,12 @@ void IceStepNoSlip::appear() {
 
 void IceStepNoSlip::exeAppear() {
 	if (MR::isFirstStep(this))
-		MR::startBck(this, "Start");
+		MR::startAction(this, "Start");
 }
 
 void IceStepNoSlip::exeBreak() {
 	if (MR::isFirstStep(this))
-		MR::startBck(this, "End");
+		MR::startAction(this, "End");
 	if (MR::isActionEnd(this))
 		kill();
 }

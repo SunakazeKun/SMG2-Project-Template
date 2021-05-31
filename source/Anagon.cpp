@@ -99,7 +99,7 @@ void Anagon::makeActorAppeared() {
 		mStarPointerTargets[i]->makeActorAppeared();
 
 	MR::startLevelSound(this, "BmSklFishBabyAppear", -1, -1, -1);
-	MR::startBck(this, "Swim");
+	MR::startAction(this, "Swim");
 	setNerve(&NrvAnagon::NrvSwim::sInstance);
 	MR::validateClipping(this);
 }
@@ -152,7 +152,7 @@ u32 Anagon::receiveMsgPlayerAttack(u32 msg, HitSensor* pHit1, HitSensor* pHit2) 
 
 void Anagon::exeSwim() {
 	if (MR::isFirstStep(this))
-		MR::startBck(this, "Swim");
+		MR::startAction(this, "Swim");
 
 	MR::startLevelSound(this, "EmLvSnakefishSwim", -1, -1, -1);
 
@@ -182,7 +182,7 @@ void Anagon::endBind() {
 
 void Anagon::exeBreak() {
 	if (MR::isFirstStep(this)) {
-		MR::startBck(this, "Death");
+		MR::startAction(this, "Death");
 		MR::startLevelSound(this, "EmExplodeUnderWater", -1, -1, -1);
 		MR::startLevelSound(this, "EvSnakeheadDamage", -1, -1, -1);
 		MR::invalidateClipping(this);

@@ -41,7 +41,7 @@ void HitWallTimerSwitch::init(const JMapInfoIter& rIter) {
 	
 	MR::useStageSwitchWriteA(this, rIter);
 	MR::getJMapInfoArg0NoInit(rIter, &mTimer);
-	MR::startBck(this, "Wait");
+	MR::startAction(this, "Wait");
 
 	initNerve(&NrvHitWallTimerSwitch::NrvOff::sInstance, 0);
 
@@ -85,7 +85,7 @@ u32 HitWallTimerSwitch::receiveOtherMsg(u32 msg, HitSensor* pHit1, HitSensor* pH
 
 void HitWallTimerSwitch::exeOff() {
 	if (MR::isFirstStep(this)) {
-		MR::startBck(this, "Wait");
+		MR::startAction(this, "Wait");
 		MR::validateClipping(this);
 		MR::offSwitchA(this);
 		MR::validateCollisionParts(mMoveCollision);
@@ -97,7 +97,7 @@ void HitWallTimerSwitch::exeOff() {
 
 void HitWallTimerSwitch::exeSwitchDown() {
 	if (MR::isFirstStep(this)) {
-		MR::startBck(this, "On");
+		MR::startAction(this, "On");
 		MR::startBtp(this, "On");
 		MR::invalidateClipping(this);
 	}
@@ -134,7 +134,7 @@ void HitWallTimerSwitch::exeOn() {
 
 void HitWallTimerSwitch::exeSwitchUp() {
 	if (MR::isFirstStep(this)) {
-		MR::startBck(this, "Off");
+		MR::startAction(this, "Off");
 		MR::startBtp(this, "Off");
 	}
 

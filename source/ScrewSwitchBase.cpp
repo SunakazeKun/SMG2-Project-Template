@@ -162,9 +162,9 @@ void ScrewSwitch::exeAdjust() {
 
 void ScrewSwitch::exeScrew() {
 	if (MR::isFirstStep(this)) {
-		MR::startBck(this, "ScrewSwitchOn");
+		MR::startAction(this, "ScrewSwitchOn");
 		MR::startBrk(this, "ScrewSwitchOn");
-		MR::startBckPlayer("ScrewSwitchOn", NULL);
+		MR::startActionPlayer("ScrewSwitchOn", NULL);
 	}
 
 	if (MR::isLessStep(this, 30))
@@ -235,8 +235,8 @@ void ScrewSwitchReverse::exeAdjust() {
 
 void ScrewSwitchReverse::exeScrew() {
 	if (MR::isFirstStep(this)) {
-		MR::startBck(this, "ScrewSwitchReverseOn");
-		MR::startBckPlayer("ScrewSwitchReverseOn", NULL);
+		MR::startAction(this, "ScrewSwitchReverseOn");
+		MR::startActionPlayer("ScrewSwitchReverseOn", NULL);
 	}
 
 	if (MR::isLessStep(this, 25))
@@ -318,9 +318,9 @@ void ValveSwitch::exeWait() {
 		MR::startBrk(this, "ValveSwitchOn");
 
 		if (mIsReverse)
-			MR::startBck(this, "ValveSwitchReverseOn");
+			MR::startAction(this, "ValveSwitchReverseOn");
 		else
-			MR::startBck(this, "ValveSwitchOn");
+			MR::startAction(this, "ValveSwitchOn");
 
 		MR::setBrkFrameAndStop(this, 0.0f);
 		MR::setBckFrameAndStop(this, 0.0f);
@@ -341,12 +341,12 @@ void ValveSwitch::exeAdjust() {
 void ValveSwitch::exeScrew() {
 	if (MR::isFirstStep(this)) {
 		if (mIsReverse)
-			MR::startBck(this, "ValveSwitchReverseOn");
+			MR::startAction(this, "ValveSwitchReverseOn");
 		else
-			MR::startBck(this, "ValveSwitchOn");
+			MR::startAction(this, "ValveSwitchOn");
 
 		MR::startBrk(this, "ValveSwitchOn");
-		MR::startBckPlayer("ScrewSwitchOn", NULL);
+		MR::startActionPlayer("ScrewSwitchOn", NULL);
 	}
 
 	if (MR::isLessStep(this, 30))

@@ -96,7 +96,7 @@ void Mogu::kill() {
         MR::onSwitchDead(this);
 
     MR::emitEffect(this, "Death");
-    MR::startBck(mHole, "Down");
+    MR::startAction(mHole, "Down");
     MR::startLevelSound(this, "EmExplodeS", -1, -1, -1);
     MR::startLevelSound(this, "OjStarPieceBurst", -1, -1, -1);
 }
@@ -185,8 +185,8 @@ void Mogu::exeHideWait() {
 
 void Mogu::exeHide() {
     if (MR::isFirstStep(this)) {
-        MR::startBck(this, "Hide");
-        MR::startBck(mHole, "Hide");
+        MR::startAction(this, "Hide");
+        MR::startAction(mHole, "Hide");
         MR::startLevelSound(this, "EmMoguHide", -1, -1, -1);
 
         TVec3f playerOffset;
@@ -209,8 +209,8 @@ void Mogu::exeHide() {
 
 void Mogu::exeAppear() {
     if (MR::isFirstStep(this)) {
-        MR::startBck(this, "Appear");
-        MR::startBck(mHole, "Open");
+        MR::startAction(this, "Appear");
+        MR::startAction(mHole, "Open");
         MR::startLevelSound(this, "EmMoguholeOpen", -1, -1, -1);
         MR::startLevelSound(this, "EmMoguAppear", -1, -1, -1);
 
@@ -230,9 +230,9 @@ void Mogu::exeAppear() {
 void Mogu::exeSearch() {
     if (MR::isFirstStep(this)) {
         if (isNerve(&NrvMogu::NrvTurn::sInstance))
-            MR::startBck(this, "Turn");
+            MR::startAction(this, "Turn");
         else
-            MR::startBck(this, "Wait");
+            MR::startAction(this, "Wait");
     }
 
     if (isNearPlayerHipDrop())
@@ -270,9 +270,9 @@ void Mogu::exeSearch() {
 
 void Mogu::exeThrow() {
     if (MR::isFirstStep(this)) {
-        MR::startBck(this, "Throw");
+        MR::startAction(this, "Throw");
         mStone->appear();
-        MR::startBck(mStone, "Rotate");
+        MR::startAction(mStone, "Rotate");
         MR::startLevelSound(this, "EmMoguTakeItem", -1, -1, -1);
     }
 
@@ -322,10 +322,10 @@ void Mogu::exeSwoonStart() {
     if (MR::isFirstStep(this)) {
         MR::startLevelSound(this, "EmMoguTurnover", -1, -1, -1);
         MR::startLevelSound(this, "EvMoguTurnover", -1, -1, -1);
-        MR::startBck(this, "SwoonStart");
+        MR::startAction(this, "SwoonStart");
 
         if (!MR::isBckPlaying(mHole, "Open"))
-            MR::startBck(mHole, "Break");
+            MR::startAction(mHole, "Break");
     }
 
     MR::startLevelSound(this, "EmLvSwoonS", -1, -1, -1);
@@ -336,7 +336,7 @@ void Mogu::exeSwoonStart() {
 
 void Mogu::exeSwoon() {
     if (MR::isFirstStep(this))
-        MR::startBck(this, "Swoon");
+        MR::startAction(this, "Swoon");
 
     MR::startLevelSound(this, "EmLvSwoonS", -1, -1, -1);
 
@@ -348,12 +348,12 @@ void Mogu::exeSwoon() {
 
 void Mogu::exeSwoonEnd() {
     if (MR::isFirstStep(this))
-        MR::startBck(this, "SwoonEnd");
+        MR::startAction(this, "SwoonEnd");
 
     MR::startLevelSound(this, "EmLvMoguSwoonRecover", -1, -1, -1);
 
     if (MR::isActionEnd(this)) {
-        MR::startBck(mHole, "Close");
+        MR::startAction(mHole, "Close");
         MR::startLevelSound(this, "EmMoguholeClose", -1, -1, -1);
         setNerve(&NrvMogu::NrvHideWait::sInstance);
     }
@@ -361,7 +361,7 @@ void Mogu::exeSwoonEnd() {
 
 void Mogu::exeHipDropReaction() {
     if (MR::isFirstStep(this))
-        MR::startBck(this, "HipDropReaction");
+        MR::startAction(this, "HipDropReaction");
 
     if (MR::isActionEnd(this))
         setNerve(&NrvMogu::NrvSwoon::sInstance);
@@ -369,8 +369,8 @@ void Mogu::exeHipDropReaction() {
 
 void Mogu::exeStampDeath() {
     if (MR::isFirstStep(this)) {
-        MR::startBck(this, "Down");
-        MR::startBck(mHole, "Close");
+        MR::startAction(this, "Down");
+        MR::startAction(mHole, "Close");
         MR::startLevelSound(this, "EmStompedS", -1, -1, -1);
     }
 
@@ -382,8 +382,8 @@ void Mogu::exeStampDeath() {
 
 void Mogu::exeHitBlow() {
     if (MR::isFirstStep(this)) {
-        MR::startBck(this, "PunchDown");
-        MR::startBck(mHole, "Close");
+        MR::startAction(this, "PunchDown");
+        MR::startAction(mHole, "Close");
         MR::startLevelSound(this, "EmMoguholeClose", -1, -1, -1);
         MR::startBlowHitSound(this);
         MR::validateShadow(this, NULL);
