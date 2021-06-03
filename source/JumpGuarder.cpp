@@ -63,7 +63,7 @@ void JumpGuarder::init(const JMapInfoIter& rIter) {
 	MR::invalidateClipping(this);
 	initNerve(&NrvJumpGuarder::NrvHide::sInstance, 0);
 
-	MR::startActionWithInterpole(this, "Down", 0);
+	MR::startBckWithInterpole(this, "Down", 0);
 	MR::setBckFrame(this, 0.0f);
 	MR::calcAnimDirect(this);
 	mJointMtx = (Mtx*)MR::getJointMtx(this, "Body")->val;

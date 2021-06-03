@@ -243,7 +243,7 @@ u32 Poihana::receiveOtherMsg(u32 msg, HitSensor* pHit1, HitSensor* pHit2) {
 
 void Poihana::exeWait() {
 	if (MR::isFirstStep(this)) {
-		MR::startActionNoInterpole(this, "Wait");
+		MR::startBckNoInterpole(this, "Wait");
 		updateBinderSensor();
 	}
 
@@ -407,7 +407,7 @@ void Poihana::exeShock() {
 
 void Poihana::exeSwoonLand() {
 	if (MR::isFirstStep(this)) {
-		MR::startActionNoInterpole(this, "SwoonLand");
+		MR::startBckNoInterpole(this, "SwoonLand");
 		MR::startLevelSound(this, "EvPoihanaSwoon", -1, -1, -1);
 	}
 
@@ -533,7 +533,7 @@ bool Poihana::tryToStartBind(HitSensor* pHit1) {
 	if (mBindedActor == NULL && !MR::isInWater(this, TVec3f(0.0f, 0.0f, 0.0f))) {
 		MR::tryRumblePadMiddle(this, 0);
 		mBindedActor = pHit1->mParentActor;
-		MR::startActionPlayer("Rise", NULL);
+		MR::startBckPlayer("Rise", NULL);
 		MR::invalidateClipping(this);
 		return true;
 	}
