@@ -2,7 +2,7 @@
 
 #include "Actor/AreaObj/AreaObj.h"
 #include "Actor/NameObj/NameObjFactory.h"
-#include "Actor/NameObj/PlanetCreator.h"
+#include "Map/ProductMapCreator.h"
 #include "MapObj/ChipHolder.h"
 #include "MapObj/JetTurtle.h"
 #include "MapObj/MorphItemCollection.h"

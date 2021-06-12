@@ -35,7 +35,7 @@ namespace SPack {
     * allow better customizability, a bunch of classes were added, including AssemblyBlock and the
     * new ScaleMapObj.
     */
-    void* getMapObjCreator(PlanetCreator* pFactory, const char* pName) {
+    void* getMapObjCreator(ProductMapCreator* pFactory, const char* pName) {
         void* creator = pFactory->getObjClassName(pName);
 
         if (!creator) {
