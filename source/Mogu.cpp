@@ -42,8 +42,8 @@ void Mogu::init(const JMapInfoIter& rIter) {
 
         MR::getJMapInfoArg1NoInit(rIter, &mIsCannonFleetSight);
     }
-
-    initModelManagerWithAnm("Mogu", NULL);
+    
+	MR::processInitFunction(this, "Mogu", false);
 
     MR::extractMtxYDir((Mtx4*)getBaseMtx(), &mUpVec);
     mGravity.set(-mUpVec);

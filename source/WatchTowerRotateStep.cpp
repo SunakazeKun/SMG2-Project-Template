@@ -25,7 +25,7 @@ WatchTowerRotateStep::WatchTowerRotateStep(const char* pName) : LiveActor(pName)
 
 void WatchTowerRotateStep::init(const JMapInfoIter& rIter) {
     MR::initDefaultPos(this, rIter);
-    initModelManagerWithAnm("WatchTowerRotateStep", NULL);
+	MR::processInitFunction(this, rIter, false);
     MR::connectToSceneMapObj(this);
     initHitSensor(1);
 

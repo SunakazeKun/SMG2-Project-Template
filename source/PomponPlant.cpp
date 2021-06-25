@@ -29,7 +29,7 @@ void PomponPlant::init(const JMapInfoIter &rIter) {
     MR::getObjectName(&objName, rIter);
 
     MR::initDefaultPos(this, rIter);
-    initModelManagerWithAnm(objName, NULL);
+	MR::processInitFunction(this, objName, false);
     MR::connectToSceneMapObj(this);
 
     initHitSensor(1);

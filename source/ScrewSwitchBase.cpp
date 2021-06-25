@@ -111,7 +111,7 @@ ScrewSwitch::ScrewSwitch(const char* pName) : ScrewSwitchBase(pName) {
 
 void ScrewSwitch::init(const JMapInfoIter& rIter) {
 	MR::initDefaultPos(this, rIter);
-	initModelManagerWithAnm("ScrewSwitch", NULL);
+	MR::processInitFunction(this, rIter, false);
 	MR::connectToSceneMapObjDecorationStrongLight(this);
 
 	// Setup sensors
@@ -188,7 +188,7 @@ ScrewSwitchReverse::ScrewSwitchReverse(const char* pName) : ScrewSwitchBase(pNam
 
 void ScrewSwitchReverse::init(const JMapInfoIter& rIter) {
 	MR::initDefaultPos(this, rIter);
-	initModelManagerWithAnm("ScrewSwitchReverse", NULL);
+	MR::processInitFunction(this, rIter, false);
 	MR::connectToSceneMapObjDecorationStrongLight(this);
 
 	// Setup sensors
@@ -281,7 +281,7 @@ ValveSwitch::ValveSwitch(const char* pName) : ScrewSwitchBase(pName) {
 
 void ValveSwitch::init(const JMapInfoIter& rIter) {
 	MR::initDefaultPos(this, rIter);
-	initModelManagerWithAnm("ValveSwitch", NULL);
+	MR::processInitFunction(this, rIter, false);
 	MR::connectToSceneMapObjDecorationStrongLight(this);
 
 	// Setup sensors

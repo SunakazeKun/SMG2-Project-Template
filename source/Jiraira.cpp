@@ -26,7 +26,7 @@ Jiraira::Jiraira(const char* pName) : LiveActor(pName) {
 
 void Jiraira::init(const JMapInfoIter& rIter) {
     MR::initDefaultPos(this, rIter);
-    initModelManagerWithAnm("Jiraira", NULL);
+	MR::processInitFunction(this, rIter, false);
     MR::connectToSceneCollisionEnemy(this);
 
     MR::getJMapInfoArg1NoInit(rIter, &mExplosionRange);

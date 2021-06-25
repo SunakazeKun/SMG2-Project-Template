@@ -59,8 +59,8 @@ WaterLeakPipe::WaterLeakPipe(const char* pName) : LiveActor(pName) {
 
 void WaterLeakPipe::init(const JMapInfoIter & rIter) {
 	MR::initDefaultPos(this, rIter);
-
-	initModelManagerWithAnm("WaterLeakPipe", NULL);
+	
+	MR::processInitFunction(this, rIter, false);
 	mIceStepMtx = (Mtx*)MR::getJointMtx(this, "Top");
 
 	MR::getJMapInfoArg0NoInit(rIter, &mPipeLength);

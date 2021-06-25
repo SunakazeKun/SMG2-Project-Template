@@ -29,7 +29,7 @@ CrystalSwitch::CrystalSwitch(const char* pName) : LiveActor(pName) {
 
 void CrystalSwitch::init(const JMapInfoIter& rIter) {
     MR::initDefaultPos(this, rIter);
-    initModelManagerWithAnm("CrystalSwitch", NULL);
+	MR::processInitFunction(this, rIter, false);
     MR::connectToSceneMapObj(this);
 
     initHitSensor(1);

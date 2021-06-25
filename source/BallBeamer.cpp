@@ -34,7 +34,7 @@ BallBeamer::BallBeamer(const char* pName) : LiveActor(pName) {
 }
 
 void BallBeamer::init(const JMapInfoIter& rIter) {
-	initModelManagerWithAnm("BallBeamer", NULL);
+	MR::processInitFunction(this, rIter, false);
 	MR::initDefaultPos(this, rIter);
 	MR::connectToSceneEnemy(this);
 	MR::initLightCtrl(this);

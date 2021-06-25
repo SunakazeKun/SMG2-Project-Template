@@ -37,7 +37,7 @@ JumpGuarder::JumpGuarder(const char* pName) : JumpEmitter(pName) {
 }
 
 void JumpGuarder::init(const JMapInfoIter& rIter) {
-	initModelManagerWithAnm("JumpGuarder", NULL);
+	MR::processInitFunction(this, "JumpGuarder", false);
 	mHead = MR::createPartsModelNoSilhouettedMapObj(this, "ジャンプガーダー頭", "JumpGuarderHead", (Mtx4*)&_94);
 	MR::initLightCtrl(mHead);
 	MR::initDefaultPos(this, rIter);

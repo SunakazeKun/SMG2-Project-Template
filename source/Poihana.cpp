@@ -44,7 +44,7 @@ Poihana::Poihana(const char* pName) : LiveActor(pName) {
 void Poihana::init(const JMapInfoIter& rIter) {
 	MR::initDefaultPos(this, rIter);
 	MR::initActorCamera(this, rIter, &mCamInfo);
-	initModelManagerWithAnm("Poihana", NULL);
+	MR::processInitFunction(this, rIter, false);
 	MR::connectToSceneEnemy(this);
 
 	// Setup sensors

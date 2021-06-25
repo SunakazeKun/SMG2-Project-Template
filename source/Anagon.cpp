@@ -35,8 +35,7 @@ Anagon::Anagon(const char* pName) : LiveActor(pName) {
 
 void Anagon::init(const JMapInfoIter& rIter) {
 	MR::initDefaultPos(this, rIter);
-
-	initModelManagerWithAnm("Anagon", NULL);
+	MR::processInitFunction(this, rIter, false);
 	initNerve(&NrvAnagon::NrvSwim::sInstance, 0);
 	MR::setClippingTypeSphere(this, 1000.0f);
 	MR::addToAttributeGroupSearchTurtle(this);

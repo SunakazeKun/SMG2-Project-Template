@@ -27,7 +27,7 @@ HitWallTimerSwitch::HitWallTimerSwitch(const char* pName) : LiveActor(pName) {
 
 void HitWallTimerSwitch::init(const JMapInfoIter& rIter) {
 	MR::initDefaultPos(this, rIter);
-	initModelManagerWithAnm("HitWallTimerSwitch", NULL);
+	MR::processInitFunction(this, rIter, false);
 	MR::connectToSceneMapObjDecoration(this);
 
 	initHitSensor(2);
