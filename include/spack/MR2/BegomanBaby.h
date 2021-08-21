@@ -13,13 +13,13 @@ public:
 	virtual void control();
 	virtual void calcAndSetBaseMtx();
 	virtual void attackSensor(HitSensor*, HitSensor*);
-	virtual u32 receiveMsgPush(u32, HitSensor*, HitSensor*);
-	virtual u32 receiveMsgPlayerAttack(u32, HitSensor*, HitSensor*);
-	virtual u32 receiveMsgEnemyAttack(u32, HitSensor*, HitSensor*);
-	virtual u32 receiveMsgOther(u32, HitSensor*, HitSensor*);
+	virtual bool receiveMsgPush(u32, HitSensor*, HitSensor*);
+	virtual bool receiveMsgPlayerAttack(u32, HitSensor*, HitSensor*);
+	virtual bool receiveMsgEnemyAttack(u32, HitSensor*, HitSensor*);
+	virtual bool receiveMsgOther(u32, HitSensor*, HitSensor*);
 	virtual void funcBegomanBase1();
 	virtual void funcBegomanBase2();
-	virtual s32 getKind() const;
+	virtual u32 getKind() const;
 	virtual bool onTouchElectric(const JGeometry::TVec3<f32>&, const JGeometry::TVec3<f32>&);
 	virtual void setNerveReturn();
 	virtual void setNerveWait();
@@ -31,11 +31,5 @@ public:
 };
 
 namespace NrvBegomanBaby {
-	class HostTypeNrvLaunchFromGuarder : public Nerve {
-	public:
-		HostTypeNrvLaunchFromGuarder() {}
-		virtual void execute(Spine*) const;
-
-		static HostTypeNrvLaunchFromGuarder sInstance;
-	};
+	NERVE(HostTypeNrvLaunchFromGuarder);
 };

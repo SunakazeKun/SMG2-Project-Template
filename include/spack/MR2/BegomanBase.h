@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Actor/LiveActor/LiveActor.h"
+#include "LiveActor/LiveActor.h"
 
 class BegomanBase : public LiveActor {
 public:
@@ -15,7 +15,7 @@ public:
 	virtual void funcBegomanBase2() = 0;
 	virtual void sub_8015F280(s32);
 	virtual void sub_801620B0(s32);
-	virtual s32 getKind() const = 0;
+	virtual u32 getKind() const = 0;
 	virtual bool onTouchElectric(const JGeometry::TVec3<f32>&, const JGeometry::TVec3<f32>&);
 	virtual void setNerveReturn() = 0;
 	virtual void setNerveLaunch();

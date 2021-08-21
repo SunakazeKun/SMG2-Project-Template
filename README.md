@@ -1,2 +1,3 @@
-# SMG2 Project Template source code
-Here is the source code for all new custom objects and changes featured in the **SMG2 Project Template**. Compiled builds and the actual product can be downloaded [here](https://www.youtube.com/watch?v=H9Luiho9Ftc&ab_channel=Aurum). This requires [Syati](https://github.com/shibbo/Syati), a toolchain by shibbo to inject custom code into SMG2. To create matching builds for Project Template, add ``-func_align 4 -str pool`` to the build options in ``build.py``.
+# SMG2 Project Template
+You can find here the source code for all custom coded objects and changes featured in the **SMG2 Project Template**. Compiled builds and the actual download can be found under **Releases**. This requires [Syati](https://github.com/shibbo/Syati), a toolchain by shibbo to inject custom code into SMG2.
+You can find more information and videos on [my website](https://aurumsmods.com/#project-template).
