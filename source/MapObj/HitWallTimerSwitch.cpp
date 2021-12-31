@@ -58,6 +58,7 @@ void HitWallTimerSwitch::init(const JMapInfoIter &rIter) {
 
 	initNerve(&NrvHitWallTimerSwitch::NrvOff::sInstance, 0);
 
+	MR::invalidateClipping(this);
 	MR::useStageSwitchAwake(this, rIter);
 	makeActorAppeared();
 }
@@ -83,12 +84,15 @@ void HitWallTimerSwitch::calcAndSetBaseMtx() {
 }
 
 bool HitWallTimerSwitch::receiveMsgPlayerAttack(u32 msg, HitSensor *, HitSensor *) {
+	if (!isNerve(&NrvHitWallTimerSwitch::NrvOff::sInstance))
+		return false;
+
 	if (MR::isMsgPlayerHitAll(msg) || MR::isMsgPlayerHipDrop(msg) || MR::isMsgPlayerTrample(msg) || MR::isMsgStarPieceReflect(msg)) {
 		mActivate = true;
 		return !MR::isMsgPlayerHitAll(msg);
 	}
 
-	return 0;
+	return true;
 }
 
 bool HitWallTimerSwitch::receiveOtherMsg(u32 msg, HitSensor *, HitSensor *pReceiver) {
