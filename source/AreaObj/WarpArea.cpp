@@ -5,6 +5,7 @@
 * Created by Evanbowl with help from Aurum, AwesomeTMC, Galaxy Master, and Zyphro.
 * 
 * An area that takes Mario to a specified General Position with the name "WarpAreaDestPos".
+* It can also take you to galaxies using the WarpAreaStageTable BCSV file.
 */
 
 WarpArea::WarpArea(const char* pName) : AreaObj(pName) {
