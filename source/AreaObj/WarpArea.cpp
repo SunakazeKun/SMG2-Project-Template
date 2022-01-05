@@ -7,8 +7,6 @@
 * An area that takes Mario to a specified General Position with the name "WarpAreaDestPos".
 */
 
-s32 mode;
-
 WarpArea::WarpArea(const char* pName) : AreaObj(pName) {
 	mElapsed = 0;
 	warp = false;
