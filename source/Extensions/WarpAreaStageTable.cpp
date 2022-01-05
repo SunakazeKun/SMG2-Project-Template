@@ -20,16 +20,16 @@
 		BCSVFadeInType = 0;
 		BCSVFadeInTime = 0;
 		bcsvIndex = 0;
-
-		FadeInType = 0;
-		FadeInTime = 45;
 	}
 
 	bool warpareaused;
+	s32 FadeInType = 0;
+	s32 FadeInTime = 45;
+
 	void* WarpAreaStageTableBCSV = SPack::loadArcAndFile("/SystemData/PTSystemData.arc", "/System/WarpAreaStageTable.bcsv");
-	
+
 	void WarpAreaStageTable::readTable(s32 selectedindex) {
-		
+
 		JMapInfo* StageTable = new JMapInfo();
 		StageTable->attach(WarpAreaStageTableBCSV);
 
@@ -115,7 +115,7 @@
 		WarpAreaStageTable* WAST = new WarpAreaStageTable();
 
 		if (warpareaused == true) {
-			WAST->selectWipeOpen(WAST->FadeInType, WAST->FadeInTime);
+			WAST->selectWipeOpen(FadeInType, FadeInTime);
 			warpareaused = false;
 		}
 		else
