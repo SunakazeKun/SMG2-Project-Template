@@ -11,6 +11,7 @@
 WarpArea::WarpArea(const char* pName) : AreaObj(pName) {
 	mElapsed = 0;
 	warp = false;
+	pos.set(0.0f, 0.0f, 0.0f);
 	StageTable = new WarpAreaStageTable();
 }
 
@@ -51,7 +52,11 @@ if (mElapsed == mObjArg2 + 60) { //Phase 2: Set the player state to Wait to prev
 	if (mObjArg0 >= 0) {
 		char WarpAreaDestPos[0xF];
 		sprintf(WarpAreaDestPos, "WarpAreaPos%03d", mObjArg0);
-		MR::setPlayerPosAndWait(WarpAreaDestPos);
+
+		if (MR::findNamePos(WarpAreaDestPos, &pos, &pos))
+		MR::setPlayerPos(WarpAreaDestPos);
+		else
+		MR::setPlayerPos(TVec3f(0.0f, 0.0f, 0.0f));
 		}
 	else 
 	    warp = false,

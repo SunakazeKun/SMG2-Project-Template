@@ -8,9 +8,7 @@
 * WarpAreaStageTable:
 *
 * The other half of WarpArea's functionality.
-*
 * Reads the BCSV at /SystemData/PTSystemData.arc/WarpAreaStageTable.bcsv to determine what galaxy it should take the player to.
-* A loading screen is planned but may take a while to get done.
 */
 
 	WarpAreaStageTable::WarpAreaStageTable() {
@@ -112,14 +110,13 @@
 	}
 
 	void setWipeOnStageLoad() {
-		WarpAreaStageTable* WAST = new WarpAreaStageTable();
-
+		WarpAreaStageTable* wast = new WarpAreaStageTable();
 		if (warpareaused == true) {
-			WAST->selectWipeOpen(FadeInType, FadeInTime);
+			wast->selectWipeOpen(FadeInType, FadeInTime); //If the WarpArea was used, read the BCSV to determine which wipe to show.
 			warpareaused = false;
 		}
 		else
-			MR::openSystemWipeWhiteFade(90);
+			MR::openSystemWipeWhiteFade(90); //If the WarpArea was not used, just use the default wipe and wipe time.
 	}
 
 kmCall(0x804B44D0, setWipeOnStageLoad);

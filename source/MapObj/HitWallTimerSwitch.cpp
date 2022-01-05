@@ -135,7 +135,20 @@ void HitWallTimerSwitch::exeOn() {
 		else if (mScreenEffectType == 2)
 			MR::onTimeStopScreenEffect();
 
-		SPack::useTimerSE(this, mTimer);
+	}
+	s32 step = getNerveStep();
+
+	if (step <= mTimer) {
+		if (!MR::isPlayerDead() && !MR::isPowerStarGetDemoActive()) {
+			if (mTimer == step)
+				MR::startSystemSE("SE_SY_TIMER_A_0", -1, -1);
+			else if ((step % 60) == 0) {
+				if (step >= (mTimer - 120))
+					MR::startSystemSE("SE_SY_TIMER_A_1", -1, -1);
+				else
+					MR::startSystemSE("SE_SY_TIMER_A_2", -1, -1);
+			}
+		}
 	}
 	else
 		setNerve(&NrvHitWallTimerSwitch::NrvSwitchUp::sInstance);

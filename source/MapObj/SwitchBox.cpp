@@ -1,6 +1,5 @@
 #include "spack/MapObj/SwitchBox.h"
 #include "Util.h"
-#include "spack/Util/ActorUtil.h"
 
 /*
  One of the older SMG2PT objects.
@@ -57,7 +56,22 @@ void SwitchBox::exeOn() {
 }
 
 void SwitchBox::exeReturn() { //This function creates a timer sound if Obj_arg 1 and Obj_arg2 are set.
-	SPack::useTimerSE(this, mTimer);
+
+	s32 step = getNerveStep();
+
+	if (step <= mTimer) {
+		if (!MR::isPlayerDead() && !MR::isPowerStarGetDemoActive()) {
+			if (mTimer == step)
+				MR::startSystemSE("SE_SY_TIMER_A_0", -1, -1);
+			else if ((step % 60) == 0) {
+				if (step >= (mTimer - 120))
+					MR::startSystemSE("SE_SY_TIMER_A_1", -1, -1);
+				else
+					MR::startSystemSE("SE_SY_TIMER_A_2", -1, -1);
+			}
+		}
+	}
+
 	if (MR::isStep(this, mTimer)) { //Checks if the set time has run out.
 		MR::offSwitchDead(this); //Deactivates SW_DEAD.
 
