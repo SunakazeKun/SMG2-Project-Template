@@ -12,5 +12,6 @@ namespace SPack {
 	void initPosRotFromRailRider(LiveActor *pActor);
 	void updatePosRotFromRailRider(LiveActor *pActor);
 	AnimScaleController* createSamboAnimScaleController(AnimScaleParam *pAnimScaleParam);
+	void useTimerSE(LiveActor* pActor, s32 pTime);
 	void* loadArcAndFile(const char* pArc, const char* pFile);
 };

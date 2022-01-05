@@ -2,7 +2,7 @@
 #include "Screen/SwitchingScreenEffect.h"
 #include "Screen/TimeStopScreenEffect.h"
 #include "Util.h"
-
+#include "spack/Util/ActorUtil.h"
 /*
 * Authors: Aurum
 * Objects: HitWallTimerSwitch
@@ -134,21 +134,8 @@ void HitWallTimerSwitch::exeOn() {
 			MR::onSwitchingScreenEffect();
 		else if (mScreenEffectType == 2)
 			MR::onTimeStopScreenEffect();
-	}
 
-	s32 step = getNerveStep();
-
-	if (step <= mTimer) {
-		if (!MR::isPlayerDead() && !MR::isPowerStarGetDemoActive()) {
-			if (mTimer == step)
-				MR::startSystemSE("SE_SY_TIMER_A_0", -1, -1);
-			else if ((step % 60) == 0) {
-				if (step >= (mTimer - 120))
-					MR::startSystemSE("SE_SY_TIMER_A_1", -1, -1);
-				else
-					MR::startSystemSE("SE_SY_TIMER_A_2", -1, -1);
-			}
-		}
+		SPack::useTimerSE(this, mTimer);
 	}
 	else
 		setNerve(&NrvHitWallTimerSwitch::NrvSwitchUp::sInstance);

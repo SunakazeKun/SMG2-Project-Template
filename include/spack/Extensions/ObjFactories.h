@@ -10,6 +10,7 @@
 #include "Ride/SwingRope.h"
 #include "Scene/SceneObjHolder.h"
 #include "spack/AreaObj/JumpSwitchArea.h"
+#include "spack/AreaObj/WarpArea.h"
 #include "spack/Enemy/Anagon.h"
 #include "spack/Enemy/BallBeamer.h"
 #include "spack/Enemy/Banekiti.h"
@@ -31,9 +32,9 @@
 #include "spack/MapObj/PomponPlant.h"
 #include "spack/MapObj/PowerStarSpawner.h"
 #include "spack/MapObj/ScrewSwitchBase.h"
+#include "spack/MapObj/SwitchBox.h"
 #include "spack/MapObj/WatchTowerRotateStep.h"
 #include "spack/MapObj/WaterLeakPipe.h"
-#include "spack/AreaObj/WarpArea.h"
 /*
 * Alias that allows static addresses to be used as creation functions. DEPRECATED since 2021-08-21!
 * This is only kept here for backwards compatibility, but it will be removed in future versions.
@@ -101,6 +102,7 @@ namespace SPack {
     CREATE_EXT_ACTOR(MorphItemNeoFoo, "飛行オブジェ");
     CREATE_EXT_ACTOR(MorphItemNeoIce, "アイスオブジェ");
     CREATE_EXT_ACTOR(PowerStarSpawner, "PowerStarSpawner");
+    CREATE_EXT_ACTOR(SwitchBox, pName);
     CREATE_EXT_ACTOR(SwitchDice, pName);
     CREATE_EXT_ACTOR(FirePressureRadiate, pName);
     CREATE_EXT_ACTOR(Jiraira, pName);
@@ -111,10 +113,10 @@ namespace SPack {
     CREATE_EXT_ACTOR(ScrewSwitch, pName);
     CREATE_EXT_ACTOR(ScrewSwitchReverse, pName);
     CREATE_EXT_ACTOR(ValveSwitch, pName);
+    CREATE_EXT_ACTOR(WarpArea, pName);
     CREATE_EXT_ACTOR(WatchTowerRotateStep, pName);
     CREATE_EXT_ACTOR(WaterLeakPipe, pName);
     CREATE_EXT_ACTOR(SwingRope, pName);
-    CREATE_EXT_ACTOR(WarpArea, pName);
 
     NameObj* createQuakeEffectArea(const char *pName) {
         if (!MR::isExistSceneObj(SceneObj_QuakeEffectGenerator))
@@ -130,7 +132,7 @@ namespace SPack {
     * Number of total new actor entries. This value has to adjusted everytime a creation function
     * is added or removed!
     */
-    #define NUM_ACTORS 43
+    #define NUM_ACTORS 44
 
     const CreateActorEntry cNewCreateNameObjTable[NUM_ACTORS] = {
         // AreaObj
@@ -175,6 +177,7 @@ namespace SPack {
         { "Pompon2Plant", createExtActor<PomponPlant> },
         { "ScrewSwitch", createExtActor<ScrewSwitch> },
         { "ScrewSwitchReverse", createExtActor<ScrewSwitchReverse> },
+        { "SwitchBox", createExtActor<SwitchBox> },
         { "ValveSwitch", createExtActor<ValveSwitch> },
         { "UFOBlueStarCupsule", NameObjFactory::createNameObj<BlueStarCupsulePlanet> },
         { "WatchTowerRotateStep", createExtActor<WatchTowerRotateStep>},
