@@ -5,4 +5,6 @@
 namespace SPack {
 	s32 getPowerStarColor(const char *pStage, s32 scenarioId);
 	s32 getPowerStarColorCurrentStage(s32 scenarioId);
+
+	wchar_t* getStarIcon(wchar_t* unk, s32 type);
 };

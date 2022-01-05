@@ -2,6 +2,7 @@
 #include "System/GalaxyStatusAccessor.h"
 #include "System/ScenarioDataParser.h"
 #include "Util.h"
+#include "spack/Util/ActorUtil.h"
 
 /*
 * Authors: Aurum
@@ -30,14 +31,15 @@ namespace SPack {
 		GalaxyStatusAccessor gsa(MR::makeGalaxyStatusAccessor(pStage));
 		gsa.mScenarioData->getScenarioString("PowerStarType", scenarioId, &type);
 
-		if (MR::isEqualString(type, "Bronze"))
+		if (strstr(type, "Bronze"))
 			return 1;
-		else if (MR::isEqualString(type, "Green") || MR::isEqualString(type, "LegacyGreen"))
+		else if (strstr(type, "Green") || strstr(type, "LegacyGreen"))
 			return 2;
-		else if (MR::isEqualString(type, "Red"))
+		else if (strstr(type, "Red"))
 			return 3;
-		else if (MR::isEqualString(type, "Blue"))
+		else if (strstr(type, "Blue"))
 			return 5;
+			
 		return 0;
 	}
 
@@ -48,7 +50,7 @@ namespace SPack {
 	s32 getPowerStarColorCurrentStage(s32 scenarioId) {
 		return getPowerStarColor(MR::getCurrentStageName(), scenarioId);
 	}
-	
+
 	/*
 	* At the given address in PowerStar::initMapToolInfo(const JMapInfoIter&), there is a
 	* check which always results true, allowing us to rewrite these instructions. Here, we
@@ -58,21 +60,21 @@ namespace SPack {
 	kmWrite32(0x802E01B8, 0x7C030378); // copy r0 (mPowerStarID / scenario) to r3
 	kmCall(0x802E01BC, getPowerStarColorCurrentStage); // retrieve color ID
 	kmWrite32(0x802E01C0, 0x907E0130); // store result (r3) in mColor
-	
+
 	/*
 	* initMapToolInfo still is not perfect meaning that there is still a thing to take
 	* proper care of. If not a Green Star, the color ID should not default to 0 (gold).
 	* Instead, we want our previously loaded color to be used. This replaces "li r3, 0".
 	*/
 	kmWrite32(0x802E01F0, 0x807E0130); // load mColor into r3
-	
+
 	/*
 	* This adjusts the Star Select scene to apply our new colors correctly. Basically,
 	* we replaced the check for Green Stars and extended it with our colors.
 	*/
 	kmCall(0x802DFC14, getPowerStarColorCurrentStage); // redirection hook
 	kmWrite32(0x802DFC20, 0x60000000); // NOP-out returning green all the time
-	
+
 	/*
 	* Lastly, we still have to patch the Star return cutscene to account for the newly
 	* added color. This one could possibly be improved in the future to reduce all the
@@ -82,7 +84,7 @@ namespace SPack {
 	kmWrite32(0x802DF100, 0x7C7C1B78); // copy result from r3 to r28
 	kmWrite32(0x802DF104, 0x2C1C0000); // compare r28 to 0
 	kmWrite32(0x802DF108, 0x41820008); // branch to apply gold or transparent
-	
+
 	/*
 	* Whenever a Power Star is created for a cutscene, a different set of functions is
 	* used to retrieve and apply the color. This is a simple fix, however. For this, the
@@ -94,4 +96,98 @@ namespace SPack {
 	kmCall(0x8035BAC0, getPowerStarColorCurrentStage); // redirection hook
 	kmWrite32(0x802DF02C, 0x7C7D1B78); // copy result from r3 to r29
 	kmWrite32(0x802DF030, 0x4800000C); // skip unnecessary instructions
+
+	kmWrite32(0x804CB8BC, 0x48169D65); //This uses strstr instead of MR::isEqualString in the isPowerStarTypeHidden__12ScenarioDataCFl function. Allows types like BlueHidden to work.
+
+	/*
+	* Power Star Font Icons
+	*
+	* On the World Map and Star List, the game displays star icons based on the Power Star type and Comet.
+	* However, we've changed this so that new and custom star types can be displayed.
+	*
+	* Here we load a custom BRFNT from PTSystemData.arc so we do not have to edit the font in all languages.
+    *
+	* When the game selects which icon to display, it calls MR::addPictureFontCode and r4 is used to deter-
+	* mine which icon from the BRFNT should be used. Here we use that to check which icon type to use, then run a check for Power Star color. 
+	*/
+
+	void loadPTPictureFont() {
+	loadArcAndFile("/SystemData/PTSystemData.arc", "/Font/PTPictureFont.brfnt");
+	}
+
+	wchar_t* getStarIcon(wchar_t* unk, s32 type) {
+		const char *pStage;
+		s32 scenarioId;
+		s32 icon;
+
+		asm("mr %0, r27" : "=r" (pStage));
+		asm("mr %0, r31" : "=r" (scenarioId));
+
+	 	s32 getStarColor = getPowerStarColor(pStage, scenarioId);
+
+		if (type == 0x37) //Normal Star icons
+		switch (getStarColor) {
+			case 0:
+				icon = 0x37; //Normal
+			break;
+			case 1:
+				icon = 0x72; //Bronze
+			break;
+			case 2:
+				icon = 0x80; //LegacyGreen
+			break;
+			case 3:
+				icon = 0x7E; //Red
+			break;
+			case 5:
+				icon = 0x7F; //Blue
+			break;
+			}
+
+		else if (type == 0x65) //Comet Star icons
+			switch (getStarColor) {
+			case 0:
+				icon = 0x65; //Normal
+			break;
+			case 1:
+				icon = 0x7D; //Bronze
+			break;
+			case 2:
+				icon = 0x4F; //LegacyGreen
+			break;
+			case 3:
+				icon = 0x81; //Red
+			break;
+			case 5:
+				icon = 0x82; //Blue
+			break;
+			}
+
+		else if (type == 0x71) //Uncollected Hidden Star icons
+		switch (getStarColor) {
+			case 0:
+				icon = 0x71; //Normal
+			break;
+			case 1:
+				icon = 0x86; //Bronze
+			break;
+			case 2:
+				icon = 0x85; //LegacyGreen
+			break;
+			case 3:
+				icon = 0x83; //Red
+			break;
+			case 5:
+				icon = 0x84; //Blue
+			break;
+			}
+		return MR::addPictureFontCode(unk, icon);
+	}
+	
+	kmCall(0x804B8048, loadPTPictureFont);
+	
+	kmCall(0x80041E30, getStarIcon); //Normal Star icons
+	kmCall(0x80041F0C, getStarIcon); //Comet Star icons
+	kmCall(0x80041F94, getStarIcon); //Hidden Star icons
+	kmCall(0x80041F48, getStarIcon); //Collected Hidden Star icons
 }

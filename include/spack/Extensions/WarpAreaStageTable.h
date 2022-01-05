@@ -17,7 +17,4 @@ public:
 	s32 BCSVFadeInType;
 	s32 BCSVFadeInTime;
 	s32 bcsvIndex;
-
-	s32 FadeInType;
-	s32 FadeInTime;
 	};
