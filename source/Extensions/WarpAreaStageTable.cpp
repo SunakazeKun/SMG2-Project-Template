@@ -13,7 +13,7 @@
 * A loading screen is planned but may take a while to get done.
 */
 
-		WarpAreaStageTable::WarpAreaStageTable() {
+	WarpAreaStageTable::WarpAreaStageTable() {
 		destStage;
 		destScenario = 0;
 		destGreenStarScenario = 0;
@@ -23,10 +23,11 @@
 
 		FadeInType = 0;
 		FadeInTime = 45;
-		}
+	}
 
-bool warpareaused;
+	bool warpareaused;
 	void* WarpAreaStageTableBCSV = SPack::loadArcAndFile("/SystemData/PTSystemData.arc", "/System/WarpAreaStageTable.bcsv");
+	
 	void WarpAreaStageTable::readTable(s32 selectedindex) {
 		
 		JMapInfo* StageTable = new JMapInfo();
@@ -112,7 +113,7 @@ bool warpareaused;
 
 	void setWipeOnStageLoad() {
 		WarpAreaStageTable* WAST = new WarpAreaStageTable();
-		
+
 		if (warpareaused == true) {
 			WAST->selectWipeOpen(WAST->FadeInType, WAST->FadeInTime);
 			warpareaused = false;

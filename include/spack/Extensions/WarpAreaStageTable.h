@@ -3,8 +3,8 @@
 #include "syati.h"
 
 class WarpAreaStageTable {
-	public:
-    
+public:
+
 	WarpAreaStageTable();
 	void readTable(s32 selectedindex);
 
