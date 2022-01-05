@@ -3,6 +3,8 @@
 #include "LiveActor/LiveActor.h"
 #include "Util/LiveActorUtil.h"
 #include "Util/MtxUtil.h"
+#include "Util.h"
+#include "Util/FileUtil.h"
 
 /*
 * Authors: Aurum
@@ -50,5 +52,20 @@ namespace SPack {
 		pAnimScaleParam->_28 = 0.8f;
 
 		return new AnimScaleController(pAnimScaleParam);
+	}
+
+    //Loads an arc and a selected file into memory.
+	void* loadArcAndFile(const char* pArc, const char* pFile) {
+	JKRArchive* arc = MR::mountArchive(pArc, MR::getStationedHeapGDDR3(), 0);
+	void* file = arc->getResource(pFile);
+
+	if (arc && file) {
+		OSReport("Archive %s and file %s both exist!\n", pArc, pFile);
+		return file;
+	}
+	else
+		OSReport("%s %s isn't exist!\n", pArc, pFile);
+
+	return 0;
 	}
 }

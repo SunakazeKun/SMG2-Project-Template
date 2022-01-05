@@ -33,7 +33,7 @@
 #include "spack/MapObj/ScrewSwitchBase.h"
 #include "spack/MapObj/WatchTowerRotateStep.h"
 #include "spack/MapObj/WaterLeakPipe.h"
-
+#include "spack/AreaObj/WarpArea.h"
 /*
 * Alias that allows static addresses to be used as creation functions. DEPRECATED since 2021-08-21!
 * This is only kept here for backwards compatibility, but it will be removed in future versions.
@@ -114,6 +114,7 @@ namespace SPack {
     CREATE_EXT_ACTOR(WatchTowerRotateStep, pName);
     CREATE_EXT_ACTOR(WaterLeakPipe, pName);
     CREATE_EXT_ACTOR(SwingRope, pName);
+    CREATE_EXT_ACTOR(WarpArea, pName);
 
     NameObj* createQuakeEffectArea(const char *pName) {
         if (!MR::isExistSceneObj(SceneObj_QuakeEffectGenerator))
@@ -129,7 +130,7 @@ namespace SPack {
     * Number of total new actor entries. This value has to adjusted everytime a creation function
     * is added or removed!
     */
-    #define NUM_ACTORS 42
+    #define NUM_ACTORS 43
 
     const CreateActorEntry cNewCreateNameObjTable[NUM_ACTORS] = {
         // AreaObj
@@ -140,6 +141,7 @@ namespace SPack {
         { "PipeModeArea", NameObjFactory::createNameObj<AreaObj> },
         { "PlaneCircularModeArea", NameObjFactory::createNameObj<AreaObj> },
         { "QuakeEffectArea", createQuakeEffectArea },
+        { "WarpArea", createExtActor<WarpArea> },
         // Enemy
         { "Anagon", createExtActor<Anagon> },
         { "BallBeamer", createExtActor<BallBeamer> },
