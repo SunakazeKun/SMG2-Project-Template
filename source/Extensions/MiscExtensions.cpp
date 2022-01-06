@@ -124,4 +124,26 @@ namespace SPack {
 	}
 
 	kmCall(0x8026360C, initQuakeEffectGeneratorSound); // redirection hook
+
+    /*
+	* Debugging feature: displaying the file name on the "File isn't exist" error.
+	*
+	* When the game checks if a file exists, it runs MR::isFileExist, and if the file it's checking for doesn't exist, it calls OSFatal, 
+	* crashing the game. It also prints "File isn't exist" to the log.
+	*
+	* Here, the MR::isFileExist call is replaced with a call to this new function, that prints the file name with the error, if the checked file is missing.
+	*
+	* This is useful for debugging certain things!
+    */
+
+    bool printFileNameIfMissing(const char* fileName) {
+		if (MR::isFileExist(fileName, 0))
+			return 1;
+		else {
+			OSPanic("FileRipper.cpp", 118, "File \"%s\" isn't exist.", fileName);
+			return 0;
+		}
+	}
+
+	kmCall(0x804B1FE0, printFileNameIfMissing);
 }
