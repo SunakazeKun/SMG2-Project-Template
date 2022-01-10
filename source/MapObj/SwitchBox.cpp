@@ -40,6 +40,7 @@ void SwitchBox::exeOn() {
 		MR::hideModel(this); //Makes the SwitchBox invisible.
 		MR::invalidateCollisionParts(this); //Makes the SwitchBox intangible.
 		MR::invalidateHitSensor(this, "SwitchBox"); //Invalidates all HitSensors.
+		MR::invalidateClipping(this); //Makes the SwitchBox never unload when activated.
 
 	if (MR::isInWater(mTranslation)) { //Check if the object is placed in water.
 		MR::emitEffect(this, "BreakWater"); //Display water particles and sound.
@@ -80,6 +81,7 @@ void SwitchBox::exeReturn() { //This function creates a timer sound if Obj_arg 1
 		MR::validateCollisionParts(this); //Makes the SwitchBox tangible.
 		MR::validateHitSensor(this, "SwitchBox"); //Validates all HitSensors.
 		MR::emitEffect(this, "Return"); //Displays a particle effect.
+		MR::validateClipping(this); //Allows the SwitchBox to be unloaded when deactive.
 
 		initNerve(&NrvSwitchBox::NrvWait::sInstance, 0); //Sets the nerve to "Wait".
 		}

@@ -53,7 +53,7 @@
 				canWarp = false; //Disable warping since the selected row was not set up correctly.
 			}
 
-			if (destGreenStarScenario < 0 || destGreenStarScenario > 4) {
+			if (destGreenStarScenario < -1 || destGreenStarScenario > 4 || destGreenStarScenario == 0) {
 				errorLayout->printf(useErrors, "%d is not a valid green star scenario.\n", destGreenStarScenario); //Print a message if an invalid green star scenario is input
 				canWarp = false; 
 			}
@@ -61,7 +61,7 @@
 			WipeType = BCSVWipeType; //Separate variables are used to prevent the needed values from being overwritten by the next row in the BCSV.
 			WipeTime = BCSVWipeTime; //Awful and janky, but it works.
 
-			if (destGreenStarScenario) //Green stars in the WarpAreaStageTable work nicely. Just input a 2, for example, and you'll go to Green Star 2!
+			if (destGreenStarScenario > 0) //Green stars in the WarpAreaStageTable work nicely. Just input a 2, for example, and you'll go to Green Star 2!
 				destGreenStarScenario += 3;
 
 			if (canWarp) { //If the selected BCSV index is set up correctly, go to the galaxy specified by destStage.
