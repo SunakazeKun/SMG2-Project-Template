@@ -28,7 +28,7 @@ PowerStarSpawner::PowerStarSpawner(const char* pName) : LiveActor(pName) {
 	mUseSuccessSE = -1;
 	mUseDisplayModel = -1;
 	GroupID = -1;
-	YOffset = 300.0f;
+	mYOffset = 300.0f;
 }
 
 void PowerStarSpawner::init(JMapInfoIter const& rIter) {
@@ -49,7 +49,7 @@ void PowerStarSpawner::init(JMapInfoIter const& rIter) {
 	MR::getJMapInfoArg3NoInit(rIter, &mUseSuccessSE); //Play a sound when activated?
 	MR::getJMapInfoArg4NoInit(rIter, &mFromMario); //Should the Star start it's spawn path at Mario?
 	MR::getJMapInfoArg5NoInit(rIter, &mUseDisplayModel); //Show display model?
-	MR::getJMapInfoArg6NoInit(rIter, &YOffset); //Y Offset if "Spawn At Mario" is used.
+	MR::getJMapInfoArg6NoInit(rIter, &mYOffset); //Y Offset if "Spawn At Mario" is used.
 
 	MR::getJMapInfoGroupID(rIter, &GroupID); //This will cause the PowerStarSpawner to start and end the Power Star's spawn path at Mario.
 
@@ -112,7 +112,7 @@ void PowerStarSpawner::movement() {
 	PowerStarSpawner::spawnAtMario(250); //This is used to bypass an issue where if a star starts it's spawn path at the player, it de-rails the player off of launch star rails.
 	
 	if (GroupID >= 0)
-	PowerStarSpawner::spawnAtMario(YOffset); //This function moves the Power Star Spawner to Mario and also puts it above him relative to the current gravity, only if a Group ID is set.
+	PowerStarSpawner::spawnAtMario(mYOffset); //This function moves the Power Star Spawner to Mario and also puts it above him relative to the current gravity, only if a Group ID is set.
 	
 	if (mUseDisplayModel == 1)
 	MR::rotateMtxLocalYDegree((MtxPtr)&DisplayStarMtx, 3),

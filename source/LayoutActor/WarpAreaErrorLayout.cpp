@@ -17,12 +17,12 @@ void ErrorLayout::init(const JMapInfoIter& rIter) {
 void ErrorLayout::movement() {
 }
 
-void ErrorLayout::printf(bool canPrint, const char* format, ...) {
+void ErrorLayout::printf(bool canPrint, const char* format, ...) { //This function prints text to the TxtText and ShaText panes.
 	va_list arg;
 	char string[128];
 
 	va_start(arg, format);
-	vsnprintf(string, sizeof (string), format, arg);
+	vsnprintf(string, sizeof(string), format, arg);
 	va_end(arg);
 
 	if (canPrint) {
@@ -30,14 +30,3 @@ void ErrorLayout::printf(bool canPrint, const char* format, ...) {
 		MR::setTextBoxFormatRecursive(this, "ShaText", L"%s", string);
 	}
 }
-
-
-void initCustomLayouts(NameObj* pNameObj) {//You can use this to make custom layouts always visible.
-	MR::connectToSceneLayout(pNameObj);
-	
-	//Example:
-	//LayoutName* name = new LayoutName();
-	//name->initWithoutIter();
-}
-
-kmCall(0x804657A0, initCustomLayouts);

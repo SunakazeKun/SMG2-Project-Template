@@ -14,17 +14,17 @@
 */
 
 	WarpAreaStageTable::WarpAreaStageTable(bool init) {
-		destStage; //Destination Stage Name
-		destScenario = 0; //Destionation Scenario Number
-		destGreenStarScenario = 0; //Green Star Scenario Number
-		BCSVWipeType = 0; //Wipe Fade In Type (to be copied to "WipeType")
-		BCSVWipeTime = 0; //Wipe Fade In Time (to be copied to "WipeTime")
-		bcsvIndex = 0; //BCSV Index
-		canWarp = true; //Boolean that prevents the warparea transition from happening if it was not set up correctly.
-		errorLayout = new ErrorLayout();
+		mDestStageName; //Destination Stage Name
+		mDestScenarioNo = 0; //Destionation Scenario Number
+		mDestGreenScenarioNo = 0; //Green Star Scenario Number
+		mBCSVWipeType = 0; //Wipe Fade In Type (to be copied to "WipeType")
+		mBCSVWipeTime = 0; //Wipe Fade In Time (to be copied to "WipeTime")
+		mIndex = 0; //BCSV Index
+		mCanWarp = true; //Boolean that prevents the warparea transition from happening if it was not set up correctly.
+		mErrorLayout = new ErrorLayout();
 
 		if (init)
-		errorLayout->initWithoutIter();
+		mErrorLayout->initWithoutIter();
 	}
 
 	bool warpareaused;
@@ -39,38 +39,38 @@
 		StageTable->attach(WarpAreaStageTableBCSV);
 
 		for (s32 i = 0; i < MR::getCsvDataElementNum(StageTable); i++) {
-			MR::getCsvDataStr(&destStage, StageTable, "StageName", i);
-			MR::getCsvDataS32(&destScenario, StageTable, "ScenarioNo", i);
-			MR::getCsvDataS32(&destGreenStarScenario, StageTable, "GreenStarScenarioNo", i);
-			MR::getCsvDataS32(&BCSVWipeType, StageTable, "WipeType", i);
-			MR::getCsvDataS32(&BCSVWipeTime, StageTable, "WipeTime", i);
-			MR::getCsvDataS32(&bcsvIndex, StageTable, "Index", i);
+			MR::getCsvDataStr(&mDestStageName, StageTable, "StageName", i);
+			MR::getCsvDataS32(&mDestScenarioNo, StageTable, "ScenarioNo", i);
+			MR::getCsvDataS32(&mDestGreenScenarioNo, StageTable, "GreenStarScenarioNo", i);
+			MR::getCsvDataS32(&mBCSVWipeType, StageTable, "WipeType", i);
+			MR::getCsvDataS32(&mBCSVWipeTime, StageTable, "WipeTime", i);
+			MR::getCsvDataS32(&mIndex, StageTable, "Index", i);
 
-		if (selectedindex == bcsvIndex) {
+		if (selectedindex == mIndex) {
 
-			if (destScenario < 1 || destScenario > 8) {
-				errorLayout->printf(useErrors, "%d is not a valid scenario.\n", destScenario); //Print a message on screen if an invalid scenario number is input.
-				canWarp = false; //Disable warping since the selected row was not set up correctly.
+			if (mDestScenarioNo < 1 || mDestScenarioNo > 8) {
+				mErrorLayout->printf(useErrors, "%d is not a valid scenario.\n", mDestScenarioNo); //Print a message on screen if an invalid scenario number is input.
+				mCanWarp = false; //Disable warping since the selected row was not set up correctly.
 			}
 
-			if (destGreenStarScenario < -1 || destGreenStarScenario > 4 || destGreenStarScenario == 0) {
-				errorLayout->printf(useErrors, "%d is not a valid green star scenario.\n", destGreenStarScenario); //Print a message if an invalid green star scenario is input
-				canWarp = false; 
+			if (mDestGreenScenarioNo < -1 || mDestGreenScenarioNo > 4 || mDestGreenScenarioNo == 0) {
+				mErrorLayout->printf(useErrors, "%d is not a valid green star scenario.\n",  mDestGreenScenarioNo); //Print a message if an invalid green star scenario is input
+				mCanWarp = false; 
 			}
 			
-			WipeType = BCSVWipeType; //Separate variables are used to prevent the needed values from being overwritten by the next row in the BCSV.
-			WipeTime = BCSVWipeTime; //Awful and janky, but it works.
+			WipeType = mBCSVWipeType; //Separate variables are used to prevent the needed values from being overwritten by the next row in the BCSV.
+			WipeTime = mBCSVWipeTime; //Awful and janky, but it works.
 
-			if (destGreenStarScenario > 0) //Green stars in the WarpAreaStageTable work nicely. Just input a 2, for example, and you'll go to Green Star 2!
-				destGreenStarScenario += 3;
+			if (mDestGreenScenarioNo > 0) //Green stars in the WarpAreaStageTable work nicely. Just input a 2, for example, and you'll go to Green Star 2!
+				mDestGreenScenarioNo += 3;
 
-			if (canWarp) { //If the selected BCSV index is set up correctly, go to the galaxy specified by destStage.
-				MR::goToGalaxy(destStage);
-				MR::goToGalaxyWithoutScenarioSelect(destStage, destScenario, destGreenStarScenario, 0);
+			if (mCanWarp) { //If the selected BCSV index is set up correctly, go to the galaxy specified by destStage.
+				MR::goToGalaxy(mDestStageName);
+				MR::goToGalaxyWithoutScenarioSelect(mDestStageName, mDestScenarioNo, mDestGreenScenarioNo, 0);
 				warpareaused = true;
-				errorLayout->kill();
+				mErrorLayout->kill(); //Kill the layout since it is not needed anymore.
 			}
-			else {
+			else { //Open up the wipe and restore player control if the galaxy transition fails
 				MR::openSystemWipeCircle(45);
 				MR::onPlayerControl(1);
 			}
@@ -101,6 +101,7 @@
 		break;
 		case 5:
 		MR::closeSystemWipeMario(fadeTime);
+		break;
 		}
 	}
 

@@ -29,5 +29,5 @@ public:
 	ModelObj* DisplayStar;
 	TVec3f upVec;
 	Mtx DisplayStarMtx;
-	f32 YOffset;
+	f32 mYOffset;
 };

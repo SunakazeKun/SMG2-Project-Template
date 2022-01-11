@@ -12,12 +12,10 @@ public:
 	virtual void movement();
 	virtual void exeWarp();
 	virtual const char* getManagerName() const;
-	
+
 	s32 mElapsed;
-	s32 WarpID;
-	s32 mode;
-	bool warp;
-	TVec3f pos;
-	WarpAreaStageTable* stageTable;
-	ErrorLayout* errorLayout;
+	bool mCanWarp;
+	TVec3f mPos;
+	WarpAreaStageTable* mStageTable;
+	ErrorLayout* mErrorLayout;
 };

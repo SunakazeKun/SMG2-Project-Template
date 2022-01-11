@@ -12,12 +12,12 @@ public:
 	void selectWipeClose(s32 type, s32 fadeTime);
 	void selectWipeOpen(s32 type, s32 fadeTime);
 
-	const char* destStage;
-	s32 destScenario;
-	s32 destGreenStarScenario;
-	s32 BCSVWipeType;
-	s32 BCSVWipeTime;
-	s32 bcsvIndex;
-	bool canWarp;
-	ErrorLayout* errorLayout;
+	const char* mDestStageName;
+	s32 mDestScenarioNo;
+	s32 mDestGreenScenarioNo;
+	s32 mBCSVWipeType;
+	s32 mBCSVWipeTime;
+	s32 mIndex;
+	bool mCanWarp;
+	ErrorLayout* mErrorLayout;
 	};
