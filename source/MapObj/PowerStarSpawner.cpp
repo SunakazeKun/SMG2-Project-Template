@@ -1,8 +1,8 @@
 #include "spack/MapObj/PowerStarSpawner.h"
+#include "spack/Extensions/PowerStarColors.h"
 #include "Util.h"
 #include "Player/MarioAccess.h"
-#include "Player/MarioActor.h"
-#include "spack/Extensions/PowerStarColors.h"
+
 /*
 * Created by Aurum, Evanbowl & Someone, with Group ID support thanks to Zyphro.
 * 
@@ -13,6 +13,14 @@
 *
 * One of my favorite objects!
 *
+	Obj_args:
+	0: Power Star ID, int
+	1: Spawn Type, int
+	2: Spawn Delay, int
+	3: Use Sound Effect, bool
+	4: Use Mario's Position, bool
+	5: Use Display Model, int
+	6: Y Offset for spawning at the player, float, Default is 300.
 */
 
 PowerStarSpawner::PowerStarSpawner(const char* pName) : LiveActor(pName) {
@@ -75,7 +83,7 @@ void PowerStarSpawner::createDisplayStar() {
 	MR::emitEffect(DisplayStar, "Light"); //Starts the PowerStar effect "Light" on the DisplayStar.
 	MR::invalidateShadowAll(DisplayStar); //Shadows are not needed so they are hidden.
 
-	this->setupColorDisplayStar(DisplayStar, mScenario);
+	setupColorDisplayStar(DisplayStar, mScenario);
 
 	if (mUseDisplayModel == 1)
 	upVec.set<f32>(-mGravity), //Sets the up vector to what the gravity is. This allows the DisplayStar to calculate it's gravity, like the normal PowerStar.

@@ -18,4 +18,13 @@ public:
 	TVec3f mPos;
 	WarpAreaStageTable* mStageTable;
 	ErrorLayout* mErrorLayout;
+
+    //Obj_args are defined this way to make the code easier to read
+	#define mPosID mObjArg0
+	#define mIndex mObjArg1
+	#define mFadeCloseType mObjArg2
+	#define mFadeCloseTime mObjArg3
+	#define mFadeOpenType mObjArg4
+	#define mFadeOpenTime mObjArg5
+	#define mPrintErrors mObjArg6
 };

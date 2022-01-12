@@ -56,9 +56,9 @@
 			if (mDestGreenScenarioNo < -1 || mDestGreenScenarioNo > 4 || mDestGreenScenarioNo == 0) {
 				mErrorLayout->printf(useErrors, "%d is not a valid green star scenario.\n",  mDestGreenScenarioNo); //Print a message if an invalid green star scenario is input
 				mCanWarp = false; 
-			}
+			}       
 			
-			WipeType = mBCSVWipeType; //Separate variables are used to prevent the needed values from being overwritten by the next row in the BCSV.
+			WipeType  = mBCSVWipeType; //Separate variables are used to prevent the needed values from being overwritten by the next row in the BCSV.
 			WipeTime = mBCSVWipeTime; //Awful and janky, but it works.
 
 			if (mDestGreenScenarioNo > 0) //Green stars in the WarpAreaStageTable work nicely. Just input a 2, for example, and you'll go to Green Star 2!
@@ -67,6 +67,7 @@
 			if (mCanWarp) { //If the selected BCSV index is set up correctly, go to the galaxy specified by destStage.
 				MR::goToGalaxy(mDestStageName);
 				MR::goToGalaxyWithoutScenarioSelect(mDestStageName, mDestScenarioNo, mDestGreenScenarioNo, 0);
+				OSReport("(WarpAreaStageTable) Going to %s %d, Green Star %d, Wipe Type: %d, Wipe Time: %d, BCSV Index: %d\n", mDestStageName, mDestScenarioNo, mDestGreenScenarioNo, WipeType, WipeTime, mIndex);
 				warpareaused = true;
 				mErrorLayout->kill(); //Kill the layout since it is not needed anymore.
 			}
