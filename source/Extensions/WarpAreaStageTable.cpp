@@ -67,7 +67,6 @@
 			if (mCanWarp) { //If the selected BCSV index is set up correctly, go to the galaxy specified by destStage.
 				MR::goToGalaxy(mDestStageName);
 				MR::goToGalaxyWithoutScenarioSelect(mDestStageName, mDestScenarioNo, mDestGreenScenarioNo, 0);
-				OSReport("(WarpAreaStageTable) Going to %s %d, Green Star %d, Wipe Type: %d, Wipe Time: %d, BCSV Index: %d\n", mDestStageName, mDestScenarioNo, mDestGreenScenarioNo, WipeType, WipeTime, mIndex);
 				warpareaused = true;
 				mErrorLayout->kill(); //Kill the layout since it is not needed anymore.
 			}
