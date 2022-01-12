@@ -27,9 +27,9 @@
 		mErrorLayout->initWithoutIter();
 	}
 
-	bool warpareaused;
-	s32 WipeType = 0;
-	s32 WipeTime = 45;
+	bool mWarpAreaUsed;
+	s32 mWipeType = 0;
+	s32 mWipeTime = 45;
 
 	void* WarpAreaStageTableBCSV = SPack::loadArcAndFile("/SystemData/PTSystemData.arc", "/System/WarpAreaStageTable.bcsv");
 
@@ -58,8 +58,8 @@
 				mCanWarp = false; 
 			}       
 			
-			WipeType  = mBCSVWipeType; //Separate variables are used to prevent the needed values from being overwritten by the next row in the BCSV.
-			WipeTime = mBCSVWipeTime; //Awful and janky, but it works.
+			mWipeType = mBCSVWipeType; //Separate variables are used to prevent the needed values from being overwritten by the next row in the BCSV.
+			mWipeTime = mBCSVWipeTime; //Awful and janky, but it works.
 
 			if (mDestGreenScenarioNo > 0) //Green stars in the WarpAreaStageTable work nicely. Just input a 2, for example, and you'll go to Green Star 2!
 				mDestGreenScenarioNo += 3;
@@ -67,7 +67,7 @@
 			if (mCanWarp) { //If the selected BCSV index is set up correctly, go to the galaxy specified by destStage.
 				MR::goToGalaxy(mDestStageName);
 				MR::goToGalaxyWithoutScenarioSelect(mDestStageName, mDestScenarioNo, mDestGreenScenarioNo, 0);
-				warpareaused = true;
+				mWarpAreaUsed = true;
 				mErrorLayout->kill(); //Kill the layout since it is not needed anymore.
 			}
 			else { //Open up the wipe and restore player control if the galaxy transition fails
@@ -128,9 +128,9 @@
 	void setWipeOnStageLoad() {
 		WarpAreaStageTable* wast = new WarpAreaStageTable(false);
 
-		if (warpareaused == true) {//Checks if the WarpArea was used to enter a galaxy.
-			wast->selectWipeOpen(WipeType, WipeTime); //If yes, change the opening Wipe to what is set in the selected index's BCSV entry.
-			warpareaused = false;
+		if (mWarpAreaUsed == true) {//Checks if the WarpArea was used to enter a galaxy.
+			wast->selectWipeOpen(mWipeType, mWipeTime); //If yes, change the opening Wipe to what is set in the selected index's BCSV entry.
+			mWarpAreaUsed = false;
 		}
 		else
 			MR::openSystemWipeWhiteFade(90); //If no, use the default wipe and wipe time.
