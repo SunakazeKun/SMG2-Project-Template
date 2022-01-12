@@ -6,15 +6,11 @@ ErrorLayout::ErrorLayout() : LayoutActor("WarpAreaErrorLayout", 0) {
 }
 
 void ErrorLayout::init(const JMapInfoIter& rIter) {
-	OSReport("init\n");
 	MR::connectToSceneLayout(this);
 	initLayoutManager("WarpAreaErrorLayout", 0);
 	MR::setTextBoxFormatRecursive(this, "TxtText", L"");
 	MR::setTextBoxFormatRecursive(this, "ShaText", L"");
 	appear();
-}
-
-void ErrorLayout::movement() {
 }
 
 void ErrorLayout::printf(bool canPrint, const char* format, ...) { //This function prints text to the TxtText and ShaText panes.

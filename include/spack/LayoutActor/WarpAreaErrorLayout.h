@@ -9,7 +9,6 @@ public:
 	ErrorLayout();
 	
 	virtual void init (const JMapInfoIter& rIter);
-	virtual void movement();
 
 	void printf(bool canPrint, const char* format, ...);
 
