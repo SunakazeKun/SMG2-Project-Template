@@ -5,9 +5,8 @@
 /*
 * Created by Evanbowl with help from Aurum, AwesomeTMC, Galaxy Master, and Zyphro.
 * 
-* An area that takes Mario to a specified General Position with the name "WarpAreaDestPos".
-*
-* Not my best code ever, but I've made it look as good as I can.
+* An area that takes the player to a specified General Position with the name "WarpAreaDestPos".
+* Can also take the player to galaxies.
 *
 */
 
@@ -65,10 +64,8 @@ void WarpArea::exeWarp() {
 			if (!MR::findNamePos(WarpAreaDestPos, &mPos, &mPos)) //Check if the specified general position exists
 			mErrorLayout->printf(mPrintErrors, "WarpArea position %s isn't exist.", WarpAreaDestPos); //If not, then print a message on screen.
 		}
-		else {
-			mCanWarp = false;
+		else
 			mStageTable->readTable(mIndex, mPrintErrors); //If no general position is specified, set up a galaxy transition by reading the BCSV.
-		}
 	}
 
 	//Phase 3: Open the wipe and restore player control.

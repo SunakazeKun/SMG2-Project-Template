@@ -68,7 +68,7 @@
 				MR::goToGalaxy(mDestStageName);
 				MR::goToGalaxyWithoutScenarioSelect(mDestStageName, mDestScenarioNo, mDestGreenScenarioNo, 0);
 				mWarpAreaUsed = true;
-				mErrorLayout->kill(); //Kill the layout since it is not needed anymore.
+				mErrorLayout->kill(); //Make the layout dead since it is not needed anymore.
 			}
 			else { //Open up the wipe and restore player control if the galaxy transition fails
 				MR::openSystemWipeCircle(45);
@@ -126,10 +126,10 @@
 	}
 
 	void setWipeOnStageLoad() {
-		WarpAreaStageTable* wast = new WarpAreaStageTable(false);
+		WarpAreaStageTable* mStageTable = new WarpAreaStageTable(false);
 
 		if (mWarpAreaUsed == true) {//Checks if the WarpArea was used to enter a galaxy.
-			wast->selectWipeOpen(mWipeType, mWipeTime); //If yes, change the opening Wipe to what is set in the selected index's BCSV entry.
+		mStageTable->selectWipeOpen(mWipeType, mWipeTime); //If yes, change the opening Wipe to what is set in the selected index's BCSV entry.
 			mWarpAreaUsed = false;
 		}
 		else

@@ -2,8 +2,7 @@
 #include "Util.h"
 #include "c_stdlib.h"
 
-ErrorLayout::ErrorLayout() : LayoutActor("WarpAreaErrorLayout", 0) {
-}
+ErrorLayout::ErrorLayout() : LayoutActor("WarpAreaErrorLayout", 0) {}
 
 void ErrorLayout::init(const JMapInfoIter& rIter) {
 	MR::connectToSceneLayout(this);
@@ -13,7 +12,8 @@ void ErrorLayout::init(const JMapInfoIter& rIter) {
 	appear();
 }
 
-void ErrorLayout::printf(bool canPrint, const char* format, ...) { //This function prints text to the TxtText and ShaText panes.
+//This function prints text to the TxtText and ShaText panes.
+void ErrorLayout::printf(bool canPrint, const char* format, ...) { 
 	va_list arg;
 	char string[128];
 
