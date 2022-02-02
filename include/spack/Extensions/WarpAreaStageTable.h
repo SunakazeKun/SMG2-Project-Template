@@ -3,10 +3,10 @@
 #include "syati.h"
 #include "spack/LayoutActor/WarpAreaErrorLayout.h"
 
-class WarpAreaStageTable {
+class WAST {
 public:
 
-	WarpAreaStageTable(bool init);
+	WAST(bool init);
 	void readTable(s32 selectedindex, bool useErrors);
 
 	void selectWipeClose(s32 type, s32 fadeTime);

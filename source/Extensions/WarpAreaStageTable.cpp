@@ -3,6 +3,8 @@
 #include "Util/StageUtil.h"
 #include "spack/Util/ActorUtil.h"
 #include "spack/LayoutActor/WarpAreaErrorLayout.h"
+#include "System/GameSequenceFunction.h"
+#include "spack/Util/UndefinedFunctions.h"
 
 /*
 * Authors: Evanbowl
@@ -13,7 +15,7 @@
 * Reads the BCSV at /SystemData/PTSystemData.arc/WarpAreaStageTable.bcsv to determine what galaxy it should take the player to.
 */
 
-	WarpAreaStageTable::WarpAreaStageTable(bool init) {
+	WAST::WAST(bool init) {
 		mDestStageName; //Destination Stage Name
 		mDestScenarioNo = 0; //Destionation Scenario Number
 		mDestGreenScenarioNo = 0; //Green Star Scenario Number
@@ -28,12 +30,12 @@
 	}
 
 	bool mWarpAreaUsed;
-	s32 mWipeType = 0;
-	s32 mWipeTime = 45;
+	s32 mWipeType;
+	s32 mWipeTime;
 
 	void* WarpAreaStageTableBCSV = SPack::loadArcAndFile("/SystemData/PTSystemData.arc", "/System/WarpAreaStageTable.bcsv");
 
-	void WarpAreaStageTable::readTable(s32 selectedindex, bool useErrors) {
+	void WAST::readTable(s32 selectedindex, bool useErrors) {
 
 		JMapInfo* StageTable = new JMapInfo();
 		StageTable->attach(WarpAreaStageTableBCSV);
@@ -66,7 +68,7 @@
 
 			if (mCanWarp) { //If the selected BCSV index is set up correctly, go to the galaxy specified by destStage.
 				MR::goToGalaxy(mDestStageName);
-				MR::goToGalaxyWithoutScenarioSelect(mDestStageName, mDestScenarioNo, mDestGreenScenarioNo, 0);
+				GameSequenceFunction::changeSceneStage(mDestStageName, mDestScenarioNo, mDestGreenScenarioNo, 0);
 				mWarpAreaUsed = true;
 				mErrorLayout->kill(); //Make the layout dead since it is not needed anymore.
 			}
@@ -78,7 +80,7 @@
 	}
 }
 
-	void WarpAreaStageTable::selectWipeClose(s32 type, s32 fadeTime) {
+	void WAST::selectWipeClose(s32 type, s32 fadeTime) {
 	if (fadeTime == -1)
 		fadeTime = 45;
 
@@ -105,7 +107,7 @@
 		}
 	}
 
-	void WarpAreaStageTable::selectWipeOpen(s32 type, s32 fadeTime) {
+	void WAST::selectWipeOpen(s32 type, s32 fadeTime) {
 	if (fadeTime == -1)
 		fadeTime = 45;
 
@@ -126,14 +128,14 @@
 	}
 
 	void setWipeOnStageLoad() {
-		WarpAreaStageTable* mStageTable = new WarpAreaStageTable(false);
+		WAST* StageTable = new WAST(false);
 
 		if (mWarpAreaUsed == true) {//Checks if the WarpArea was used to enter a galaxy.
-		mStageTable->selectWipeOpen(mWipeType, mWipeTime); //If yes, change the opening Wipe to what is set in the selected index's BCSV entry.
+		StageTable->selectWipeOpen(mWipeType, mWipeTime); //If yes, change the opening Wipe to what is set in the selected index's BCSV entry.
 			mWarpAreaUsed = false;
 		}
 		else
-			MR::openSystemWipeWhiteFade(90); //If no, use the default wipe and wipe time.
+			MR::openSystemWipeWhiteFade(90); //If no, use StageTable->StageTable->the default wipe and wipe time.
 	}
 
 kmCall(0x804B44D0, setWipeOnStageLoad); //sub_804B4490 + 0x40

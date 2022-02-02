@@ -16,6 +16,7 @@ public:
     s32 mTimer;
     bool mUseRespawn;
     bool mUseTimerSe;
+    bool mDisableP2;
 };
 
 namespace NrvSwitchBox {

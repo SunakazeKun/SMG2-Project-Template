@@ -28,6 +28,7 @@ Poihana::Poihana(const char *pName) : LiveActor(pName) {
 	mActiveRange = 3500.0f;
 	mBoundTimer = 0;
 	mRandDir = 0;
+	mColor = 0;
 	mBehavior = POIHANA_BEHAVIOR_NORMAL;
 	mCanDrown = false;
 	mIsActive = false;
@@ -92,6 +93,10 @@ void Poihana::init(const JMapInfoIter &rIter) {
 		mWaterColumn = MR::createModelObjMapObj("エフェクト水柱", "WaterColumn", (MtxPtr)getBaseMtx());
 		mWaterColumn->mScale.setAll<f32>(2.0f);
 	}
+
+	MR::getJMapInfoArg2NoInit(rIter, &mColor);
+
+	MR::startBtpAndSetFrameAndStop(this, "PoihanaColor", mColor);
 
 	MR::tryCreateMirrorActor(this, NULL);
 	MR::useStageSwitchAwake(this, rIter);

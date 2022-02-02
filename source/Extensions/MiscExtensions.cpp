@@ -3,7 +3,12 @@
 #include "MapObj/Shellfish.h"
 #include "MapObj/SuperSpinDriver.h"
 #include "Util.h"
-
+#include "Player/MarioAccess.h"
+#include "System/GalaxyStatusAccessor.h"
+#include "System/ScenarioDataParser.h"
+#include "System/GameSequenceFunction.h"
+#include "Util/StageUtil.h"
+#include "spack/Util/UndefinedFunctions.h"
 /*
 * Authors: Aurum
 */
@@ -137,9 +142,7 @@ namespace SPack {
 	*/
 
 	void printFileNameIfMissing(const char* fileName) {
-		if (MR::isFileExist(fileName, 0))
-			return;
-		else
+		if (!MR::isFileExist(fileName, 0))
 			OSPanic("FileRipper.cpp", 118, "File \"%s\" isn't exist.", fileName);
 	}
 

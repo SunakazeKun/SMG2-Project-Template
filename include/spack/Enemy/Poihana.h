@@ -79,6 +79,7 @@ public:
 	s32 mBoundTimer;
 	s32 mRandDir;
 	s32 mBehavior;
+	s32 mColor;
 	bool mCanDrown;
 	bool mIsActive;
 	ModelObj* mWaterColumn;

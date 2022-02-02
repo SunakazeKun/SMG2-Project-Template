@@ -87,32 +87,33 @@ void PowerStarSpawner::movement() {
 	DisplayStar->mRotation.set(upVec),
 	DisplayStar->mTranslation.set(mTranslation);
 
-	if (MR::isOnSwitchA(this))
+	if (MR::isOnSwitchA(this)) {
 		mElapsed++;
 
-	if (mElapsed == 1 && mUseSuccessSE)
-		MR::startLevelSound(this, "OjPowerStarSpawnerSpawn", -1, -1, -1); //Plays sound.
+		if (mElapsed == 1 && mUseSuccessSE)
+			MR::startLevelSound(this, "OjPowerStarSpawnerSpawn", -1, -1, -1); //Plays sound.
 
-	if (mElapsed >= mDelay) {
-		switch (mSpawnMode) {
-			case 0: //time continues during demo
-				MR::appearEventPowerStar("PowerStarSpawner", mScenario, &mTranslation, 1, 0, 0);
-			break;
-			case 1: //star appears instantly
-				MR::appearEventPowerStar("PowerStarSpawner", mScenario, &mTranslation, 0, 1, 0);
-			break;
-			case 2: //squizzard spawn
-				MR::appearEventPowerStar("PowerStarSpawner", mScenario, &mTranslation, 0, 0, 1);
-			break;
-			case 3: //time continues during squizzard spawn demo
-				MR::appearEventPowerStar("PowerStarSpawner", mScenario, &mTranslation, 1, 0, 1);
-			break;
+		if (mElapsed >= mDelay) {
+			switch (mSpawnMode) {
+				case 0: //time continues during demo
+					MR::appearEventPowerStar("PowerStarSpawner", mScenario, &mTranslation, 1, 0, 0);
+				break;
+				case 1: //star appears instantly
+					MR::appearEventPowerStar("PowerStarSpawner", mScenario, &mTranslation, 0, 1, 0);
+				break;
+				case 2: //squizzard spawn
+					MR::appearEventPowerStar("PowerStarSpawner", mScenario, &mTranslation, 0, 0, 1);
+				break;
+				case 3: //time continues during squizzard spawn demo
+					MR::appearEventPowerStar("PowerStarSpawner", mScenario, &mTranslation, 1, 0, 1);
+				break;
+			}
+
+			if (mUseDisplayModel >= 0)
+			DisplayStar->kill();
+	
+			makeActorDead();
 		}
-
-		if (mUseDisplayModel >= 0)
-		DisplayStar->kill();
-
-		makeActorDead();
 	}
 }
 

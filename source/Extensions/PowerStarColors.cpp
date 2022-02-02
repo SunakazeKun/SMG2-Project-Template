@@ -3,6 +3,7 @@
 #include "System/ScenarioDataParser.h"
 #include "Util.h"
 #include "spack/Util/ActorUtil.h"
+#include "LiveActor/LiveActor.h"
 
 /*
 * Authors: Aurum
@@ -115,15 +116,17 @@ namespace SPack {
 	loadArcAndFile("/SystemData/PTSystemData.arc", "/Font/PTPictureFont.brfnt");
 	}
 
+	kmCall(0x804B8048, loadPTPictureFont);
+
 	wchar_t* getStarIcon(wchar_t* unk, s32 type) {
-		const char *pStage;
+		const char *stage;
 		s32 scenarioId;
 		s32 icon;
 
-		asm("mr %0, r27" : "=r" (pStage));
+		asm("mr %0, r27" : "=r" (stage));
 		asm("mr %0, r31" : "=r" (scenarioId));
 
-	 	s32 getStarColor = getPowerStarColor(pStage, scenarioId);
+	 	s32 getStarColor = getPowerStarColor(stage, scenarioId);
 
 		if (type == 0x37) //Normal Star icons
 		switch (getStarColor) {
@@ -184,10 +187,30 @@ namespace SPack {
 		return MR::addPictureFontCode(unk, icon);
 	}
 	
-	kmCall(0x804B8048, loadPTPictureFont);
-	
 	kmCall(0x80041E30, getStarIcon); //Normal Star icons
 	kmCall(0x80041F0C, getStarIcon); //Comet Star icons
 	kmCall(0x80041F94, getStarIcon); //Hidden Star icons
 	kmCall(0x80041F48, getStarIcon); //Collected Hidden Star icons
-}
+
+	/*
+	*	Star Ball: Custom Ball and Star Colors
+	*
+	*	The Power Star inside the Star Ball is not a display model.
+	*	Here we set the Star and Ball's color by checking the color
+	* 	of the Scenario specified by obj_arg1.
+	*/
+
+	void TamakoroCustomPowerStarColors(LiveActor* actor, const JMapInfoIter& iter) {
+		s32 argScenario = -1;
+
+		MR::getJMapInfoArg1NoInit(iter, &argScenario);
+
+		s32 colorFrame = SPack::getPowerStarColorCurrentStage(argScenario);
+
+		MR::startBtpAndSetFrameAndStop(actor, "BallStarColor", colorFrame);
+		MR::startBrkAndSetFrameAndStop(actor, "BallColor", colorFrame);
+	}
+
+	kmWrite32(0x8044461C, 0x7F84E378);
+	kmCall(0x80444620, TamakoroCustomPowerStarColors);
+};

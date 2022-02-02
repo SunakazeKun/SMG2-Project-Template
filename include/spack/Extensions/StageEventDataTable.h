@@ -2,13 +2,14 @@
 
 #include "syati.h"
 
-namespace SPack {
-    bool StageEventDataTable(const char* value);
+namespace SEDT {
+    bool StageEventDataTable(const char* value, s32 stageCheck);
 	
 	bool isPauseDisabled();
 	bool isChimp();
 	bool isDisableStarChanceBGM();
 	bool isPurpleCoinCaretaker();
 	bool isStoryBook();
-	bool isMarioFaceShip();
+	bool TamakoroSliderBGM();
+	void DisableFallFailsafe();
 };

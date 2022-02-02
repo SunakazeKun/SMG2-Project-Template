@@ -10,13 +10,12 @@ public:
 
 	virtual void init(const JMapInfoIter&);
 	virtual void movement();
-	virtual void exeWarp();
 	virtual const char* getManagerName() const;
 
 	s32 mElapsed;
 	bool mCanWarp;
 	TVec3f mPos;
-	WarpAreaStageTable* mStageTable;
+	WAST* mStageTable;
 	ErrorLayout* mErrorLayout;
 
     //Obj_args are defined this way to make the code easier to read

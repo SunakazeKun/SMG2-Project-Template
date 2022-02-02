@@ -28,6 +28,7 @@ void SwitchBox::init(const JMapInfoIter& rIter) {
 	MR::getJMapInfoArg0NoInit(rIter, &mTimer); //Gets Obj_arg0
 	MR::getJMapInfoArg1NoInit(rIter, &mUseRespawn); //Gets Obj_arg1
 	MR::getJMapInfoArg2NoInit(rIter, &mUseTimerSe); //Gets Obj_arg2
+	MR::getJMapInfoArg3NoInit(rIter, &mDisableP2); //Gets Obj_arg3
 	MR::validateCollisionParts(this); //Validates collision
 
 	initNerve(&NrvSwitchBox::NrvWait::sInstance, 0); //Sets nerve state to Wait
@@ -35,7 +36,7 @@ void SwitchBox::init(const JMapInfoIter& rIter) {
 }
 
 void SwitchBox::exeOn() {
-	if (MR::isValidSwitchDead(this)) { //Waits for 3 frames after activation and checks if the SW_DEAD was set correctly.
+	if (MR::isValidSwitchDead(this)) { //Checks if the SW_DEAD was set correctly.
 		MR::onSwitchDead(this); //Activates SW_DEAD.
 		MR::hideModel(this); //Makes the SwitchBox invisible.
 		MR::invalidateCollisionParts(this); //Makes the SwitchBox intangible.
@@ -52,7 +53,7 @@ void SwitchBox::exeOn() {
 	}
 
 	if (mTimer >= 1 && mUseTimerSe == 1)
-	initNerve(&NrvSwitchBox::NrvReturn::sInstance, 0); //Initalizes nerve "Return".
+		initNerve(&NrvSwitchBox::NrvReturn::sInstance, 0); //Initalizes nerve "Return".
 	}
 }
 
@@ -96,7 +97,8 @@ bool SwitchBox::receiveMessage(u32 msg, HitSensor *, HitSensor *)
 }
 
 void SwitchBox::exe2P() {
-	MR::attachSupportTicoToTarget(this); //Allows P2 to target the SwitchBox.
+	if (!mDisableP2)
+		MR::attachSupportTicoToTarget(this); //Allows P2 to target the SwitchBox.
 }
 
 namespace NrvSwitchBox {
