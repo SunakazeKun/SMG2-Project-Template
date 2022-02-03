@@ -83,9 +83,6 @@ void CrystalSwitch::exeSwitchDown() {
     if (MR::isFirstStep(this)) {
         MR::startBpk(this, "On");
         MR::invalidateClipping(this);
-        MR::onSwitchA(this);
-        MR::shakeCameraNormal();
-        MR::startLevelSound(this, "OjCrystalSwitchOn", -1, -1, -1);
     }
 
     if (MR::isGreaterStep(this, 10))
@@ -94,6 +91,9 @@ void CrystalSwitch::exeSwitchDown() {
 
 void CrystalSwitch::exeOn() {
     if (MR::isFirstStep(this)) {
+        MR::onSwitchA(this);
+        MR::shakeCameraNormal();
+        MR::startLevelSound(this, "OjCrystalSwitchOn", -1, -1, -1);
         mRotSpeed = 0.0f;
     }
 
