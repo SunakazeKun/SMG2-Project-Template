@@ -209,6 +209,9 @@ namespace SPack {
 
 		MR::startBtpAndSetFrameAndStop(actor, "BallStarColor", colorFrame);
 		MR::startBrkAndSetFrameAndStop(actor, "BallColor", colorFrame);
+
+		if (MR::hasPowerStarInCurrentStage(argScenario))
+			MR::startBrkAndSetFrameAndStop(actor, "BallColor", 4);
 	}
 
 	kmWrite32(0x8044461C, 0x7F84E378);

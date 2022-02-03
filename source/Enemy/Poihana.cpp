@@ -84,6 +84,9 @@ void Poihana::init(const JMapInfoIter &rIter) {
 
 	mLaunchIntensity = -launchIntensity;
 
+	MR::getJMapInfoArg2NoInit(rIter, &mColor);
+	MR::startBtpAndSetFrameAndStop(this, "PoihanaColor", mColor);
+
 	// Setup behaviors
 	MR::getJMapInfoArg1NoInit(rIter, &mActiveRange);
 	MR::getJMapInfoArg3NoInit(rIter, &mBehavior);
@@ -93,10 +96,6 @@ void Poihana::init(const JMapInfoIter &rIter) {
 		mWaterColumn = MR::createModelObjMapObj("エフェクト水柱", "WaterColumn", (MtxPtr)getBaseMtx());
 		mWaterColumn->mScale.setAll<f32>(2.0f);
 	}
-
-	MR::getJMapInfoArg2NoInit(rIter, &mColor);
-
-	MR::startBtpAndSetFrameAndStop(this, "PoihanaColor", mColor);
 
 	MR::tryCreateMirrorActor(this, NULL);
 	MR::useStageSwitchAwake(this, rIter);

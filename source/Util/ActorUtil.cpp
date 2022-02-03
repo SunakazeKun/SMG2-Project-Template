@@ -56,16 +56,16 @@ namespace SPack {
 
     //Loads an arc and a selected file into memory.
 	void* loadArcAndFile(const char* pArc, const char* pFile) {
-	JKRArchive* arc = MR::mountArchive(pArc, MR::getStationedHeapGDDR3(), 0);
-	void* file = arc->getResource(pFile);
-
-	if (arc && file) {
-		OSReport("Archive %s and file %s both exist!\n", pArc, pFile);
-		return file;
-	}
-	else
-		OSReport("%s %s isn't exist!\n", pArc, pFile);
-
-	return 0;
-	}
+		JKRArchive* arc = MR::mountArchive(pArc, MR::getStationedHeapGDDR3(), 0);
+		void* file = arc->getResource(pFile);
+	
+		if (arc && file) {
+			OSReport("Archive %s and file %s both exist!\n", pArc, pFile);
+			return file;
+		}
+		else
+			OSReport("%s %s isn't exist!\n", pArc, pFile);
+	
+		return 0;
+		}
 }
