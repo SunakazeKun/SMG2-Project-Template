@@ -20,44 +20,44 @@ SwitchBox::SwitchBox(const char* pName) : LiveActor(pName) {
 
 void SwitchBox::init(const JMapInfoIter& rIter) {
 	MR::processInitFunction(this, rIter, false);
-	initHitSensor(1); //Initializes the HitSensor.
+	initHitSensor(1); // Initializes the HitSensor.
 
 	MR::addHitSensorMapObj(this, "SwitchBox", 1, 75.0f, TVec3f(0.0f, 150.0f, 0.0f));
 	HitSensor * SwitchBox = LiveActor::getSensor("SwitchBox");
 
-	MR::getJMapInfoArg0NoInit(rIter, &mTimer); //Gets Obj_arg0
-	MR::getJMapInfoArg1NoInit(rIter, &mUseRespawn); //Gets Obj_arg1
-	MR::getJMapInfoArg2NoInit(rIter, &mUseTimerSe); //Gets Obj_arg2
-	MR::getJMapInfoArg3NoInit(rIter, &mDisableP2); //Gets Obj_arg3
-	MR::validateCollisionParts(this); //Validates collision
+	MR::getJMapInfoArg0NoInit(rIter, &mTimer); // Gets Obj_arg0
+	MR::getJMapInfoArg1NoInit(rIter, &mUseRespawn); // Gets Obj_arg1
+	MR::getJMapInfoArg2NoInit(rIter, &mUseTimerSe); // Gets Obj_arg2
+	MR::getJMapInfoArg3NoInit(rIter, &mDisableP2); // Gets Obj_arg3
+	MR::validateCollisionParts(this); // Validates collision
 
-	initNerve(&NrvSwitchBox::NrvWait::sInstance, 0); //Sets nerve state to Wait
-	makeActorAppeared(); //Makes the object appear
+	initNerve(&NrvSwitchBox::NrvWait::sInstance, 0); // Sets nerve state to Wait
+	makeActorAppeared(); // Makes the object appear
 }
 
 void SwitchBox::exeOn() {
-	if (MR::isValidSwitchDead(this)) { //Checks if the SW_DEAD was set correctly.
-		MR::onSwitchDead(this); //Activates SW_DEAD.
-		MR::hideModel(this); //Makes the SwitchBox invisible.
-		MR::invalidateCollisionParts(this); //Makes the SwitchBox intangible.
-		MR::invalidateHitSensor(this, "SwitchBox"); //Invalidates all HitSensors.
-		MR::invalidateClipping(this); //Makes the SwitchBox never unload when activated.
+	if (MR::isValidSwitchDead(this)) { // Checks if the SW_DEAD was set correctly.
+		MR::onSwitchDead(this); // Activates SW_DEAD.
+		MR::hideModel(this); // Makes the SwitchBox invisible.
+		MR::invalidateCollisionParts(this); // Makes the SwitchBox intangible.
+		MR::invalidateHitSensor(this, "SwitchBox"); // Invalidates all HitSensors.
+		MR::invalidateClipping(this); // Makes the SwitchBox never unload when activated.
 
-	if (MR::isInWater(mTranslation)) { //Check if the object is placed in water.
-		MR::emitEffect(this, "BreakWater"); //Display water particles and sound.
+	if (MR::isInWater(mTranslation)) { // Check if the object is placed in water.
+		MR::emitEffect(this, "BreakWater"); // Display water particles and sound.
 		MR::startLevelSound(this, "OjSBoxBreakWater", -1, -1, -1);
 	}
 	else {
-		MR::emitEffect(this, "Break"); //Display non-water particles and sound.
+		MR::emitEffect(this, "Break"); // Display non-water particles and sound.
 		MR::startLevelSound(this, "OjSBoxBreak", -1, -1, -1);
 	}
 
 	if (mTimer >= 1 && mUseTimerSe == 1)
-		initNerve(&NrvSwitchBox::NrvReturn::sInstance, 0); //Initalizes nerve "Return".
+		initNerve(&NrvSwitchBox::NrvReturn::sInstance, 0); // Initalizes nerve "Return".
 	}
 }
 
-void SwitchBox::exeReturn() { //This function creates a timer sound if Obj_arg 1 and Obj_arg2 are set.
+void SwitchBox::exeReturn() { // This function creates a timer sound if Obj_arg 1 and Obj_arg2 are set.
 
 	s32 step = getNerveStep();
 
@@ -74,31 +74,30 @@ void SwitchBox::exeReturn() { //This function creates a timer sound if Obj_arg 1
 		}
 	}
 
-	if (MR::isStep(this, mTimer)) { //Checks if the set time has run out.
-		MR::offSwitchDead(this); //Deactivates SW_DEAD.
+	if (MR::isStep(this, mTimer)) { // Checks if the set time has run out.
+		MR::offSwitchDead(this); // Deactivates SW_DEAD.
 
 	if (mUseRespawn == 1) {
-		MR::showModel(this); //Makes the SwitchBox visible.
-		MR::validateCollisionParts(this); //Makes the SwitchBox tangible.
-		MR::validateHitSensor(this, "SwitchBox"); //Validates all HitSensors.
-		MR::emitEffect(this, "Return"); //Displays a particle effect.
-		MR::validateClipping(this); //Allows the SwitchBox to be unloaded when deactive.
+		MR::showModel(this); // Makes the SwitchBox visible.
+		MR::validateCollisionParts(this); // Makes the SwitchBox tangible.
+		MR::validateHitSensor(this, "SwitchBox"); // Validates all HitSensors.
+		MR::emitEffect(this, "Return"); // Displays a particle effect.
+		MR::validateClipping(this); // Allows the SwitchBox to be unloaded when deactive.
 
-		initNerve(&NrvSwitchBox::NrvWait::sInstance, 0); //Sets the nerve to "Wait".
+		initNerve(&NrvSwitchBox::NrvWait::sInstance, 0); // Sets the nerve to "Wait".
 		}
 	}
 }
 
-bool SwitchBox::receiveMessage(u32 msg, HitSensor *, HitSensor *)
-{
-	if (MR::isMsgPlayerHipDrop(msg) || MR::isMsgPlayerHitAll(msg)) //Checks to see if the HitSensor has recieved a message,
-		initNerve(&NrvSwitchBox::NrvBreak::sInstance, 0); //Sets the nerve to "Break".
+bool SwitchBox::receiveMessage(u32 msg, HitSensor* pSender, HitSensor* pReceiver) {
+	if (MR::isMsgPlayerHipDrop(msg) || MR::isMsgPlayerHitAll(msg)) // Checks to see if the HitSensor has recieved a message,
+		initNerve(&NrvSwitchBox::NrvBreak::sInstance, 0); // Sets the nerve to "Break".
 		return false;
 }
 
 void SwitchBox::exe2P() {
 	if (!mDisableP2)
-		MR::attachSupportTicoToTarget(this); //Allows P2 to target the SwitchBox.
+		MR::attachSupportTicoToTarget(this); // Allows P2 to target the SwitchBox.
 }
 
 namespace NrvSwitchBox {

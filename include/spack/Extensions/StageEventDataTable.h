@@ -2,7 +2,9 @@
 
 #include "syati.h"
 
-namespace SEDT {
+class NameObj;
+
+namespace StageEventDataTable {
     bool StageEventDataTable(const char* value, s32 stageCheck);
 	
 	bool isPauseDisabled();
@@ -10,6 +12,7 @@ namespace SEDT {
 	bool isDisableStarChanceBGM();
 	bool isPurpleCoinCaretaker();
 	bool isStoryBook();
-	bool TamakoroSliderBGM();
-	void DisableFallFailsafe();
+	bool isStageUseTamakoroBGM();
+	void isStageDisableFallFailsafe();
+	void isStageDisableWorldMapEvents(NameObj* obj);
 };

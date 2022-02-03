@@ -8,7 +8,7 @@ class PowerStarSpawner : public LiveActor {
 public:
 	PowerStarSpawner(const char *);
 
-	virtual void init(JMapInfoIter const &);
+	virtual void init(const JMapInfoIter& rIter);
 	virtual void movement();
 	virtual void spawnAtMario(f32 offset);
 	virtual void createDisplayStar(s32 create);

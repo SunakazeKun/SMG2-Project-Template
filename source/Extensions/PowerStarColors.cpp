@@ -32,13 +32,13 @@ namespace SPack {
 		GalaxyStatusAccessor gsa(MR::makeGalaxyStatusAccessor(pStage));
 		gsa.mScenarioData->getScenarioString("PowerStarType", scenarioId, &type);
 
-		if (strstr(type, "Bronze"))
+		if (MR::isEqualSubString(type, "Bronze"))
 			return 1;
-		else if (strstr(type, "Green") || strstr(type, "LegacyGreen"))
+		else if (MR::isEqualSubString(type, "Green") || MR::isEqualSubString(type, "LegacyGreen"))
 			return 2;
-		else if (strstr(type, "Red"))
+		else if (MR::isEqualSubString(type, "Red"))
 			return 3;
-		else if (strstr(type, "Blue"))
+		else if (MR::isEqualSubString(type, "Blue"))
 			return 5;
 			
 		return 0;
@@ -113,8 +113,8 @@ namespace SPack {
 	*/
 
 	void loadPTPictureFont() {
-	loadArcAndFile("/SystemData/PTSystemData.arc", "/Font/PTPictureFont.brfnt");
-	}
+		loadArcAndFile("/SystemData/PTSystemData.arc", "/Font/PTPictureFont.brfnt");
+}
 
 	kmCall(0x804B8048, loadPTPictureFont);
 
@@ -126,7 +126,7 @@ namespace SPack {
 		asm("mr %0, r27" : "=r" (stage));
 		asm("mr %0, r31" : "=r" (scenarioId));
 
-	 	s32 getStarColor = getPowerStarColor(stage, scenarioId);
+		s32 getStarColor = getPowerStarColor(stage, scenarioId);
 
 		if (type == 0x37) //Normal Star icons
 		switch (getStarColor) {
@@ -197,7 +197,7 @@ namespace SPack {
 	*
 	*	The Power Star inside the Star Ball is not a display model.
 	*	Here we set the Star and Ball's color by checking the color
-	* 	of the Scenario specified by obj_arg1.
+	*	of the Scenario specified by obj_arg1.
 	*/
 
 	void TamakoroCustomPowerStarColors(LiveActor* actor, const JMapInfoIter& iter) {

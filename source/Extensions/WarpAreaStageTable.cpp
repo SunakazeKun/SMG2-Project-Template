@@ -4,7 +4,6 @@
 #include "spack/Util/ActorUtil.h"
 #include "spack/LayoutActor/WarpAreaErrorLayout.h"
 #include "System/GameSequenceFunction.h"
-#include "spack/Util/UndefinedFunctions.h"
 
 /*
 * Authors: Evanbowl
@@ -15,7 +14,7 @@
 * Reads the BCSV at /SystemData/PTSystemData.arc/WarpAreaStageTable.bcsv to determine what galaxy it should take the player to.
 */
 
-	WAST::WAST(bool init) {
+	WarpAreaStageTable::WarpAreaStageTable(bool init) {
 		mDestStageName; //Destination Stage Name
 		mDestScenarioNo = 0; //Destionation Scenario Number
 		mDestGreenScenarioNo = 0; //Green Star Scenario Number
@@ -35,7 +34,7 @@
 
 	void* WarpAreaStageTableBCSV = SPack::loadArcAndFile("/SystemData/PTSystemData.arc", "/System/WarpAreaStageTable.bcsv");
 
-	void WAST::readTable(s32 selectedindex, bool useErrors) {
+	void WarpAreaStageTable::readTable(s32 selectedindex, bool useErrors) {
 
 		JMapInfo* StageTable = new JMapInfo();
 		StageTable->attach(WarpAreaStageTableBCSV);
@@ -58,7 +57,7 @@
 			if (mDestGreenScenarioNo < -1 || mDestGreenScenarioNo > 4 || mDestGreenScenarioNo == 0) {
 				mErrorLayout->printf(useErrors, "%d is not a valid green star scenario.\n",  mDestGreenScenarioNo); //Print a message if an invalid green star scenario is input
 				mCanWarp = false; 
-			}       
+			}	   
 			
 			mWipeType = mBCSVWipeType; //Separate variables are used to prevent the needed values from being overwritten by the next row in the BCSV.
 			mWipeTime = mBCSVWipeTime; //Awful and janky, but it works.
@@ -80,7 +79,7 @@
 	}
 }
 
-	void WAST::selectWipeClose(s32 type, s32 fadeTime) {
+	void WarpAreaStageTable::selectWipeClose(s32 type, s32 fadeTime) {
 	if (fadeTime == -1)
 		fadeTime = 45;
 
@@ -107,7 +106,7 @@
 		}
 	}
 
-	void WAST::selectWipeOpen(s32 type, s32 fadeTime) {
+	void WarpAreaStageTable::selectWipeOpen(s32 type, s32 fadeTime) {
 	if (fadeTime == -1)
 		fadeTime = 45;
 
@@ -128,7 +127,7 @@
 	}
 
 	void setWipeOnStageLoad() {
-		WAST* StageTable = new WAST(false);
+		WarpAreaStageTable* StageTable = new WarpAreaStageTable(false);
 
 		if (mWarpAreaUsed == true) {//Checks if the WarpArea was used to enter a galaxy.
 		StageTable->selectWipeOpen(mWipeType, mWipeTime); //If yes, change the opening Wipe to what is set in the selected index's BCSV entry.

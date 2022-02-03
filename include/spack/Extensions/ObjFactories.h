@@ -86,6 +86,7 @@ namespace SPack {
     /* 1 - Extended NameObjFactory entries                                                       */
     /*********************************************************************************************/
     CREATE_EXT_ACTOR(JumpSwitchArea, pName);
+    CREATE_EXT_ACTOR(WarpArea, pName);
     CREATE_EXT_ACTOR(Anagon, pName);
     CREATE_EXT_ACTOR(BallBeamer, pName);
     CREATE_EXT_ACTOR(Banekiti, pName);
@@ -113,7 +114,6 @@ namespace SPack {
     CREATE_EXT_ACTOR(ScrewSwitch, pName);
     CREATE_EXT_ACTOR(ScrewSwitchReverse, pName);
     CREATE_EXT_ACTOR(ValveSwitch, pName);
-    CREATE_EXT_ACTOR(WarpArea, pName);
     CREATE_EXT_ACTOR(WatchTowerRotateStep, pName);
     CREATE_EXT_ACTOR(WaterLeakPipe, pName);
     CREATE_EXT_ACTOR(SwingRope, pName);

@@ -4,46 +4,23 @@
 
 class SwitchBox : public LiveActor {
 public:
-    SwitchBox(const char *);
+	SwitchBox(const char *);
+	
+	virtual void init(const JMapInfoIter& rIter);
+	virtual bool receiveMessage(u32 msg, HitSensor *pSender, HitSensor *pReceiver);
 
-    virtual void init(const JMapInfoIter &);
-	virtual bool receiveMessage(u32, HitSensor *, HitSensor *);
+	void exeOn();
+	void exeReturn();
+	void exe2P();
 
-    void exeOn();
-    void exeReturn();
-    void exe2P();
-
-    s32 mTimer;
-    bool mUseRespawn;
-    bool mUseTimerSe;
-    bool mDisableP2;
+	s32 mTimer;
+	bool mUseRespawn;
+	bool mUseTimerSe;
+	bool mDisableP2;
 };
 
 namespace NrvSwitchBox {
-    class NrvWait : public Nerve {
-    public:
-        NrvWait() { }
-
-        virtual void execute(Spine *) const;
-
-        static NrvWait sInstance;
-    };
-
-    class NrvBreak : public Nerve {
-    public:
-        NrvBreak() { }
-
-        virtual void execute(Spine *) const;
-
-        static NrvBreak sInstance;
-    };
-
-    class NrvReturn : public Nerve {
-    public:
-        NrvReturn() { }
-
-        virtual void execute(Spine *) const;
-
-        static NrvReturn sInstance;
-    };
-}
+	NERVE(NrvWait);
+	NERVE(NrvBreak);
+	NERVE(NrvReturn);
+};

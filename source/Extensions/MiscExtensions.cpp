@@ -3,12 +3,10 @@
 #include "MapObj/Shellfish.h"
 #include "MapObj/SuperSpinDriver.h"
 #include "Util.h"
-#include "Player/MarioAccess.h"
 #include "System/GalaxyStatusAccessor.h"
 #include "System/ScenarioDataParser.h"
 #include "System/GameSequenceFunction.h"
-#include "Util/StageUtil.h"
-#include "spack/Util/UndefinedFunctions.h"
+
 /*
 * Authors: Aurum
 */

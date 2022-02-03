@@ -15,10 +15,9 @@ public:
 	s32 mElapsed;
 	bool mCanWarp;
 	TVec3f mPos;
-	WAST* mStageTable;
+	WarpAreaStageTable* mStageTable;
 	ErrorLayout* mErrorLayout;
 
-    //Obj_args are defined this way to make the code easier to read
 	#define mPosID mObjArg0
 	#define mIndex mObjArg1
 	#define mFadeCloseType mObjArg2

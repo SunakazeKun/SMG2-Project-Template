@@ -2,7 +2,7 @@
 #include "Screen/SwitchingScreenEffect.h"
 #include "Screen/TimeStopScreenEffect.h"
 #include "Util.h"
-#include "spack/Util/ActorUtil.h"
+
 /*
 * Authors: Aurum
 * Objects: HitWallTimerSwitch

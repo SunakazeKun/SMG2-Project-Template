@@ -5,12 +5,12 @@ typedef void (*Func)(void);
 extern Func __ctor_loc;
 extern Func __ctor_end;
 
-void doCtors()
-{
+/*
+* Authors: shibbo
+*/
+void doCtors() {
     for (Func* f = &__ctor_loc; f < &__ctor_end; f++)
-    {
         (*f)();
-    }
 }
 
 #if defined(TWN) || defined(KOR)

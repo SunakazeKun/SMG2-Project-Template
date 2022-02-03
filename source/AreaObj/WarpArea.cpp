@@ -14,7 +14,7 @@ WarpArea::WarpArea(const char* pName) : AreaObj(pName) {
 	mElapsed = 0;
 	mCanWarp = false;
 	mPos.set(0.0f, 0.0f, 0.0f);
-	mStageTable = new WAST(true); //BCSV table for going to galaxies.
+	mStageTable = new WarpAreaStageTable(true); //BCSV table for going to galaxies.
 	mErrorLayout = new ErrorLayout(); //Error layout used for displaying messages on screen if a WarpArea function fails.
 }
 

@@ -1,5 +1,4 @@
-﻿
-#include "spack/MapObj/WatchTowerRotateStep.h"
+﻿#include "spack/MapObj/WatchTowerRotateStep.h"
 #include "spack/Util.h"
 #include "Util.h"
 

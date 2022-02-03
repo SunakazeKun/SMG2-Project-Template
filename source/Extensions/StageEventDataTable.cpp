@@ -5,7 +5,6 @@
 #include "Screen/LayoutActor.h"
 #include "System/GameSequenceFunction.h"
 #include "Util/StageUtil.h"
-#include "spack/Util/UndefinedFunctions.h"
 
 /*
 * Authors: Evanbowl
@@ -18,10 +17,10 @@
 * Chimp, Glider, Disable Pause, Play Star Chance, Purple Coin Over 100, and Story Book.
 */
 
-namespace SEDT {
+namespace StageEventDataTable {
 
 	const char* flags;
-    void* StageEventDataTableBCSV = SPack::loadArcAndFile("/SystemData/PTSystemData.arc", "/System/StageEventDataTable.bcsv");
+	void* StageEventDataTableBCSV = SPack::loadArcAndFile("/SystemData/PTSystemData.arc", "/System/StageEventDataTable.bcsv");
 		
 	//StageEventDataTable Parser
 	bool StageEventDataTable(const char* value, s32 stageCheck) {
@@ -52,49 +51,49 @@ namespace SEDT {
 		return false;
 	}
 
-    /*
-    * Makes the set galaxy a Chimp stage. If you apply this to a non-chimp star, the high scores will not work.
-    * If the high scores did work, that would mean that the save file would only work on hacks with PT.
-    */
+	/*
+	* Makes the set galaxy a Chimp stage. If you apply this to a non-chimp star, the high scores will not work.
+	* If the high scores did work, that would mean that the save file would only work on hacks with PT.
+	*/
 
 	bool isChimp() {
-		return SEDT::StageEventDataTable("Chimp", 0); 
+		return StageEventDataTable::StageEventDataTable("Chimp", 0); 
 	}
 
 	bool isPauseDisabled() {
-		return SEDT::StageEventDataTable("DisablePause", 0); //Completely disables the pause menu in the set galaxy.
+		return StageEventDataTable::StageEventDataTable("DisablePause", 0); //Completely disables the pause menu in the set galaxy.
 	}
 
 	bool isGlider() {
-		return SEDT::StageEventDataTable("Glider", 0); //Makes the set galaxy a Glider stage.
+		return StageEventDataTable::StageEventDataTable("Glider", 0); //Makes the set galaxy a Glider stage.
 	}
 
 	bool isDisableStarChanceBGM() {
-		return !SEDT::StageEventDataTable("DisableStarChanceBGM", 0); //Makes the set galaxy not set the BGM to star chance after a star spawn.
+		return !StageEventDataTable::StageEventDataTable("DisableStarChanceBGM", 0); //Makes the set galaxy not set the BGM to star chance after a star spawn.
 	}
 
 	bool isPurpleCoinCaretaker() {
-		return SEDT::StageEventDataTable("PurpleCoinsOver100", 0); //Makes purple coins in the set galaxy behave like Tall Trunk/Rolling Coaster.
+		return StageEventDataTable::StageEventDataTable("PurpleCoinsOver100", 0); //Makes purple coins in the set galaxy behave like Tall Trunk/Rolling Coaster.
 	}
 	
 	bool isStoryBook() {
 	if (MR::isEqualStageName("FileSelect")) //FileSelect will crash if MR::isStageStoryBook returns true on this stage.
 		return false;
-	return SEDT::StageEventDataTable("StoryBook", 0); //Makes the set galaxy a Story Book stage, adding a story book border and preventing return to the Starship.
+	return StageEventDataTable::StageEventDataTable("StoryBook", 0); //Makes the set galaxy a Story Book stage, adding a story book border and preventing return to the Starship.
 	}
 	
-	bool TamakoroSliderBGM() { //Makes the set galaxy play the Slider music when a Star Ball is jumped on.
-		return SEDT::StageEventDataTable("TamakoroSliderBGM", 0);
+	bool isStageUseTamakoroBGM() { //Makes the set galaxy play the Slider music when a Star Ball is jumped on.
+		return StageEventDataTable::StageEventDataTable("TamakoroSliderBGM", 0);
 	}
 
-	void DisableFallFailsafe() { //Makes the set stage disable the game's failsafe that kills the player if falling for too long.
-	if (!SEDT::StageEventDataTable("DisableFallFailsafe", 0))
+	void isStageDisableFallFailsafe() { //Makes the set stage disable the game's failsafe that kills the player if falling for too long.
+	if (!StageEventDataTable::StageEventDataTable("DisableFallFailsafe", 0))
 			MR::forceKillPlayerByAbyss();
 	}
 
-	void DisableWorldMapEvents(NameObj* obj) {
-		if (!SEDT::StageEventDataTable("DisableWorldMapEvents", 1))
-			unkFuncs.showWorldMap(obj);
+	void isStageDisableWorldMapEvents(NameObj* obj) {
+		if (!StageEventDataTable::StageEventDataTable("DisableWorldMapEvents", 1))
+			MR::unk_ShowWorldMap(obj);
 	}
 
 	kmBranch(0x800568F0, isChimp);
@@ -109,14 +108,14 @@ namespace SEDT {
 
 	kmBranch(0x80056BE0, isStoryBook);
 
-	kmCall(0x804477B4, TamakoroSliderBGM);
+	kmCall(0x804477B4, isStageUseTamakoroBGM);
 	kmWrite32(0x800857EC, 0x38600000);	
 
-	kmCall(0x80387F64, DisableFallFailsafe);
+	kmCall(0x80387F64, isStageDisableFallFailsafe);
 
-	kmCall(0x8036B6BC, DisableWorldMapEvents);
-	kmCall(0x80495EB0, DisableWorldMapEvents);
-	kmCall(0x80495F10, DisableWorldMapEvents);
-	kmCall(0x80496CB0, DisableWorldMapEvents);
-	kmCall(0x80496D00, DisableWorldMapEvents);
+	kmCall(0x8036B6BC, isStageDisableWorldMapEvents);
+	kmCall(0x80495EB0, isStageDisableWorldMapEvents);
+	kmCall(0x80495F10, isStageDisableWorldMapEvents);
+	kmCall(0x80496CB0, isStageDisableWorldMapEvents);
+	kmCall(0x80496D00, isStageDisableWorldMapEvents);
 }

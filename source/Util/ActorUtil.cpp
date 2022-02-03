@@ -1,10 +1,7 @@
 #include "spack/Util/ActorUtil.h"
 #include "Enemy/StateController/AnimScaleController.h"
 #include "LiveActor/LiveActor.h"
-#include "Util/LiveActorUtil.h"
-#include "Util/MtxUtil.h"
 #include "Util.h"
-#include "Util/FileUtil.h"
 
 /*
 * Authors: Aurum
@@ -55,7 +52,7 @@ namespace SPack {
 	}
 
     //Loads an arc and a selected file into memory.
-	void* loadArcAndFile(const char* pArc, const char* pFile) {
+	void* loadArcAndFile(const char *pArc, const char *pFile) {
 		JKRArchive* arc = MR::mountArchive(pArc, MR::getStationedHeapGDDR3(), 0);
 		void* file = arc->getResource(pFile);
 	
