@@ -6,6 +6,7 @@
 #include "System/GameSequenceFunction.h"
 #include "Util/StageUtil.h"
 #include "Scene/SceneObjHolder.h"
+#include "LiveActor.h"
 
 /*
 * Authors: Evanbowl
@@ -92,6 +93,11 @@ namespace StageEventDataTable {
 			MR::forceKillPlayerByAbyss();
 	}
 
+	void isStageDisableWorldMapEvents(NerveExecutor* nrv) {
+		if (!StageEventDataTable::StageEventDataTable("DisableWorldMapEvents", 1))
+			nrv->updateNerve();
+	}
+
 	kmBranch(0x800568F0, isChimp);
 
 	kmBranch(0x80056B40, isPauseDisabled);
@@ -108,4 +114,6 @@ namespace StageEventDataTable {
 	kmWrite32(0x800857EC, 0x38600000);	
 
 	kmCall(0x80387F64, isStageDisableFallFailsafe);
+
+	kmCall(0x804EF3B8, isStageDisableWorldMapEvents);
 }

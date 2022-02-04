@@ -2,7 +2,7 @@
 
 #include "syati.h"
 
-class NameObj;
+class NerveExecutor;
 
 namespace StageEventDataTable {
     bool StageEventDataTable(const char* value, s32 stageCheck);
@@ -14,4 +14,5 @@ namespace StageEventDataTable {
 	bool isStoryBook();
 	bool isStageUseTamakoroBGM();
 	void isStageDisableFallFailsafe();
+	void isStageDisableWorldMapEvents(NerveExecutor* nrv);
 };
