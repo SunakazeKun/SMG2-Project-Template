@@ -14,5 +14,4 @@ namespace StageEventDataTable {
 	bool isStoryBook();
 	bool isStageUseTamakoroBGM();
 	void isStageDisableFallFailsafe();
-	void isStageDisableWorldMapEvents(NameObj* obj);
 };
