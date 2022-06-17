@@ -1,0 +1,8 @@
+*.bin
+*.d
+/.vs
+/_workspace_
+/build
+/deps/CodeWarrior
+/deps/Kamek
+/deps/Syati
