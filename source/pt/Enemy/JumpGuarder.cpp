@@ -75,7 +75,7 @@ namespace pt {
 
 		TMtx34f mtxTRS;
 		MR::makeMtxTRS(mtxTRS, TVec3f(0.0f, 44.0f, 0.0f), mHead->mRotation, mHead->mScale);
-		PSMTXCopy(mJointMtx, &mHeadMtx);
+		PSMTXCopy(mJointMtx, mHeadMtx);
 		PSMTXConcat(mHeadMtx, mtxTRS, mHeadMtx);
 
 		// Decrement stagger delay and ensure the value does not fall below 0
