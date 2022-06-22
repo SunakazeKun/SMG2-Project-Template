@@ -35,7 +35,7 @@ namespace pt {
 
 		// Initialize miscellaneous attributes
 		initEffectKeeper(8, NULL, false);
-		initSound(8, "CocoSambo", false, TVec3f(0.0f, 0.0f, 0.0f));
+		initSound(8, "CocoSambo", NULL, TVec3f(0.0f, 0.0f, 0.0f));
 		MR::invalidateClipping(this);
 
 		initFixedPosition(TVec3f(0.0f, 0.0f, 0.0f), TVec3f(0.0f, -90.0f, -90.0f), "Head");

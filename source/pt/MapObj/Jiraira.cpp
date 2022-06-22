@@ -33,7 +33,7 @@ namespace pt {
         MR::validateCollisionParts(mButtonCollision);
 
         // Initialize miscellaneous attributes
-        initSound(6, "Jiraira", 0, TVec3f(0.0f, 0.0f, 0.0f));
+        initSound(6, "Jiraira", NULL, TVec3f(0.0f, 0.0f, 0.0f));
         initEffectKeeper(0, NULL, false);
         MR::invalidateClipping(this);
         MR::useStageSwitchAwake(this, rIter);

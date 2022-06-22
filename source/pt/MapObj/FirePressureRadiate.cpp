@@ -51,7 +51,7 @@ namespace pt {
 		MR::setEffectHostMtx(this, "FireInd", mRadiateEffectMtx);
 
 		// Initialize sounds
-		initSound(4, "FirePressureRadiate", false, TVec3f(0.0f, 0.0f, 0.0f));
+		initSound(4, "FirePressureRadiate", NULL, TVec3f(0.0f, 0.0f, 0.0f));
 
 		// Retrieve Obj_args
 		MR::getJMapInfoArg0NoInit(rIter, &mCannonRotation);
