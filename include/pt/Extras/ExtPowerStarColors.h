@@ -1,6 +1,6 @@
 #pragma once
 
-#include "syati.h"
+#include "revolution.h"
 
 namespace pt {
 	s32 getPowerStarColor(const char *pStage, s32 scenarioId);

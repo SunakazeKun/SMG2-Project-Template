@@ -1,4 +1,6 @@
 *.bin
+*.map
+*.dol
 *.d
 /.vs
 /_workspace_

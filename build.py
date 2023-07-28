@@ -4,6 +4,7 @@ import shutil
 import subprocess
 import sys
 from pathlib import Path
+from elftools.elf.elffile import ELFFile
 
 
 def err(message: str):
@@ -26,7 +27,7 @@ def remove_d_files():
 # ----------------------------------------------------------------------------------------------------------------------
 # Define paths and check dependencies
 # ----------------------------------------------------------------------------------------------------------------------
-REGIONS = ["PAL", "USA", "JAP", "TWN", "KOR"]
+REGIONS = ["PAL", "USA", "JPN", "TWN", "KOR"]
 
 MWCCEPPC = dep("deps/CodeWarrior/mwcceppc.exe", "CodeWarrior compiler")
 MWASMEPPC = dep("deps/CodeWarrior/mwasmeppc.exe", "CodeWarrior assembler")
@@ -118,14 +119,77 @@ def build(region: str):
 
     print("Linking...")
 
-    object_files = " ".join(task[1] for task in compile_tasks + assemble_tasks)
+    object_tasks = compile_tasks + assemble_tasks
+    object_files = " ".join(task[1] for task in object_tasks)
     kamek_cmd = f"{KAMEK} {object_files} -externals={SYATI_SYMBOLS}/{region}.txt -output-kamek=CustomCode_{region}.bin"
 
     if subprocess.call(kamek_cmd, shell=True) != 0:
         err("Linking failed.")
 
     remove_d_files()
+
+    make_map(region, [task[1] for task in object_tasks])
+
     print("Done!")
+
+
+def make_map(region: str, object_paths: list[str]):
+    section_names = [".init", ".fini", ".text", ".ctors", ".dtors", ".rodata", ".data", ".bss"]
+    symbols_by_sections = {name: [] for name in section_names}
+    section_sizes = {name: 0 for name in section_names}
+
+    for object_path in object_paths:
+        with open(object_path, "rb") as f:
+            elf = ELFFile(f)
+
+            for section_name in section_names:
+                section = elf.get_section_by_name(section_name)
+                symtab = elf.get_section_by_name(".symtab")
+
+                if section is None:
+                    continue
+
+                local_section_base = section_sizes[section_name]
+                total_section_size = (local_section_base + section.data_size + 3) & ~3
+                section_sizes[section_name] = total_section_size
+
+                for symbol in symtab.iter_symbols():
+                    name = symbol.name
+                    st_name = symbol.entry["st_name"]
+                    st_shndx = symbol.entry["st_shndx"]
+                    st_value = symbol.entry["st_value"]
+                    st_size = symbol.entry["st_size"]
+
+                    if st_name == 0 or st_size == 0 or st_shndx == "SHN_UNDEF":
+                        continue
+                    if not elf.get_section(st_shndx).name == section_name:
+                        continue
+
+                    offset = local_section_base + st_value
+                    truncated_o_path = object_path.replace("\\", "/").removeprefix("build/")
+                    symbols_by_sections[section_name].append((offset, st_size, name, truncated_o_path))
+
+    with open(f"CustomCode_{region}.map", "w") as f:
+        total_size = 0
+        for section_name in section_names:
+            section_size = section_sizes[section_name]
+
+            if section_name == ".ctors":
+                f.write(f"{section_name} section layout\n")
+                f.write(f"  {total_size:08X}\t{section_size:06X}\t__ctor_loc\n")
+                total_size += section_size
+                f.write(f"  {total_size:08X}\t{0:06X}\t__ctor_end\n")
+            else:
+                if section_size == 0:
+                    continue
+
+                f.write(f"{section_name} section layout\n")
+
+                for (offset, size, name, truncated_o_path) in sorted(symbols_by_sections[section_name], key=lambda s: s[0]):
+                    absolute_offset = total_size + offset
+                    f.write(f"  {absolute_offset:08X}\t{size:06X}\t{name}\t{truncated_o_path}\n")
+
+                total_size += section_size
 
 
 # ----------------------------------------------------------------------------------------------------------------------

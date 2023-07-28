@@ -1,0 +1,3 @@
+[submodule "deps/Syati"]
+	path = deps/Syati
+	url = git@github.com:SunakazeKun/Syati.git

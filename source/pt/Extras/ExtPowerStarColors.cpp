@@ -1,4 +1,10 @@
-#include "pt/Extras/PowerStarColors.h"
+#include "pt/Extras/ExtPowerStarColors.h"
+#include "Game/LiveActor/LiveActor.h"
+#include "Game/System/AllData/GalaxyStatusAccessor.h"
+#include "Game/System/ScenarioDataParser.h"
+#include "Game/Util/SceneUtil.h"
+#include "Game/Util/StringUtil.h"
+#include "kamek/hooks.h"
 
 /*
 * Authors: Aurum
