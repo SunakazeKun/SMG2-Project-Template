@@ -1,4 +1,4 @@
-#include "syati.h"
+#include "syati-light.h"
 
 /*
 * Authors: Aurum

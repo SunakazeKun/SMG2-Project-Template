@@ -1,8 +1,8 @@
 #include "pt/Extras/ExtQuakeEffectArea.h"
 #include "Game/AreaObj/AreaObj.h"
+#include "Game/LiveActor/LiveActor.h"
 #include "Game/Scene/SceneObjHolder.h"
 #include "Game/Util/LiveActorUtil.h"
-#include "kamek/hooks.h"
 
 /*
 * Authors: Aurum

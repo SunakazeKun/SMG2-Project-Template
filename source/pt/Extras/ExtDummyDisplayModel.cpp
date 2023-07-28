@@ -1,5 +1,10 @@
-#include "syati.h"
+#include "syati-light.h"
+#include "Game/MapObj/DummyDisplayModel.h"
+#include "Game/Util/JMapUtil.h"
 
+/*
+* Authors: Aurum
+*/
 namespace pt {
     /*
     * New Dummy items
@@ -7,10 +12,7 @@ namespace pt {
     * New variants can be easily added and created here. This extends the existing set of dummy models. This replaces
     * all calls to MR::tryCreateDummyModel, but uses the original function to initialize the base game's items.
     */
-
-    #define NEW_DUMMY_MODEL_ITEMS 9
-
-    DummyDisplayModelInfo cNewDummyDisplayModels[NEW_DUMMY_MODEL_ITEMS] = {
+    DummyDisplayModelInfo cNewDummyDisplayModels[] = {
         /* 15 */ { "PowerUpFire",       NULL, { 0.0f, 70.0f, 0.0f }, 16, NULL, false },
         /* 16 */ { "PowerUpIce",        NULL, { 0.0f, 70.0f, 0.0f }, 16, NULL, false },
         /* 17 */ { "PowerUpBee",        NULL, { 0.0f, 70.0f, 0.0f }, 16, NULL, false },
@@ -21,11 +23,12 @@ namespace pt {
         /* 22 */ { "PowerUpRock",       NULL, { 0.0f, 70.0f, 0.0f }, 16, NULL, false },
         /* 23 */ { "PowerUpInvincible", NULL, { 0.0f, 70.0f, 0.0f }, 16, NULL, false },
     };
+    const s32 cNewDummyDisplayModelsCount = sizeof(cNewDummyDisplayModels) / sizeof(DummyDisplayModelInfo);
 
     DummyDisplayModel* tryCreateNewDummyModel(LiveActor *pHost, const JMapInfoIter &rIter, s32 defaultId, int v4) {
         s32 modelId = MR::getDummyDisplayModelId(rIter, defaultId);
 
-        if (modelId < 0 || modelId > 14 + NEW_DUMMY_MODEL_ITEMS) {
+        if (modelId < 0 || modelId > 14 + cNewDummyDisplayModelsCount) {
             return NULL;
         }
 

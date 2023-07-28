@@ -1,7 +1,6 @@
 #include "pt/Extras/ExtSuperSpinDriverGreen.h"
 #include "Game/MapObj/SuperSpinDriver.h"
 #include "Game/Util/ActorAnimUtil.h"
-#include "kamek/hooks.h"
 
 /*
 * Authors: Aurum
