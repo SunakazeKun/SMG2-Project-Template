@@ -209,7 +209,7 @@ namespace pt {
 				|| isNerve(&NrvPoihana::NrvGetUp::sInstance))
 			{
 				startBound();
-				MR::startLevelSound(this, "EvPoihanaTrample", -1, -1, -1);
+				MR::startActionSound(this, "EvPoihanaTrample", -1, -1, -1);
 
 				if (MR::isMsgPlayerHipDrop(msg)) {
 					MR::sendMsgAwayJump(pSender, pReceiver);
@@ -349,7 +349,7 @@ namespace pt {
 	void Poihana::exeSleepStart() {
 		if (MR::isFirstStep(this)) {
 			MR::startAction(this, "SleepStart");
-			MR::startLevelSound(this, "EvPoihanaSleepStart", -1, -1, -1);
+			MR::startActionSound(this, "EvPoihanaSleepStart", -1, -1, -1);
 			MR::invalidateHitSensor(this, "Binder");
 		}
 
@@ -375,8 +375,8 @@ namespace pt {
 	void Poihana::exeGetUp() {
 		if (MR::isFirstStep(this)) {
 			MR::startAction(this, "GetUp");
-			MR::startLevelSound(this, "EvPoihanaWakeup", -1, -1, -1);
-			MR::startLevelSound(this, "EmPoihanaWakeup", -1, -1, -1);
+			MR::startActionSound(this, "EvPoihanaWakeup", -1, -1, -1);
+			MR::startActionSound(this, "EmPoihanaWakeup", -1, -1, -1);
 		}
 
 		if (MR::isActionEnd(this)) {
@@ -388,7 +388,7 @@ namespace pt {
 	void Poihana::exeSearch() {
 		if (MR::isFirstStep(this)) {
 			MR::startAction(this, "Search");
-			MR::startLevelSound(this, "EvPoihanaFind", -1, -1, -1);
+			MR::startActionSound(this, "EvPoihanaFind", -1, -1, -1);
 		}
 
 		MR::turnDirectionToTargetUseGroundNormalDegree(this, &mFrontVec, *MR::getPlayerPos(), 4.0f);
@@ -428,7 +428,7 @@ namespace pt {
 	void Poihana::exeShootUp() {
 		if (MR::isFirstStep(this)) {
 			MR::startAction(this, "Throw");
-			MR::startLevelSound(this, "EvPoihanaShootUp", -1, -1, -1);
+			MR::startActionSound(this, "EvPoihanaShootUp", -1, -1, -1);
 			MR::startActorCameraNoTarget(this, mCamInfo, -1);
 		}
 
@@ -493,7 +493,7 @@ namespace pt {
 	void Poihana::exeSwoonLand() {
 		if (MR::isFirstStep(this)) {
 			MR::startBckNoInterpole(this, "SwoonLand");
-			MR::startLevelSound(this, "EvPoihanaSwoon", -1, -1, -1);
+			MR::startActionSound(this, "EvPoihanaSwoon", -1, -1, -1);
 		}
 
 		if (MR::isActionEnd(this)) {
@@ -506,7 +506,7 @@ namespace pt {
 			MR::startAction(this, "Swoon");
 		}
 
-		MR::startLevelSound(this, "EmLvSwoonS", -1, -1, -1);
+		MR::startActionSound(this, "EmLvSwoonS", -1, -1, -1);
 
 		if (MR::isStep(this, 110)) {
 			setNerve(&NrvPoihana::NrvRecover::sInstance);
@@ -516,8 +516,8 @@ namespace pt {
 	void Poihana::exeRecover() {
 		if (MR::isFirstStep(this)) {
 			MR::startAction(this, "Recover");
-			MR::startLevelSound(this, "EmPoihanaRecover", -1, -1, -1);
-			MR::startLevelSound(this, "EvPoihanaRecover", -1, -1, -1);
+			MR::startActionSound(this, "EmPoihanaRecover", -1, -1, -1);
+			MR::startActionSound(this, "EvPoihanaRecover", -1, -1, -1);
 			mScale.setAll(1.0f);
 		}
 
@@ -545,7 +545,7 @@ namespace pt {
 			MR::startAction(this, "Drown");
 			MR::invalidateClipping(this);
 			MR::invalidateHitSensors(this);
-			MR::startLevelSound(this, "EmFallIntoWaterS", -1, -1, -1);
+			MR::startActionSound(this, "EmFallIntoWaterS", -1, -1, -1);
 
 			mWaterColumn->appear();
 			MR::tryStartAllAnim(mWaterColumn, "Splash");
@@ -558,7 +558,7 @@ namespace pt {
 
 	void Poihana::exeHide() {
 		if (MR::isFirstStep(this)) {
-			MR::startLevelSound(this, "EmExplodeSWater", -1, -1, -1);
+			MR::startActionSound(this, "EmExplodeSWater", -1, -1, -1);
 			MR::emitEffect(this, "DeathWater");
 			MR::hideModel(this);
 		}
@@ -575,13 +575,13 @@ namespace pt {
 		}
 
 		if (MR::isLessStep(this, 60)) {
-			MR::startLevelSound(this, "EmLvPoihanaReviveEffect", -1, -1, -1);
+			MR::startActionSound(this, "EmLvPoihanaReviveEffect", -1, -1, -1);
 		}
 
 		if (MR::isStep(this, 60)) {
 			MR::showModel(this);
 			MR::startAction(this, "Appear");
-			MR::startLevelSound(this, "EmPoihanaReviveAppear", -1, -1, -1);
+			MR::startActionSound(this, "EmPoihanaReviveAppear", -1, -1, -1);
 		}
 		else if (MR::isActionEnd(this) && MR::isGreaterStep(this, 60)) {
 			MR::validateClipping(this);
@@ -645,7 +645,7 @@ namespace pt {
 			TVec3f jumpVec;
 			jumpVec.scale(mLaunchIntensity, mGravity);
 			MR::endBindAndPlayerJump(this, jumpVec, 0);
-			MR::startLevelSound(this, "PmHeliJump", -1, -1, -1);
+			MR::startActionSound(this, "PmHeliJump", -1, -1, -1);
 		}
 
 		mBindedActor = NULL;
@@ -697,7 +697,7 @@ namespace pt {
 		// Calculate front vector
 		TVec3f gravity;
 		if (MR::isBindedGround(this)) {
-			gravity.set(-*MR::getGroundNormal(this));
+			gravity.set(-MR::getGroundNormal(this));
 		}
 		else {
 			gravity.set(mGravity);

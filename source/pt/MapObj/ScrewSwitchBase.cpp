@@ -59,8 +59,8 @@ namespace pt {
 	bool ScrewSwitchBase::receiveOtherMsg(u32 msg, HitSensor *pSender, HitSensor *pReceiver) {
 		if (MR::isMsgRushBegin(msg) && MR::isSensorPlayer(pSender) && MR::isOnPlayer(getSensor("Binder"))) {
 			mBindedActor = pSender->mActor;
-			MR::startLevelSound(mBindedActor, "PvTwistStart", -1, -1, -1);
-			MR::startLevelSound(mBindedActor, "PmSpinAttack", -1, -1, -1);
+			MR::startActionSound(mBindedActor, "PvTwistStart", -1, -1, -1);
+			MR::startActionSound(mBindedActor, "PmSpinAttack", -1, -1, -1);
 
 			setNerve(&NrvScrewSwitchBase::NrvAdjust::sInstance);
 			return true;
@@ -107,7 +107,7 @@ namespace pt {
 
 		// Initialize collision
 		MR::initCollisionParts(this, "ScrewCol", getSensor("Binder"), MR::getJointMtx(this, "Screw"));
-		mScrewCollision = MR::createCollisionPartsFromLiveActor(this, "ScrewReceiveCol", getSensor("Body"), MR::getJointMtx(this, "ScrewReceive"), MR::CollisionScaleType_1);
+		mScrewCollision = MR::createCollisionPartsFromLiveActor(this, "ScrewReceiveCol", getSensor("Body"), MR::getJointMtx(this, "ScrewReceive"), MR::CollisionScaleType_NotUsingScale);
 		MR::validateCollisionParts(mScrewCollision);
 
 		// Initialize sounds
@@ -144,11 +144,11 @@ namespace pt {
 		}
 
 		if (MR::isLessStep(this, 30)) {
-			MR::startLevelSound(this, "OjLvScrewSwitchMove", -1, -1, -1);
+			MR::startActionSound(this, "OjLvScrewSwitchMove", -1, -1, -1);
 		}
 
 		if (MR::isStep(this, 30)) {
-			MR::startLevelSound(this, "OjScrewSwitchOn", -1, -1, -1);
+			MR::startActionSound(this, "OjScrewSwitchOn", -1, -1, -1);
 			MR::tryRumblePadVeryStrong(this, 0);
 			MR::shakeCameraNormal();
 		}
@@ -203,11 +203,11 @@ namespace pt {
 		}
 
 		if (MR::isLessStep(this, 25)) {
-			MR::startLevelSound(this, "OjLvScrSwitchRMove", -1, -1, -1);
+			MR::startActionSound(this, "OjLvScrSwitchRMove", -1, -1, -1);
 		}
 
 		if (MR::isStep(this, 25)) {
-			MR::startLevelSound(this, "OjScrSwitchROn", -1, -1, -1);
+			MR::startActionSound(this, "OjScrSwitchROn", -1, -1, -1);
 			MR::tryRumblePadVeryStrong(this, 0);
 			MR::shakeCameraNormal();
 			MR::invalidateHitSensors(this);
@@ -219,7 +219,7 @@ namespace pt {
 		}
 
 		if (MR::isActionEnd(this)) {
-			MR::startLevelSound(this, "EmExplodeS", -1, -1, -1);
+			MR::startActionSound(this, "EmExplodeS", -1, -1, -1);
 			MR::onSwitchA(this);
 			kill();
 		}
@@ -308,11 +308,11 @@ namespace pt {
 		}
 
 		if (MR::isLessStep(this, 30)) {
-			MR::startLevelSound(this, "OjLvValveSwitchMove", -1, -1, -1);
+			MR::startActionSound(this, "OjLvValveSwitchMove", -1, -1, -1);
 		}
 
 		if (MR::isStep(this, 30)) {
-			MR::startLevelSound(this, "OjValveSwitchOn", -1, -1, -1);
+			MR::startActionSound(this, "OjValveSwitchOn", -1, -1, -1);
 			MR::tryRumblePadVeryStrong(this, 0);
 			MR::shakeCameraNormal();
 		}

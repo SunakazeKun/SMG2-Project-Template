@@ -74,7 +74,8 @@ namespace pt {
 		MR::attachSupportTicoToTarget(this);
 
 		TMtx34f mtxTRS;
-		MR::makeMtxTRS(mtxTRS, TVec3f(0.0f, 44.0f, 0.0f), mHead->mRotation, mHead->mScale);
+		MR::makeMtxTRS(mtxTRS, TVec3f(0.0f, 44.0f, 0.0f), mHead->mRotation, mScale);
+
 		PSMTXCopy(mJointMtx, mHeadMtx);
 		PSMTXConcat(mHeadMtx, mtxTRS, mHeadMtx);
 
@@ -91,7 +92,7 @@ namespace pt {
 
 			if (isNerve(&NrvJumpGuarder::NrvWait::sInstance) && !MR::isOnGround(pReceiver->mActor)) {
 				MR::startAction(this, "Hit");
-				MR::startLevelSound(this, "EmJguarderHit", -1, -1, -1);
+				MR::startActionSound(this, "EmJguarderHit", -1, -1, -1);
 			}
 		}
 		else if (MR::isSensorPlayer(pReceiver)) {
@@ -101,7 +102,7 @@ namespace pt {
 				if (MR::isPlayerStaggering() && mStaggerDelay == 0) {
 					mStaggerDelay = 60;
 					MR::startAction(this, "Hit");
-					MR::startLevelSound(this, "EmJguarderHit", -1, -1, -1);
+					MR::startActionSound(this, "EmJguarderHit", -1, -1, -1);
 				}
 			}
 		}
@@ -171,7 +172,7 @@ namespace pt {
 	void JumpGuarder::exeUp() {
 		if (MR::isFirstStep(this)) {
 			MR::startAction(this, "Up");
-			MR::startLevelSound(this, "EmJguarderAppear", -1, -1, -1);
+			MR::startActionSound(this, "EmJguarderAppear", -1, -1, -1);
 		}
 
 		f32 bckMaxFrame = MR::getBckFrameMax(this);
@@ -199,7 +200,7 @@ namespace pt {
 	void JumpGuarder::exeDown() {
 		if (MR::isFirstStep(this)) {
 			MR::startAction(this, "Down");
-			MR::startLevelSound(this, "EmJguarderHide", -1, -1, -1);
+			MR::startActionSound(this, "EmJguarderHide", -1, -1, -1);
 		}
 
 		f32 bckMaxFrame = MR::getBckFrameMax(this);
@@ -217,11 +218,11 @@ namespace pt {
 			MR::startAction(mHead, "HopStart");
 			MR::startBrk(mHead, "OnAndOff");
 			MR::startAction(this, "Damage");
-			MR::startLevelSound(this, "EmJguarderHit", -1, -1, -1);
+			MR::startActionSound(this, "EmJguarderHit", -1, -1, -1);
 			getSensor("Body")->mRadius = 120.0f;
 		}
 
-		MR::startLevelSound(this, "EmLvJguarderShake", -1, -1, -1);
+		MR::startActionSound(this, "EmLvJguarderShake", -1, -1, -1);
 
 		// If shaken during the launching phase, kill all pending BegomanBabys
 		if (MR::isStep(this, 10)) {
@@ -244,7 +245,7 @@ namespace pt {
 			MR::validateHitSensor(this, "Jump");
 		}
 
-		MR::startLevelSound(this, "EmLvJguarderShake", -1, -1, -1);
+		MR::startActionSound(this, "EmLvJguarderShake", -1, -1, -1);
 
 		if (MR::isStep(this, 300)) {
 			setNerve(&NrvJumpGuarder::NrvHopEnd::sInstance);
@@ -254,7 +255,7 @@ namespace pt {
 	void JumpGuarder::exeHopJump() {
 		if (MR::isFirstStep(this)) {
 			MR::startAction(mHead, "HopJump");
-			MR::startLevelSound(this, "EmJguarderTrample", -1, -1, -1);
+			MR::startActionSound(this, "EmJguarderTrample", -1, -1, -1);
 		}
 
 		if (MR::isActionEnd(mHead)) {
@@ -267,7 +268,7 @@ namespace pt {
 			MR::startAction(this, "HopEnd");
 			MR::startAction(mHead, "HopEnd");
 			MR::startBrk(mHead, "Green");
-			MR::startLevelSound(this, "EmJguarderCloseSpring", -1, -1, -1);
+			MR::startActionSound(this, "EmJguarderCloseSpring", -1, -1, -1);
 		}
 
 		if (MR::isActionEnd(this) && MR::isActionEnd(mHead)) {
@@ -297,7 +298,7 @@ namespace pt {
 		// Collect and prepare new BegomanBabys to be launched
 		if (MR::isFirstStep(this)) {
 			MR::startAction(this, "Open");
-			MR::startLevelSound(this, "EmJguarderShutterOpen", -1, -1, -1);
+			MR::startActionSound(this, "EmJguarderShutterOpen", -1, -1, -1);
 
 			// Collect dead BegomanBabys to "revive" them
 			mNumPendingBabys = 0;
@@ -352,7 +353,7 @@ namespace pt {
 				baby->mVelocity.set(zdir * mLaunchVelocity);
 			}
 
-			MR::startLevelSound(this, "EmJguarderLaunchBaby", -1, -1, -1);
+			MR::startActionSound(this, "EmJguarderLaunchBaby", -1, -1, -1);
 		}
 		// Invalidate pending BegomanBabys
 		else if (MR::isStep(this, 74)) {
@@ -369,7 +370,7 @@ namespace pt {
 			MR::startAction(this, "Close");
 		}
 
-		MR::startLevelSound(this, "EmLvJguarderShutterClose", -1, -1, -1);
+		MR::startActionSound(this, "EmLvJguarderShutterClose", -1, -1, -1);
 
 		if (MR::isActionEnd(this)) {
 			setNerve(&NrvJumpGuarder::NrvInter::sInstance);

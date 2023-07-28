@@ -49,7 +49,7 @@ namespace pt {
     void MoguStone::attackSensor(HitSensor *pSender, HitSensor *pReceiver) {
         if (pSender == getSensor("Body") && MR::isSensorPlayer(pReceiver)) {
             if (MR::sendMsgEnemyAttack(pReceiver, pSender)) {
-                MR::startLevelSound(this, "BmIcemerakingStoneBreak", -1, -1, -1);
+                MR::startActionSound(this, "BmIcemerakingStoneBreak", -1, -1, -1);
                 kill();
             }
         }
@@ -68,7 +68,7 @@ namespace pt {
             return false;
         }
 
-        MR::startLevelSound(this, "BmIcemerakingStoneBreak", -1, -1, -1);
+        MR::startActionSound(this, "BmIcemerakingStoneBreak", -1, -1, -1);
         kill();
         return true;
     }
@@ -93,11 +93,11 @@ namespace pt {
     }
 
     void MoguStone::startBreakSound() {
-        MR::startLevelSound(this, "EmMoguSpanaBreak", -1, -1, -1);
+        MR::startActionSound(this, "EmMoguSpanaBreak", -1, -1, -1);
     }
 
     void MoguStone::startThrowLevelSound() {
-        MR::startLevelSound(this, "EmLvMoguSpanaFly", -1, -1, -1);
+        MR::startActionSound(this, "EmLvMoguSpanaFly", -1, -1, -1);
     }
 
     void MoguStone::exeThrow() {

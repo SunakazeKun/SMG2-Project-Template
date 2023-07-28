@@ -72,8 +72,8 @@ namespace pt {
 
         MR::emitEffect(this, "Death");
         MR::startAction(mHole, "Down");
-        MR::startLevelSound(this, "EmExplodeS", -1, -1, -1);
-        MR::startLevelSound(this, "OjStarPieceBurst", -1, -1, -1);
+        MR::startActionSound(this, "EmExplodeS", -1, -1, -1);
+        MR::startActionSound(this, "OjStarPieceBurst", -1, -1, -1);
     }
 
     void Mogu::endClipped() {
@@ -171,7 +171,7 @@ namespace pt {
         if (MR::isFirstStep(this)) {
             MR::startAction(this, "Hide");
             MR::startAction(mHole, "Hide");
-            MR::startLevelSound(this, "EmMoguHide", -1, -1, -1);
+            MR::startActionSound(this, "EmMoguHide", -1, -1, -1);
 
             TVec3f playerOffset = mTranslation - *MR::getPlayerCenterPos();
             f32 mag = PSVECMag(playerOffset);
@@ -186,7 +186,7 @@ namespace pt {
         }
 
         if (MR::isActionEnd(this)) {
-            MR::startLevelSound(this, "EmMoguholeClose", -1, -1, -1);
+            MR::startActionSound(this, "EmMoguholeClose", -1, -1, -1);
             setNerve(&NrvMogu::NrvHideWait::sInstance);
         }
     }
@@ -195,8 +195,8 @@ namespace pt {
         if (MR::isFirstStep(this)) {
             MR::startAction(this, "Appear");
             MR::startAction(mHole, "Open");
-            MR::startLevelSound(this, "EmMoguholeOpen", -1, -1, -1);
-            MR::startLevelSound(this, "EmMoguAppear", -1, -1, -1);
+            MR::startActionSound(this, "EmMoguholeOpen", -1, -1, -1);
+            MR::startActionSound(this, "EmMoguAppear", -1, -1, -1);
 
             TVec3f dirToPlayer;
             MR::calcVecToPlayerH(&dirToPlayer, this, NULL);
@@ -267,7 +267,7 @@ namespace pt {
             MR::startAction(this, "Throw");
             mStone->appear();
             MR::startAction(mStone, "Rotate");
-            MR::startLevelSound(this, "EmMoguTakeItem", -1, -1, -1);
+            MR::startActionSound(this, "EmMoguTakeItem", -1, -1, -1);
         }
 
         if (isNearPlayerHipDrop()) {
@@ -287,7 +287,7 @@ namespace pt {
                 TVec3f throwDir = mFrontVec * mag - upVec * dot;
 
                 mStone->emit(mCalcStoneGravity, mStone->mTranslation, throwDir, 15.0f);
-                MR::startLevelSound(this, "EmMoguThrow", -1, -1, -1);
+                MR::startActionSound(this, "EmMoguThrow", -1, -1, -1);
             }
 
             f32 distToPlayer = MR::calcDistanceToPlayer(this);
@@ -309,8 +309,8 @@ namespace pt {
 
     void Mogu::exeSwoonStart() {
         if (MR::isFirstStep(this)) {
-            MR::startLevelSound(this, "EmMoguTurnover", -1, -1, -1);
-            MR::startLevelSound(this, "EvMoguTurnover", -1, -1, -1);
+            MR::startActionSound(this, "EmMoguTurnover", -1, -1, -1);
+            MR::startActionSound(this, "EvMoguTurnover", -1, -1, -1);
             MR::startAction(this, "SwoonStart");
 
             if (!MR::isBckPlaying(mHole, "Open")) {
@@ -318,7 +318,7 @@ namespace pt {
             }
         }
 
-        MR::startLevelSound(this, "EmLvSwoonS", -1, -1, -1);
+        MR::startActionSound(this, "EmLvSwoonS", -1, -1, -1);
 
         if (MR::isActionEnd(this)) {
             setNerve(&NrvMogu::NrvSwoon::sInstance);
@@ -330,7 +330,7 @@ namespace pt {
             MR::startAction(this, "Swoon");
         }
 
-        MR::startLevelSound(this, "EmLvSwoonS", -1, -1, -1);
+        MR::startActionSound(this, "EmLvSwoonS", -1, -1, -1);
 
         if (isNearPlayerHipDrop()) {
             setNerve(&NrvMogu::NrvHipDropReaction::sInstance);
@@ -345,11 +345,11 @@ namespace pt {
             MR::startAction(this, "SwoonEnd");
         }
 
-        MR::startLevelSound(this, "EmLvMoguSwoonRecover", -1, -1, -1);
+        MR::startActionSound(this, "EmLvMoguSwoonRecover", -1, -1, -1);
 
         if (MR::isActionEnd(this)) {
             MR::startAction(mHole, "Close");
-            MR::startLevelSound(this, "EmMoguholeClose", -1, -1, -1);
+            MR::startActionSound(this, "EmMoguholeClose", -1, -1, -1);
             setNerve(&NrvMogu::NrvHideWait::sInstance);
         }
     }
@@ -368,7 +368,7 @@ namespace pt {
         if (MR::isFirstStep(this)) {
             MR::startAction(this, "Down");
             MR::startAction(mHole, "Close");
-            MR::startLevelSound(this, "EmStompedS", -1, -1, -1);
+            MR::startActionSound(this, "EmStompedS", -1, -1, -1);
         }
 
         if (MR::isGreaterStep(this, 60)) {
@@ -381,7 +381,7 @@ namespace pt {
         if (MR::isFirstStep(this)) {
             MR::startAction(this, "PunchDown");
             MR::startAction(mHole, "Close");
-            MR::startLevelSound(this, "EmMoguholeClose", -1, -1, -1);
+            MR::startActionSound(this, "EmMoguholeClose", -1, -1, -1);
             MR::startBlowHitSound(this);
             MR::validateShadow(this, NULL);
 

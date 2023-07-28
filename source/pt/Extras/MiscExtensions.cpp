@@ -119,4 +119,16 @@ namespace pt {
 	}
 
 	kmCall(0x8026360C, initQuakeEffectGeneratorSound); // redirection hook
+
+
+	/*
+	* HipDropSwitch & Pull Star crash fix
+	* 
+	* Fixes the crash when using a Pull Star while standing on a HipDropSwitch. Thanks Zyphro!
+	*/
+	f32 fixHipDropSwitchPullStarCrash(TVec3f& rVecA, TVec3f& rVecB) {
+		return MR::isOnGroundPlayer() ? rVecA.dot(rVecB) : 0.0f;
+	}
+
+	kmCall(0x802AF938, fixHipDropSwitchPullStarCrash);
 }

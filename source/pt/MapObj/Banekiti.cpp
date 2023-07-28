@@ -83,7 +83,7 @@ namespace pt {
 			MR::startAction(this, "Wait");
 		}
 
-		MR::startLevelSound(this, "OjLvBanekitiMove", -1, -1, -1);
+		MR::startActionSound(this, "OjLvBanekitiMove", -1, -1, -1);
 	}
 
 	void Banekiti::exeRepel() {
@@ -92,7 +92,7 @@ namespace pt {
 			MR::shakeCameraWeak();
 
 			MR::startAction(this, "Repel");
-			MR::startLevelSound(this, "OjBanekitiRepel", -1, -1, -1);
+			MR::startActionSound(this, "OjBanekitiRepel", -1, -1, -1);
 		}
 
 		if (MR::isActionEnd(this)) {

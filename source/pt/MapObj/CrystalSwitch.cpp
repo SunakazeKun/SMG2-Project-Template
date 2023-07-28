@@ -83,7 +83,7 @@ namespace pt {
         if (MR::isFirstStep(this)) {
             MR::onSwitchA(this);
             MR::shakeCameraNormal();
-            MR::startLevelSound(this, "OjCrystalSwitchOn", -1, -1, -1);
+            MR::startActionSound(this, "OjCrystalSwitchOn", -1, -1, -1);
             mRotSpeed = 0.0f;
         }
 

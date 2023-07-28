@@ -46,7 +46,7 @@ namespace pt {
 	}
 
 	void CocoSamboHead::kill() {
-		MR::startLevelSound(this, "EmExplodeS", -1, -1, -1);
+		MR::startActionSound(this, "EmExplodeS", -1, -1, -1);
 		LiveActor::kill();
 		MR::emitEffect(this, "DeathSmokeHead");
 	}
@@ -199,7 +199,7 @@ namespace pt {
 	void CocoSamboHead::exeFallLand() {
 		if (MR::isFirstStep(this)) {
 			MR::startAction(this, "Land");
-			MR::startLevelSound(this, "EmSfsamboHeadLand", -1, -1, -1);
+			MR::startActionSound(this, "EmSfsamboHeadLand", -1, -1, -1);
 			MR::tryRumblePadWeak(this, 0);
 			MR::shakeCameraWeak();
 		}
@@ -478,7 +478,7 @@ namespace pt {
 		MR::emitEffect(this, "DeathSmokeSpine1");
 		MR::emitEffect(this, "DeathSmokeSpine2");
 		MR::emitEffect(this, "DeathSmokeSpine3");
-		MR::startLevelSound(this, "EmExplodeS", -1, -1, -1);
+		MR::startActionSound(this, "EmExplodeS", -1, -1, -1);
 	}
 
 	void CocoSambo::exeHideWait() {
@@ -515,7 +515,7 @@ namespace pt {
 
 		if (MR::isStep(this, 60)) {
 			MR::emitEffect(this, "CocoSamboSmoke");
-			MR::startLevelSound(this, "EmSfsamboAppear", -1, -1, -1);
+			MR::startActionSound(this, "EmSfsamboAppear", -1, -1, -1);
 			MR::validateShadow(this, NULL);
 
 			MR::tryRumblePadStrong(this, 0);
@@ -564,7 +564,7 @@ namespace pt {
 
 		if (MR::isStep(this, 65)) {
 			MR::emitEffect(this, "CocoSamboSmoke");
-			MR::startLevelSound(this, "EmSfsamboHide", -1, -1, -1);
+			MR::startActionSound(this, "EmSfsamboHide", -1, -1, -1);
 			MR::invalidateShadow(this, NULL);
 			MR::tryRumblePadMiddle(this, 0);
 			MR::shakeCameraWeak();
@@ -615,8 +615,8 @@ namespace pt {
 			mHead->setNerve(&NrvCocoSamboHead::NrvHeadFall::sInstance);
 
 			MR::emitEffect(this, "Hit");
-			MR::startLevelSound(this, "EmSfsamboDamage", -1, -1, -1);
-			MR::startLevelSound(this, "EmSfsamboBlowHead", -1, -1, -1);
+			MR::startActionSound(this, "EmSfsamboDamage", -1, -1, -1);
+			MR::startActionSound(this, "EmSfsamboBlowHead", -1, -1, -1);
 			MR::tryRumblePadMiddle(this, 0);
 			MR::hideMaterial(mHead, "SanboNeedleMat_v");
 		}
@@ -673,7 +673,7 @@ namespace pt {
 		if (MR::isFirstStep(this)) {
 			MR::setBckRate(this, 0.0f);
 			MR::startAction(mHead, "PressY");
-			MR::startLevelSound(this, "EmStompedS", -1, -1, -1);
+			MR::startActionSound(this, "EmStompedS", -1, -1, -1);
 			MR::tryRumblePadMiddle(this, 0);
 		}
 

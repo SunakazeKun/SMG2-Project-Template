@@ -2,7 +2,7 @@
 #include "pt/Util/ActorUtil.h"
 
 ChooChooTrainParts::ChooChooTrainParts(ChooChooTrain *pHost, const char *pModelName)
-    : ModelObj("汽車ポッポ客車", pModelName, NULL, -2, CATEGORY_MOVEMENT_COLLISION_MAP_OBJ, CATEGORY_CALC_ANIM_COLLISION_MAP_OBJ, false)
+    : ModelObj("汽車ポッポ客車", pModelName, NULL, MR::CategoryList_Auto, MR::MovementType_CollisionMapObj, MR::CalcAnimType_CollisionMapObj, false)
 {
     mHost = pHost;
 }
@@ -153,17 +153,17 @@ void ChooChooTrain::playMoveLevelSound(f32 rate) {
     s32 step = getNerveStep();
 
     if (rate > 0.75f || (rate > 0.25f && (step % 10) == 0) || (rate > 0.0f && (step % 20) == 0)) {
-        MR::startLevelSound(this, "OjLvToySlMove", -1, -1, -1);
+        MR::startActionSound(this, "OjLvToySlMove", -1, -1, -1);
 
         for (s32 i = 0; i < mParts.mCount; i += 2) {
-            MR::startLevelSound(mParts.mArray.mArr[i], "OjLvToySlMove", -1, -1, -1);
+            MR::startActionSound(mParts.mArray.mArr[i], "OjLvToySlMove", -1, -1, -1);
         }
     }
 }
 
 void ChooChooTrain::exeAccel() {
     if (MR::isFirstStep(this)) {
-        MR::startLevelSound(this, "OjToySlWhistle", -1, -1, -1);
+        MR::startActionSound(this, "OjToySlWhistle", -1, -1, -1);
     }
 
     f32 rate = MR::calcNerveEaseInRate(this, mAccelTime);
@@ -185,7 +185,7 @@ void ChooChooTrain::exeMove() {
     playMoveLevelSound(1.0f);
 
     if (mWhistleTimer < 0) {
-        MR::startLevelSound(this, "OjToySlWhistle", -1, -1, -1);
+        MR::startActionSound(this, "OjToySlWhistle", -1, -1, -1);
         mWhistleTimer = MR::getRandom((s32)180, (s32)600);
     }
     else {

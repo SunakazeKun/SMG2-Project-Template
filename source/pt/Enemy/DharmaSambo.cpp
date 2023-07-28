@@ -238,7 +238,7 @@ namespace pt {
 			mVelocity.zero();
 		}
 
-		MR::startLevelSound(this, "EmLvDharmasamboMoveUnder", -1, -1, -1);
+		MR::startActionSound(this, "EmLvDharmasamboMoveUnder", -1, -1, -1);
 		pt::moveAndTurnToPlayer(this, ::hOnlyTurnParam);
 		f32 distToPlayer = MR::calcDistanceToPlayer(this);
 
@@ -263,7 +263,7 @@ namespace pt {
 		}
 
 		if (MR::isStep(this, 60)) {
-			MR::startLevelSound(this, "EmSfsamboAppear", -1, -1, -1);
+			MR::startActionSound(this, "EmSfsamboAppear", -1, -1, -1);
 		}
 
 		pt::moveAndTurnToPlayer(this, ::hOnlyTurnParam);
@@ -279,7 +279,7 @@ namespace pt {
 			startActionAllParts("Wait");
 		}
 		
-		MR::startLevelSound(this, "EmLvDharmasamboMove", -1, -1, -1);
+		MR::startActionSound(this, "EmLvDharmasamboMove", -1, -1, -1);
 
 		bool doAttack = false;
 		f32 distToPlayer = MR::calcDistanceToPlayer(this);
@@ -337,7 +337,7 @@ namespace pt {
 
 		if (MR::checkPassBckFrame(this, 110.0f) && !MR::checkPassBckFrame(this, 111.0f)) {
 			MR::emitEffect(getHeadParts(), "Attack");
-			MR::startLevelSound(this, "EmSfsamboAttack", -1, -1, -1);
+			MR::startActionSound(this, "EmSfsamboAttack", -1, -1, -1);
 		}
 
 		if (!decCountAndTryToHide(hide) && hide) {
@@ -420,7 +420,7 @@ namespace pt {
 
 			if (!MR::isBckPlaying(pHead, "Run")) {
 				MR::startAction(pHead, "Run");
-				MR::startLevelSound(this, "EmSamboheadHop", -1, -1, -1);
+				MR::startActionSound(this, "EmSamboheadHop", -1, -1, -1);
 			}
 
 			MR::setBckRate(pHead, 1.2f);
@@ -506,7 +506,7 @@ namespace pt {
 		if (MR::isFirstStep(this)) {
 			MR::stopBck(this);
 			startActionHead("Down");
-			MR::startLevelSound(this, "EmStompedS", -1, -1, -1);
+			MR::startActionSound(this, "EmStompedS", -1, -1, -1);
 		}
 
 		if (MR::isOnGround(this)) {
@@ -534,11 +534,11 @@ namespace pt {
 		}
 
 		if (MR::isStep(this, 30)) {
-			MR::startLevelSound(this, "EmDharmasamboPreHide", -1, -1, -1);
+			MR::startActionSound(this, "EmDharmasamboPreHide", -1, -1, -1);
 		}
 
 		if (MR::isStep(this, 65)) {
-			MR::startLevelSound(this, "EmSfsamboHide", -1, -1, -1);
+			MR::startActionSound(this, "EmSfsamboHide", -1, -1, -1);
 		}
 
 		pt::moveAndTurnToPlayer(this, ::hOnlyTurnParam);
@@ -552,7 +552,7 @@ namespace pt {
 	void DharmaSambo::exeHideAppear() {
 		if (MR::isFirstStep(this)) {
 			MR::startAction(this, "HideAppear");
-			MR::startLevelSound(this, "EmSamboheadAppear", -1, -1, -1);
+			MR::startActionSound(this, "EmSamboheadAppear", -1, -1, -1);
 
 			s32 headIndex = mParts.mCount - 1;
 
@@ -680,7 +680,7 @@ namespace pt {
 	}
 
 	DharmaSamboParts::DharmaSamboParts(DharmaSambo *pHost, const char *pName, const char *pModelName)
-		: ModelObj(pName, pModelName, NULL, CATEGORY_DRAW_BUFFER_ENEMY, CATEGORY_MOVEMENT_ENEMY_DECORATION, CATEGORY_AUTO, false)
+		: ModelObj(pName, pModelName, NULL, MR::DrawBufferType_Enemy, MR::MovementType_EnemyDecoration, MR::CategoryList_Auto, false)
 	{
 		mHost = pHost;
 		mOriginalPosIndex = -1;
@@ -705,13 +705,13 @@ namespace pt {
 	void DharmaSamboParts::kill() {
 		ModelObj::kill();
 		MR::emitEffect(this, "Death");
-		MR::startLevelSound(this, "EmExplodeS", -1, -1, -1);
+		MR::startActionSound(this, "EmExplodeS", -1, -1, -1);
 
 		if (mIsHead) {
 			s32 numStarPiece = MR::getDeclareRemnantStarPieceCount(mHost);
 			
 			if (MR::appearStarPiece(mHost, mTranslation, numStarPiece, 10.0f, 40.0f, false)) {
-				MR::startLevelSound(mHost, "OjStarPieceBurst", -1, -1, -1);
+				MR::startActionSound(mHost, "OjStarPieceBurst", -1, -1, -1);
 			}
 		}
 	}
@@ -806,7 +806,7 @@ namespace pt {
 		}
 		else if (MR::isMsgPlayerTrample(msg) || MR::isMsgPlayerHipDrop(msg)) {
 			if (!mIsHead) {
-				MR::startLevelSound(this, "EmDharmasamboTrample", -1, -1, -1);
+				MR::startActionSound(this, "EmDharmasamboTrample", -1, -1, -1);
 				return true;
 			}
 			else {
@@ -822,7 +822,7 @@ namespace pt {
 					&& !mHost->isNerve(&NrvDharmaSambo::NrvHide::sInstance))
 				{
 					mHost->setNerve(&NrvDharmaSambo::NrvTrampleDeath::sInstance);
-					MR::startLevelSound(this, "EmDharmasamboTrample", -1, -1, -1);
+					MR::startActionSound(this, "EmDharmasamboTrample", -1, -1, -1);
 					return true;
 				}
 				else {
@@ -855,7 +855,7 @@ namespace pt {
 			mSpinHitCtrl->start(this, *MR::getPlayerPos(), mTranslation);
 			MR::startAction(this, "Blow");
 			MR::startBlowHitSound(mHost);
-			MR::startLevelSound(this, "EmDharmasamboBlow", -1, -1, -1);
+			MR::startActionSound(this, "EmDharmasamboBlow", -1, -1, -1);
 		}
 
 		mSpinHitCtrl->execute(this);

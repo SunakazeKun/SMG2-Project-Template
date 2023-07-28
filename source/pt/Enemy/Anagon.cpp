@@ -70,7 +70,7 @@ namespace pt {
 			mStarPointerTargets[i]->makeActorAppeared();
 		}
 
-		MR::startLevelSound(this, "BmSklFishBabyAppear", -1, -1, -1);
+		MR::startActionSound(this, "BmSklFishBabyAppear", -1, -1, -1);
 		MR::validateClipping(this);
 		setNerve(&NrvAnagon::NrvSwim::sInstance);
 	}
@@ -82,7 +82,7 @@ namespace pt {
 			mStarPointerTargets[i]->makeActorDead();
 		}
 
-		MR::startLevelSound(this, "EmExplodeUnderWater", -1, -1, -1);
+		MR::startActionSound(this, "EmExplodeUnderWater", -1, -1, -1);
 	}
 
 	void Anagon::control() {
@@ -126,7 +126,7 @@ namespace pt {
 			MR::startAction(this, "Swim");
 		}
 
-		MR::startLevelSound(this, "EmLvSnakefishSwim", -1, -1, -1);
+		MR::startActionSound(this, "EmLvSnakefishSwim", -1, -1, -1);
 
 		if (isStarPointerPointing()) {
 			setNerve(&NrvAnagon::NrvBind::sInstance);
@@ -157,8 +157,8 @@ namespace pt {
 	void Anagon::exeBreak() {
 		if (MR::isFirstStep(this)) {
 			MR::startAction(this, "Death");
-			MR::startLevelSound(this, "EmExplodeUnderWater", -1, -1, -1);
-			MR::startLevelSound(this, "EvSnakeheadDamage", -1, -1, -1);
+			MR::startActionSound(this, "EmExplodeUnderWater", -1, -1, -1);
+			MR::startActionSound(this, "EvSnakeheadDamage", -1, -1, -1);
 			MR::invalidateClipping(this);
 		}
 
@@ -172,7 +172,7 @@ namespace pt {
 			TVec3f starPiecePos;
 			MR::copyJointPos(this, "Center", &starPiecePos);
 			MR::appearStarPiece(this, starPiecePos, 10, 10.0f, 40.0f, false);
-			MR::startLevelSound(this, "OjStarPieceBurstWF", -1, -1, -1);
+			MR::startActionSound(this, "OjStarPieceBurstWF", -1, -1, -1);
 			kill();
 		}
 	}

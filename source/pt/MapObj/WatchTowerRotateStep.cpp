@@ -100,16 +100,16 @@ namespace pt {
 
         attachLift();
 
-        MR::startLevelSound(this, "OjLvWatchTowerRotate", -1, -1, -1);
+        MR::startActionSound(this, "OjLvWatchTowerRotate", -1, -1, -1);
     }
 
     void WatchTowerRotateStep::exeMoveStart() {
         if (MR::isFirstStep(this)) {
             MR::startSystemSE("SE_SY_READ_RIDDLE_S", -1, -1);
-            MR::startLevelSound(this, "OjWatchTowerStart", -1, -1, -1);
+            MR::startActionSound(this, "OjWatchTowerStart", -1, -1, -1);
         }
 
-        MR::startLevelSound(this, "OjLvWatchTowerRotate", -1, -1, -1);
+        MR::startActionSound(this, "OjLvWatchTowerRotate", -1, -1, -1);
 
         TVec3f frontVec;
         f32 rotateAngle = MR::getEaseInValue(getNerveStep(), 0.0f, mRotSpeed, 180.0f);

@@ -105,7 +105,7 @@ namespace pt {
 	}
 
 	void LavaBallRisingPlanetLava::exeWait() {
-		MR::startLevelSound(this, "Loop", -1, -1, -1);
+		MR::startActionSound(this, "Loop", -1, -1, -1);
 
 		if (mDoScale && MR::isStep(this, mWaitTime)) {
 			if (isNerve(&NrvLavaBallRisingPlanetLava::NrvWaitSmall::sInstance)) {
@@ -118,10 +118,10 @@ namespace pt {
 	}
 
 	void LavaBallRisingPlanetLava::exeScaleUp() {
-		MR::startLevelSound(this, "Loop", -1, -1, -1);
+		MR::startActionSound(this, "Loop", -1, -1, -1);
 
 		if (mDoScale) {
-			MR::startLevelSound(this, "Scale", -1, -1, -1);
+			MR::startActionSound(this, "Scale", -1, -1, -1);
 
 			mScale.setAll(MR::calcNerveValue(this, mScaleUpTime, mMinScale, mMaxScale));
 
@@ -133,10 +133,10 @@ namespace pt {
 	}
 
 	void LavaBallRisingPlanetLava::exeScaleDown() {
-		MR::startLevelSound(this, "Loop", -1, -1, -1);
+		MR::startActionSound(this, "Loop", -1, -1, -1);
 
 		if (mDoScale) {
-			MR::startLevelSound(this, "Scale", -1, -1, -1);
+			MR::startActionSound(this, "Scale", -1, -1, -1);
 
 			mScale.setAll(MR::calcNerveValue(this, mScaleDownTime, mMaxScale, mMinScale));
 

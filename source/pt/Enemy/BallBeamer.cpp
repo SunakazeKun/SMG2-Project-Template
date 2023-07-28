@@ -148,7 +148,7 @@ namespace pt {
 			step -= (step / 120) * 120;
 
 			if (step >= 75 && step < 119) {
-				MR::startLevelSound(this, "EmLvRingbeamCharge", -1, -1, -1);
+				MR::startActionSound(this, "EmLvRingbeamCharge", -1, -1, -1);
 			}
 
 			if (step == 75) {
@@ -157,7 +157,7 @@ namespace pt {
 
 			if (step == 119) {
 				MR::startAction(this, "Sign");
-				MR::startLevelSound(this, "EmBallbeamerRotHead", -1, -1, -1);
+				MR::startActionSound(this, "EmBallbeamerRotHead", -1, -1, -1);
 
 				for (s32 i = 0; i < mNumMaxBeams; i++) {
 					RingBeam* beam = mBeams[i];

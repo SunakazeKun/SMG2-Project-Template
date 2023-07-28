@@ -28,7 +28,7 @@ namespace pt {
 
 	void MorphItemNeoIce::emitAppearEffects() {
 		MR::emitEffect(this, "AppearIceFlower");
-		MR::startLevelSound(this, "OjMorphFlowerAppear", -1, -1, -1);
+		MR::startActionSound(this, "OjMorphFlowerAppear", -1, -1, -1);
 	}
 
 
@@ -45,7 +45,7 @@ namespace pt {
 
 	void MorphItemNeoFoo::emitAppearEffects() {
 		MR::emitEffect(this, "AppearFoo");
-		MR::startLevelSound(this, "OjMorphItemAppear", -1, -1, -1);
+		MR::startActionSound(this, "OjMorphItemAppear", -1, -1, -1);
 	}
 
 	kmWrite32(0x80024104, 0x48000010); // set first collection flag

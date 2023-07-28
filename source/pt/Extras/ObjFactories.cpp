@@ -60,7 +60,7 @@ namespace pt {
     * Extended ProjectMapCreator
     */
     void* getMapObjCreator(ProductMapCreator *pFactory, const char *pName) {
-        void* creator = pFactory->getObjClassName(pName);
+        void* creator = pFactory->getProductMapCreator(pName);
 
         if (!creator) {
             for (s32 i = 0; i < NUM_CLASSES; i++) {

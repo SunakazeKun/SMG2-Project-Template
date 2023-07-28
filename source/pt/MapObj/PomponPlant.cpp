@@ -75,7 +75,7 @@ namespace pt {
         }
         else if (mCollectible == 0) {
             if (MR::appearStarPiece(this, getSensor("Body")->mPosition, 10.0f, 40.0f, mAmount, false)) {
-                MR::startLevelSound(this, "OjStarPieceBurst", -1, -1, -1);
+                MR::startActionSound(this, "OjStarPieceBurst", -1, -1, -1);
             }
         }
 
@@ -85,7 +85,7 @@ namespace pt {
 
     void PomponPlant::exeSwingDpd() {
         if (MR::isFirstStep(this)) {
-            MR::startLevelSound(this, "OjPomponPlantDpdHit", -1, -1, -1);
+            MR::startActionSound(this, "OjPomponPlantDpdHit", -1, -1, -1);
             MR::startAction(this, "DpdHit");
         }
 
@@ -96,7 +96,7 @@ namespace pt {
 
     void PomponPlant::exeSwingPlayer() {
         if (MR::isFirstStep(this)) {
-            MR::startLevelSound(this, "OjPomponPlantHit", -1, -1, -1);
+            MR::startActionSound(this, "OjPomponPlantHit", -1, -1, -1);
             MR::startAction(this, "Hit");
             tryGenItem();
         }

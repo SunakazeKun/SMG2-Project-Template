@@ -32,7 +32,7 @@ namespace pt {
 		// Initialize miscellaneous attributes
 		MR::invalidateClipping(this);
 		MR::setSensorType(this, "Hit", ATYPE_SWITCH_BIND);
-		mMoveCollision = MR::createCollisionPartsFromLiveActor(this, "Move", getSensor("Hit"), MR::CollisionScaleType_2);
+		mMoveCollision = MR::createCollisionPartsFromLiveActor(this, "Move", getSensor("Hit"), MR::CollisionScaleType_Default);
 
 		MR::getJMapInfoArg0NoInit(rIter, &mTimer);
 		MR::startAction(this, "Wait");
@@ -122,7 +122,7 @@ namespace pt {
 		if (MR::isFirstStep(this)) {
 			MR::shakeCameraNormal();
 			MR::onSwitchA(this);
-			MR::startLevelSound(this, "OjSwitch1", -1, -1, -1);
+			MR::startActionSound(this, "OjSwitch1", -1, -1, -1);
 			MR::invalidateCollisionParts(mMoveCollision);
 
 			if (mScreenEffectType == 1) {

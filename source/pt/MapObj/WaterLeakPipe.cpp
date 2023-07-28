@@ -16,7 +16,7 @@
 
 namespace pt {
 	IceStepNoSlip::IceStepNoSlip(MtxPtr pMtx)
-		: ModelObj("アイス床", "IceStepNoSlip", pMtx, CATEGORY_DRAW_BUFFER_INDIRECT_MAP_OBJ_STRONG_LIGHT, CATEGORY_AUTO, CATEGORY_AUTO, false)
+		: ModelObj("アイス床", "IceStepNoSlip", pMtx, MR::DrawBufferType_IndirectMapObjStrongLight, MR::CategoryList_Auto, MR::CategoryList_Auto, false)
 	{
 
 	}
@@ -115,7 +115,7 @@ namespace pt {
 			MR::emitEffect(this, "Splash");
 		}
 
-		MR::startLevelSound(this, "OjLvWaterLeak", -1, -1, -1);
+		MR::startActionSound(this, "OjLvWaterLeak", -1, -1, -1);
 	}
 
 	void WaterLeakPipe::exeFreeze() {
@@ -124,14 +124,14 @@ namespace pt {
 
 			mIceStep->appear();
 
-			MR::startLevelSound(this, "OjIceFloorFreeze", -1, -1, -1);
+			MR::startActionSound(this, "OjIceFloorFreeze", -1, -1, -1);
 			MR::invalidateClipping(this);
 		}
 		else if (MR::isOnPlayer(mIceStep) && MR::isPlayerElementModeIce()) {
 			setNerve(&NrvWaterLeakPipe::NrvFreeze::sInstance);
 		}
 		else if (MR::isStep(this, 15)) {
-			MR::startLevelSound(this, "OjIceFloorMelt", -1, -1, -1);
+			MR::startActionSound(this, "OjIceFloorMelt", -1, -1, -1);
 			MR::validateClipping(this);
 
 			mIceStep->setNerve(&NrvIceStepNoSlip::NrvBreak::sInstance);

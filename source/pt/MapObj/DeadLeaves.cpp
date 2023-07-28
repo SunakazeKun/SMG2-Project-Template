@@ -50,14 +50,14 @@ namespace pt {
 	void DeadLeaves::exeSpin() {
 		if (MR::isFirstStep(this)) {
 			MR::startAction(this, "Spin");
-			MR::startLevelSound(this, "OjLeavesSwing", -1, -1, -1);
+			MR::startActionSound(this, "OjLeavesSwing", -1, -1, -1);
 
 			if (mItemType == 0) {
 				MR::appearCoinPop(this, mTranslation, 1);
 			}
 			else if (mItemType == 1) {
 				if (MR::appearStarPiece(this, mTranslation, 3, 10.0f, 40.0f, false)) {
-					MR::startLevelSound(this, "OjStarPieceBurst", -1, -1, -1);
+					MR::startActionSound(this, "OjStarPieceBurst", -1, -1, -1);
 				}
 			}
 

@@ -217,7 +217,7 @@ namespace pt {
 	}
 
 	void FirePressureRadiate::exeRadiate() {
-		MR::startLevelSound(this, "OjLvFPressureRadiate", -1, -1, -1);
+		MR::startActionSound(this, "OjLvFPressureRadiate", -1, -1, -1);
 
 		if (MR::isBckOneTimeAndStopped(this)) {
 			JMath::gekko_ps_copy12(&mRadiateEffectMtx, MR::getJointMtx(this, "Cannon3"));
