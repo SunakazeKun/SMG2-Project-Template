@@ -13,33 +13,33 @@
 */
 
 namespace pt {
-    PlayerSwitchCtrl::PlayerSwitchCtrl(const char *pName) : NameObj(pName) {
-        mStageSwitchCtrl = NULL;
-        mCheckLuigi = false;
-        mDeactivate = false;
-    }
+	PlayerSwitchCtrl::PlayerSwitchCtrl(const char *pName) : NameObj(pName) {
+		mStageSwitchCtrl = NULL;
+		mCheckLuigi = false;
+		mDeactivate = false;
+	}
 
-    void PlayerSwitchCtrl::init(const JMapInfoIter &rIter) {
-        MR::connectToSceneMapObjMovement(this);
+	void PlayerSwitchCtrl::init(const JMapInfoIter &rIter) {
+		MR::connectToSceneMapObjMovement(this);
 
-        MR::getJMapInfoArg0NoInit(rIter, &mCheckLuigi);
-        MR::getJMapInfoArg1NoInit(rIter, &mDeactivate);
+		MR::getJMapInfoArg0NoInit(rIter, &mCheckLuigi);
+		MR::getJMapInfoArg1NoInit(rIter, &mDeactivate);
 
-        mStageSwitchCtrl = MR::createStageSwitchCtrl(this, rIter);
-    }
+		mStageSwitchCtrl = MR::createStageSwitchCtrl(this, rIter);
+	}
 
-    void PlayerSwitchCtrl::movement() {
-        if (mStageSwitchCtrl->isValidSwitchB() && !mStageSwitchCtrl->isOnSwitchB()) {
-            return;
-        }
+	void PlayerSwitchCtrl::movement() {
+		if (mStageSwitchCtrl->isValidSwitchB() && !mStageSwitchCtrl->isOnSwitchB()) {
+			return;
+		}
 
-        if (MR::isPlayerLuigi() == mCheckLuigi) {
-            if (mDeactivate) {
-                mStageSwitchCtrl->offSwitchA();
-            }
-            else {
-                mStageSwitchCtrl->onSwitchA();
-            }
-        }
-    }
+		if (MR::isPlayerLuigi() == mCheckLuigi) {
+			if (mDeactivate) {
+				mStageSwitchCtrl->offSwitchA();
+			}
+			else {
+				mStageSwitchCtrl->onSwitchA();
+			}
+		}
+	}
 }

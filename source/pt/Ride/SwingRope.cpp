@@ -1,13 +1,12 @@
 #include "Game/Ride/SwingRope.h"
 
 /*
-* Authors: Aurum
+* Author: Aurum
 * Objects: SwingRope
 * Parameters: <none>
 * 
 * This is the swinging vine from Beach Bowl Galaxy. This actor was left unused in SMG2's code, though. Its constructor
-* is lost, but it can be easily restored by using SMG1 as a reference. Other than that, all of its functionality is
-* fully intact.
+* is lost, but it can be easily restored. Other than that, all of its functionality is fully intact.
 */
 
 SwingRope::SwingRope(const char *pName) : LiveActor(pName) {

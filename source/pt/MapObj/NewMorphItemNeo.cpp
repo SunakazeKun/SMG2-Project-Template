@@ -1,7 +1,7 @@
 ﻿#include "pt/MapObj/NewMorphItemNeo.h"
 
 /*
-* Authors: Aurum
+* Author: Aurum
 * Objects: MorphItemNeoIce, MorphItemNeoFoo, MorphItemCollectionIce, MorphItemCollectionFoo
 * Parameters: See other MorphItemNeo and MorphItemCollection objects
 * 

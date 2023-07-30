@@ -1,0 +1,1650 @@
+{
+    "Classes": [
+        {
+            "InternalName": "Anagon",
+            "Notes": "A swimming eel-like enemy that moves on a set path. It can be defeated by throwing a Koopa Shell at it or by touching it with the Rainbow power-up. It drops 10 Star Bits when defeated. Can be frozen by the Orange Luma.",
+            "Games": 4,
+            "Progress": 2,
+            "Parameters": {
+                "Obj_arg0": {
+					"Name": "Speed",
+					"Type": "Float",
+                    "Games": 4,
+					"Description": "Sets the rate at which it moves on the path. Default is 20."
+                },
+                "SW_APPEAR": {
+                    "Games": 4
+                },
+                "SW_DEAD": {
+                    "Games": 4,
+                    "Description": "Gets activated after it dies."
+                },
+                "SW_AWAKE": {
+                    "Games": 4
+                },
+                "Rail": {
+                    "Games": 4,
+					"Needed": true,
+					"Description": "The path that it moves on.",
+                },
+                "ClippingGroup": {
+                    "Games": 4
+                }
+            }
+        },
+		{
+			"InternalName": "BallBeamer",
+			"Games": 5,
+			"Parameters": {
+				"Obj_arg0": {
+					"Games": 5
+				},
+				"Obj_arg1": {
+					"Games": 5
+				},
+				"Obj_arg2": {
+					"Games": 5
+				},
+                "Obj_arg3": {
+					"Name": "Color Frame",
+					"Type": "Float",
+                    "Games": 4,
+					"Description": "The color frame to be used by the individual rings.",
+					"Values": [
+						{
+							"Value": "-1",
+							"Notes": "Red"
+						},
+						{
+							"Value": "1",
+							"Notes": "Yellow"
+						}
+					]
+                },
+                "Obj_arg4": {
+					"Name": "Activation Range",
+					"Type": "Float",
+                    "Games": 4,
+					"Description": "The range the player has to be within for it to attack. Default is 3000."
+                },
+                "Obj_arg5": {
+					"Name": "Beam Count",
+					"Type": "Integer",
+                    "Games": 4,
+					"Description": "The number of beams to be created. Default is 3. Clamped between 3 and 12 inclusive."
+                },
+				"SW_A": {
+					"Games": 5
+				},
+				"SW_B": {
+					"Games": 5
+				},
+				"SW_AWAKE": {
+					"Games": 4
+				},
+				"SW_PARAM": {
+					"Games": 4
+				}
+			}
+		},
+		{
+			"InternalName": "Banekiti",
+			"Games": 5,
+			"Parameters": {
+                "SW_AWAKE": {
+                    "Games": 4
+                },
+				"Rail": {
+					"Games": 5
+				},
+                "ClippingGroup": {
+                    "Games": 4
+                },
+				"MapPartsRailMover": {
+					"Games": 5
+				}
+			}
+		},
+		{
+			"InternalName": "BlueChip",
+			"Games": 5,
+			"Parameters": {
+				"Obj_arg0": {
+					"Games": 5
+				},
+				"Obj_arg2": {
+					"Games": 5
+				},
+				"Obj_arg3": {
+					"Games": 5
+				},
+				"Obj_arg4": {
+					"Games": 5
+				},
+				"Obj_arg5": {
+					"Games": 5
+				},
+				"SW_APPEAR": {
+					"Games": 5
+				},
+				"SW_AWAKE": {
+					"Games": 4
+				},
+				"Rail": {
+					"Games": 5
+				},
+				"ClippingGroup": {
+					"Games": 5
+				},
+				"MapPartsRailMover": {
+					"Games": 5
+				}
+			}
+		},
+		{
+			"InternalName": "BlueChipGroup",
+			"Games": 5,
+			"Parameters": {
+				"Obj_arg0": {
+					"Games": 5
+				},
+				"Obj_arg1": {
+					"Games": 5
+				},
+				"Obj_arg2": {
+					"Games": 5
+				},
+				"Obj_arg3": {
+					"Games": 5
+				},
+				"SW_APPEAR": {
+					"Games": 5
+				},
+				"SW_A": {
+					"Games": 5
+				}
+			}
+		},
+		{
+			"InternalName": "ChooChooTrain",
+			"Games": 5,
+			"Parameters": {
+				"Obj_arg0": {
+					"Games": 5
+				},
+				"Obj_arg1": {
+					"Games": 5
+				},
+                "SW_A": {
+                    "Games": 4,
+                    "Description": "If used, the train will move only while this switch is activated."
+                },
+                "SW_AWAKE": {
+                    "Games": 4
+                },
+				"Rail": {
+					"Games": 5
+				},
+				"ClippingGroup": {
+					"Games": 4
+				}
+			}
+		},
+		{
+			"InternalName": "CocoSambo",
+			"Games": 5,
+			"Parameters": {
+				"Obj_arg0": {
+					"Games": 5
+				},
+                "Obj_arg1": {
+					"Name": "Spawn no Items?",
+					"Type": "Boolean",
+                    "Games": 4,
+					"Description": "If enabled, it won't spawn any items after being defeated."
+                },
+                "Obj_arg2": {
+					"Name": "Show Flower?",
+					"Type": "Boolean",
+                    "Games": 4,
+					"Description": "If set, it will always show the head's flower when it's in the ground."
+                },
+                "Obj_arg3": {
+					"Name": "Head Blow Speed",
+					"Type": "Float",
+                    "Games": 4,
+					"Description": "The rate at which the head falls off when hit. Default is -100."
+                },
+				"SW_DEAD": {
+					"Games": 5
+				},
+				"SW_AWAKE": {
+					"Games": 4
+				}
+			}
+		},
+        {
+            "InternalName": "CollectSwitchCtrl",
+            "Notes": "A controller that activates a switch after the player has acquired the requested items.",
+            "Games": 4,
+            "Progress": 2,
+            "Parameters": {
+                "Obj_arg0": {
+					"Name": "Item Type",
+					"Type": "Integer",
+                    "Games": 4,
+					"Description": "The required item needed to activate the switch. Default is 0.",
+					"Values": [
+						{
+							"Value": "0",
+							"Notes": "Coins"
+						},
+						{
+							"Value": "1",
+							"Notes": "Purple Coins"
+						},
+						{
+							"Value": "2",
+							"Notes": "Star Bits"
+						},
+						{
+							"Value": "3",
+							"Notes": "Power Stars"
+						}
+					]
+                },
+                "Obj_arg1": {
+					"Name": "Item Count",
+					"Type": "Integer",
+                    "Games": 4,
+					"Description": "The required amount of the item needed to activate the switch. Default is 0."
+                },
+                "Obj_arg2": {
+					"Name": "Comparator",
+					"Type": "Integer",
+                    "Games": 4,
+					"Description": "The comparator used for checking. Default is 0",
+					"Values": [
+						{
+							"Value": "0",
+							"Notes": "Amount == Obj_arg1"
+						},
+						{
+							"Value": "1",
+							"Notes": "Amount < Obj_arg1"
+						},
+						{
+							"Value": "2",
+							"Notes": "Amount <= Obj_arg1"
+						},
+						{
+							"Value": "3",
+							"Notes": "Amount > Obj_arg1"
+						},
+						{
+							"Value": "4",
+							"Notes": "Amount >= Obj_arg1"
+						},
+						{
+							"Value": "5",
+							"Notes": "Amount != Obj_arg1"
+						}
+					]
+                },
+                "Obj_arg3": {
+					"Name": "Activate Once?",
+					"Type": "Boolean",
+                    "Games": 4,
+					"Description": "If set, the switch will be activated only once and it won't check the item count again."
+                },
+                "Obj_arg4": {
+					"Name": "Clear Star Bits?",
+					"Type": "Boolean",
+                    "Games": 4,
+					"Description": "If set, all of the player's temporary Star Bits will be cleared after they died in a level."
+                },
+                "SW_A": {
+                    "Games": 4,
+                    "Needed": true,
+                    "Description": "Gets activated after acquiring the requested items."
+                }
+            }
+        },
+		{
+			"InternalName": "CrystalSwitch",
+			"Games": 5,
+			"Parameters": {
+				"Obj_arg0": {
+					"Games": 5
+				},
+				"SW_A": {
+					"Games": 5,
+				},
+				"SW_AWAKE": {
+					"Games": 5
+				}
+			}
+		},
+		{
+			"InternalName": "DeadLeaves",
+			"Games": 5,
+			"Parameters": {
+				"Obj_arg0": {
+					"Games": 5
+				},
+				"SW_APPEAR": {
+					"Games": 5
+				},
+				"SW_A": {
+					"Games": 4,
+                    "Description": "Gets activated after spinning near it."
+				},
+				"SW_AWAKE": {
+					"Games": 5
+				},
+				"DemoCast": {
+					"Games": 5
+				}
+			}
+		},
+		{
+			"InternalName": "DharmaSambo",
+			"Games": 5,
+			"Parameters": {
+				"Obj_arg0": {
+					"Name": "Appearance Range",
+					"Type": "Float",
+					"Games": 4,
+					"Description": "The valid range in which it appears from the ground. Default is 800."
+				},
+				"SW_APPEAR": {
+					"Games": 5,
+					"Needed": false
+				},
+				"SW_DEAD": {
+					"Games": 5
+				},
+				"SW_AWAKE": {
+					"Games": 4
+				}
+			}
+		},
+		{
+			"InternalName": "FirePressureRadiate",
+			"Games": 5,
+			"Parameters": {
+				"Obj_arg0": {
+					"Games": 5
+				},
+				"Obj_arg1": {
+					"Games": 5
+				},
+				"Obj_arg2": {
+					"Games": 5
+				},
+				"SW_APPEAR": {
+					"Games": 5
+				},
+				"SW_A": {
+					"Games": 5
+				},
+				"SW_AWAKE": {
+					"Games": 5
+				},
+				"Group": {
+					"Games": 5
+				},
+				"ClippingGroup": {
+					"Games": 5
+				},
+				"DemoCast": {
+					"Games": 5
+				}
+			}
+		},
+		{
+			"InternalName": "HitWallTimerSwitch",
+			"Games": 5,
+			"Parameters": {
+				"Obj_arg0": {
+					"Games": 5
+				},
+                "Obj_arg1": {
+					"Name": "Screen Effect Type",
+					"Type": "Integer",
+                    "Games": 4,
+					"Description": "The special screen effect to be activated when hitting the button.",
+					"Values": [
+						{
+							"Value": "-1",
+							"Notes": "Nothing"
+						},
+						{
+							"Value": "1",
+							"Notes": "Switching screen effect (crashes due to missing model)"
+						},
+						{
+							"Value": "2",
+							"Notes": "Time stop screen effect"
+						}
+					]
+                },
+				"SW_A": {
+					"Games": 5
+				},
+				"SW_AWAKE": {
+					"Games": 4,
+				}
+			}
+		},
+		{
+			"InternalName": "Jiraira",
+			"Games": 5,
+			"Parameters": {
+				"SW_AWAKE": {
+					"Games": 4,
+				}
+			}
+		},
+		{
+			"InternalName": "JumpGuarder",
+			"Games": 5,
+			"Parameters": {
+				"Obj_arg1": {
+					"Type": "Float",
+					"Games": 5,
+					"Values": []
+				},
+				"Obj_arg2": {
+					"Games": 5
+				},
+				"SW_A": {
+					"Games": 5
+				},
+				"SW_B": {
+					"Games": 5
+				},
+				"SW_AWAKE": {
+					"Games": 4
+				},
+				"Camera": {
+					"Games": 5
+				}
+			}
+		},
+        {
+            "InternalName": "JumpSwitchArea",
+            "Notes": "Activates a switch when the player is jumping inside this area. The switch gets deactivated again if the player is outside the area or not jumping anymore.",
+            "Games": 4,
+            "Progress": 2,
+            "Parameters": {
+                "SW_APPEAR": {
+                    "Games": 4
+                },
+                "SW_A": {
+                    "Games": 4,
+                    "Description": "Gets activated when jumping and deactivated again when the player lands."
+                },
+                "SW_AWAKE": {
+                    "Games": 4
+                },
+                "BaseMtxFollower": {
+                    "Games": 4
+                }
+            }
+        },
+		{
+			"InternalName": "Mogu",
+			"Games": 5,
+			"Parameters": {
+				"Obj_arg0": {
+					"Games": 5
+				},
+				"Obj_arg1": {
+					"Name": "Use Dreadnought Sight?",
+					"Type": "Boolean",
+					"Games": 4,
+					"Description": "If set, it will use the sight detection range used in SMG1's Dreadnought Galaxy."
+				},
+				"SW_DEAD": {
+					"Games": 5
+				},
+				"SW_A": {
+					"Games": 5
+				},
+				"SW_AWAKE": {
+					"Games": 5
+				}
+			}
+		},
+		{
+			"InternalName": "MorphItemNeoFoo",
+			"Games": 5,
+			"Parameters": {
+				"Obj_arg0": {
+					"Games": 5
+				},
+				"Obj_arg1": {
+					"Games": 5
+				},
+				"Obj_arg2": {
+					"Games": 5
+				},
+				"Obj_arg3": {
+					"Games": 5
+				},
+				"Obj_arg4": {
+					"Games": 5
+				},
+				"Obj_arg5": {
+					"Games": 5
+				},
+				"Obj_arg6": {
+					"Games": 5
+				},
+				"Obj_arg7": {
+					"Games": 5
+				},
+				"SW_APPEAR": {
+					"Games": 5
+				},
+				"SW_DEAD": {
+					"Games": 5
+				},
+				"SW_AWAKE": {
+					"Games": 5
+				},
+				"Rail": {
+					"Games": 4,
+					"Description": "Specifies the path that it moves on.",
+				},
+				"DemoCast": {
+					"Games": 5
+				},
+				"MarioFaceShipNpcRegister": {
+					"Games": 4
+				},
+				"Camera": {
+					"Games": 5
+				},
+				"MapPartsRailMover": {
+					"Games": 4
+				}
+			}
+		},
+		{
+			"InternalName": "MorphItemNeoIce",
+			"Games": 5,
+			"Parameters": {
+				"Obj_arg0": {
+					"Games": 5
+				},
+				"Obj_arg1": {
+					"Games": 5
+				},
+				"Obj_arg2": {
+					"Games": 5
+				},
+				"Obj_arg3": {
+					"Games": 5
+				},
+				"Obj_arg4": {
+					"Games": 5
+				},
+				"Obj_arg5": {
+					"Games": 5
+				},
+				"Obj_arg6": {
+					"Games": 5
+				},
+				"SW_APPEAR": {
+					"Games": 5
+				},
+				"SW_DEAD": {
+					"Games": 5
+				},
+				"SW_AWAKE": {
+					"Games": 5
+				},
+				"Rail": {
+					"Games": 4,
+					"Description": "Specifies the path that it moves on.",
+				},
+				"DemoCast": {
+					"Games": 5
+				},
+				"MarioFaceShipNpcRegister": {
+					"Games": 4
+				},
+				"Camera": {
+					"Games": 5
+				},
+				"MapPartsRailMover": {
+					"Games": 4
+				}
+			}
+		},
+        {
+            "InternalName": "PlayerSwitchCtrl",
+            "Notes": "A switch controller that activates or deactivates a switch when the player has selected the required player character.",
+            "Games": 4,
+            "Progress": 2,
+            "Parameters": {
+                "Obj_arg0": {
+					"Name": "Check for Luigi?",
+					"Type": "Boolean",
+                    "Games": 4,
+					"Description": "If set, the player needs to be playing as Luigi instead of Mario."
+                },
+                "Obj_arg1": {
+					"Name": "Negate Logic?",
+					"Type": "Boolean",
+                    "Games": 4,
+					"Description": "If set, SW_A will be deactivated instead of getting activated."
+                },
+                "SW_A": {
+                    "Games": 4,
+					"Needed": true,
+                    "Description": "Gets activated if the player has selected the specified player character. Gets deactivated if Obj_arg1 is set."
+                },
+                "SW_B": {
+                    "Games": 4,
+                    "Description": "If used, this switch needs to be activated first to enable the check."
+                }
+            }
+        },
+		{
+			"InternalName": "Poihana",
+			"Games": 5,
+			"Parameters": {
+				"Obj_arg0": {
+					"Games": 5
+				},
+				"Obj_arg1": {
+					"Name": "Activation Range",
+					"Type": "Float",
+					"Games": 4,
+					"Description": "The valid range in which it will become active. Default is 3500."
+				},
+                "Obj_arg2": {
+					"Name": "Color Frame",
+					"Type": "Float",
+                    "Games": 4,
+					"Description": "The color frame to be used.",
+					"Values": [
+						{
+							"Value": "-1",
+							"Notes": "Blue"
+						},
+						{
+							"Value": "1",
+							"Notes": "Red"
+						},
+						{
+							"Value": "2",
+							"Notes": "Green"
+						},
+						{
+							"Value": "3",
+							"Notes": "Purple"
+						}
+					]
+                },
+				"Obj_arg3": {
+					"Games": 5
+				},
+				"Obj_arg4": {
+					"Games": 5
+				},
+				"Obj_arg7": {
+					"Games": 5
+				},
+				"SW_AWAKE": {
+					"Games": 5
+				},
+				"ClippingGroup": {
+					"Games": 5
+				},
+				"Camera": {
+					"Games": 5
+				}
+			}
+		},
+		{
+			"InternalName": "PomponPlant",
+			"Games": 5,
+			"Parameters": {
+				"Obj_arg0": {
+					"Games": 5
+				},
+				"Obj_arg1": {
+					"Games": 5
+				}
+			}
+		},
+        {
+            "InternalName": "PowerStarSpawner",
+            "Notes": "An object that causes a Power Star to appear once its SW_A gets activated. The Power Star will appear from the object's position or the player's position if Obj_arg2 is set.",
+            "Games": 4,
+            "Progress": 2,
+            "Parameters": {
+                "Obj_arg0": {
+					"Name": "Power Star ID",
+					"Type": "Integer",
+                    "Games": 4,
+					"Description": "The ID of the Power Star to be spawned."
+                },
+                "Obj_arg1": {
+					"Name": "Spawn Delay",
+					"Type": "Integer",
+                    "Games": 4,
+					"Description": "The delay until the Power Star spawns once SW_A got activated."
+                },
+                "Obj_arg2": {
+					"Name": "Appear From Player?",
+					"Type": "Boolean",
+                    "Games": 4,
+					"Description": "If set, the Power Star will appear from the player's position."
+                },
+                "Obj_arg3": {
+					"Name": "Play Fanfare?",
+					"Type": "Boolean",
+                    "Games": 4,
+					"Description": "If set, a short fanfare will play before the Power Star appears."
+                },
+                "SW_A": {
+                    "Games": 4,
+					"Needed": true,
+                    "Description": "Causes the Power Star to appear once this switch gets activated."
+                },
+                "AppearPowerStar": {
+                    "Games": 4,
+					"Needed": true,
+                    "Description": "Spawns once its SW_A gets activated."
+                }
+            }
+        },
+        {
+            "InternalName": "ScaleMapObj",
+            "Notes": "A generic object with a model and collision that flexibly changes its size over time. It can use several sound effects. Loop is the sound effect played all the time. Scale is the sound effect played when it grows or shrinks. The scales, timers and behavior can all be configured.",
+            "Games": 4,
+            "Progress": 2,
+            "Parameters": {
+                "Obj_arg0": {
+                    "Name": "Lower Scale Bound",
+                    "Type": "Float",
+                    "Games": 4,
+                    "Description": "Desired lower scale bound, multiplied by 1000. Default is 1000."
+                },
+                "Obj_arg1": {
+                    "Name": "Upper Scale Bound",
+                    "Type": "Float",
+                    "Games": 4,
+                    "Description": "Desired upper scale bound, multiplied by 1000. Default is 1000."
+                },
+                "Obj_arg2": {
+					"Name": "Wait Delay",
+					"Type": "Integer",
+                    "Games": 4,
+					"Description": "The time in frames it waits before it changes in size again. Default is 120."
+                },
+                "Obj_arg3": {
+					"Name": "Small Scale Time",
+					"Type": "Integer",
+                    "Games": 4,
+					"Description": "The time in frames it takes for it to reach the maximum scale. Default is 240."
+                },
+                "Obj_arg4": {
+					"Name": "Large Scale Time",
+					"Type": "Integer",
+                    "Games": 4,
+					"Description": "The time in frames it takes for it to reach the minimum scale. Default is 240."
+                },
+                "Obj_arg5": {
+					"Name": "Initial State",
+					"Type": "Integer",
+                    "Games": 4,
+					"Description": "Specifies its initial nerve state. Default is 0.",
+					"Values": [
+						{
+							"Value": "0",
+							"Notes": "Wait small"
+						},
+						{
+							"Value": "1",
+							"Notes": "Grow"
+						},
+						{
+							"Value": "2",
+							"Notes": "Wait large"
+						},
+						{
+							"Value": "3",
+							"Notes": "Shrink"
+						}
+					]
+                },
+                "Obj_arg6": {
+					"Name": "Scale Once?",
+					"Type": "Boolean",
+                    "Games": 4,
+					"Description": "If set, it will only scale once."
+                },
+				"SW_APPEAR": {
+					"Games": 5
+				},
+                "SW_A": {
+                    "Games": 4,
+                    "Description": "If used, it will only change its size while this switch is activated."
+                },
+                "SW_B": {
+                    "Games": 4,
+                    "Description": "If used, it will only change its size while this switch is not activated."
+                },
+				"SW_AWAKE": {
+					"Games": 5
+				}
+            }
+        },
+		{
+			"InternalName": "ScrewSwitch",
+			"Games": 5,
+			"Parameters": {
+				"SW_A": {
+					"Games": 5
+				},
+				"SW_AWAKE": {
+					"Games": 5
+				},
+				"DemoCast": {
+					"Games": 5
+				}
+			}
+		},
+		{
+			"InternalName": "ScrewSwitchReverse",
+			"Notes": "A yellow screw that can be removed by using a Spin Attack on it. After that, it will activate a switch and it will try to make the player jump off. It will be connected to the collision below.",
+			"Games": 5,
+			"Parameters": {
+				"Obj_arg0": {
+					"Games": 5
+				},
+				"Obj_arg7": {
+					"Games": 5
+				},
+				"SW_A": {
+					"Games": 5
+				},
+				"SW_AWAKE": {
+					"Games": 5
+				},
+				"DemoCast": {
+					"Games": 5, 
+					"Description": "The object takes part in the cutscene.",
+				}
+			}
+		},
+        {
+            "InternalName": "SensorDetector",
+            "Notes": "An invisible object that activates a switch if it receives the specified actor message. It will also rumble the player's Wiimote if the player is nearby.",
+            "Games": 4,
+            "Progress": 2,
+            "Parameters": {
+                "Obj_arg0": {
+					"Name": "Requested Message",
+					"Type": "Integer",
+                    "Games": 4,
+					"Description": "The required message that it needs to receive in order to activate the switch."
+                },
+                "Obj_arg1": {
+					"Name": "Sensor Radius",
+					"Type": "Float",
+                    "Games": 4,
+					"Description": "The hit sensor's radius. Default is 100."
+                },
+                "Obj_arg2": {
+					"Name": "Disable Rumble?",
+					"Type": "Float",
+                    "Games": 4,
+					"Description": "If set, the player's Wiimote will not rumble when the player is near the object."
+                },
+                "SW_DEAD": {
+                    "Games": 4,
+					"Needed": true,
+                    "Description": "Gets activated if it received the requested message."
+                }
+            }
+        },
+        {
+            "InternalName": "TransparentWall",
+            "Notes": "An invisible collision object that will be enabled only if at least one of the conditions is true. If no conditions hold, the collision will be disabled.",
+            "Games": 4,
+            "Progress": 2,
+            "Parameters": {
+                "Obj_arg4": {
+					"Name": "Validity Bits",
+					"Type": "Bitfield",
+                    "Games": 5,
+					"Description": "The collision will be enabled if at least one of the checked validity conditions is true. Default is -1, which means any conditions will be evaluated.",
+					"Values": [
+						{
+							"Value": "1",
+							"Notes": "No power-up"
+						},
+						{
+							"Value": "2",
+							"Notes": "Rainbow power-up"
+						},
+						{
+							"Value": "4",
+							"Notes": "Fire power-up"
+						},
+						{
+							"Value": "8",
+							"Notes": "Ice power-up"
+						},
+						{
+							"Value": "16",
+							"Notes": "Bee power-up"
+						},
+						{
+							"Value": "32",
+							"Notes": "Spring power-up"
+						},
+						{
+							"Value": "64",
+							"Notes": "Boo power-up"
+						},
+						{
+							"Value": "128",
+							"Notes": "Flying power-up"
+						},
+						{
+							"Value": "256",
+							"Notes": "\"Bone\" mode"
+						},
+						{
+							"Value": "512",
+							"Notes": "Tornado mode"
+						},
+						{
+							"Value": "1024",
+							"Notes": "Riding Yoshi"
+						},
+						{
+							"Value": "2048",
+							"Notes": "\"Horror\" mode"
+						},
+						{
+							"Value": "4096",
+							"Notes": "Cloud power-up"
+						},
+						{
+							"Value": "8192",
+							"Notes": "Rock power-up"
+						},
+						{
+							"Value": "16384",
+							"Notes": "Player is skating"
+						},
+						{
+							"Value": "32768",
+							"Notes": "Boo Mario not disappeared"
+						}
+					]
+                },
+				"SW_APPEAR": {
+					"Games": 5,
+					"Needed": false,
+					"Description": "Gets activated if it received the requested message."
+				}
+            }
+        },
+		{
+			"InternalName": "ValveSwitch",
+			"Games": 5,
+			"Parameters": {
+				"Obj_arg0": {
+					"Games": 5
+				},
+				"SW_A": {
+					"Games": 5
+				},
+				"SW_AWAKE": {
+					"Games": 5
+				},
+				"DemoCast": {
+					"Games": 5,
+					"Description": "The object takes part in the cutscene.",
+				}
+			}
+		},
+		{
+			"InternalName": "WatchTowerRotateStep",
+			"Games": 5,
+			"Parameters": {
+				"Obj_arg0": {
+					"Name": "Rotation Speed",
+					"Type": "Float",
+					"Games": 4,
+					"Description": "The rotation speed multiplied by 1000. Default is 300."
+				},
+				"SW_AWAKE": {
+					"Games": 5
+				},
+				"DemoCast": {
+					"Games": 5
+				}
+			}
+		},
+		{
+			"InternalName": "WaterLeakPipe",
+			"Games": 5,
+			"Parameters": {
+				"Obj_arg0": {
+					"Games": 5
+				},
+				"SW_AWAKE": {
+					"Games": 5
+				}
+			}
+		}
+	],
+    "Objects": [
+        {
+            "InternalName": "AssemblyBlockPartsIceB",
+            "Games": 5
+        },
+        {
+            "InternalName": "AssemblyBlockPartsIceC",
+            "Games": 5
+        },
+        {
+            "InternalName": "AssemblyBlockPartsIceD",
+            "Games": 5
+        },
+        {
+            "InternalName": "AssemblyBlockPartsIceE",
+            "Games": 5
+        },
+        {
+            "InternalName": "AssemblyBlockPartsTimerA",
+            "Games": 5
+        },
+        {
+            "InternalName": "AstroDomeSkyA",
+            "Games": 5
+        },
+        {
+            "InternalName": "AstroTorchLightBlue",
+            "Games": 5
+        },
+        {
+            "InternalName": "AstroTorchLightRed",
+            "Games": 5
+        },
+        {
+            "InternalName": "AuroraSky",
+            "Games": 5
+        },
+        {
+            "InternalName": "BallBeamer",
+            "Games": 5
+        },
+        {
+            "InternalName": "Banekiti",
+            "Games": 5
+        },
+        {
+            "InternalName": "BattleShipExplosionMetal",
+            "Games": 5
+        },
+        {
+            "InternalName": "BattleShipExplosionRock",
+            "Games": 5
+        },
+        {
+            "InternalName": "BirdLouseS",
+            "Games": 5
+        },
+        {
+            "InternalName": "BlueChip",
+            "Games": 5
+        },
+        {
+            "InternalName": "BlueChipGroup",
+            "Games": 5
+        },
+        {
+            "InternalName": "ChildRoomSky",
+            "Games": 5
+        },
+        {
+            "InternalName": "ChooChooTrain",
+            "Games": 5
+        },
+        {
+            "InternalName": "CocoSambo",
+            "Games": 5
+        },
+        {
+            "InternalName": "CrystalSwitch",
+            "Games": 5
+        },
+        {
+            "InternalName": "DarknessRoomAir",
+            "Games": 5
+        },
+        {
+            "InternalName": "DeadLeaves",
+            "Games": 5
+        },
+        {
+            "InternalName": "DesertSky",
+            "Games": 5
+        },
+        {
+            "InternalName": "DharmaSambo",
+            "Games": 5
+        },
+        {
+            "InternalName": "DrainPipeBubbleA",
+            "Games": 5
+        },
+        {
+            "InternalName": "DrainPipeBubbleB",
+            "Games": 5
+        },
+        {
+            "InternalName": "EffectTeresa",
+            "Games": 5
+        },
+        {
+            "InternalName": "EffectTicoL",
+            "Games": 5
+        },
+        {
+            "InternalName": "EffectTicoS",
+            "Games": 5
+        },
+        {
+            "InternalName": "ExtraWallCheckCylinder",
+            "Games": 5
+        },
+        {
+            "InternalName": "FallGreenLeaf",
+            "Games": 5
+        },
+        {
+            "InternalName": "FallRedLeaf",
+            "Games": 5
+        },
+        {
+            "InternalName": "FamicomMarioSky",
+            "Games": 5
+        },
+        {
+            "InternalName": "FineAir",
+            "Games": 5
+        },
+        {
+            "InternalName": "FirePressureRadiate",
+            "Games": 5
+        },
+        {
+            "InternalName": "FireworksA",
+            "Games": 5
+        },
+        {
+            "InternalName": "GoldenTurtle",
+            "Games": 5
+        },
+        {
+            "InternalName": "GreenPlanetOrbitSky",
+            "Games": 5
+        },
+        {
+            "InternalName": "HitWallTimerSwitch",
+            "Games": 5
+        },
+        {
+            "InternalName": "HomeAir",
+            "Games": 5
+        },
+        {
+            "InternalName": "IcePlanetLight",
+            "Games": 5
+        },
+        {
+            "InternalName": "IcicleRockLight",
+            "Games": 5
+        },
+        {
+            "InternalName": "Jiraira",
+            "Games": 5
+        },
+        {
+            "InternalName": "JumpGuarder",
+            "Games": 5
+        },
+        {
+            "InternalName": "KoopaVs2Sky",
+            "Games": 5
+        },
+        {
+            "InternalName": "LavaBallRisingPlanetLava",
+            "ClassNameSMG2": "ScaleMapObj",
+            "Games": 5
+        },
+        {
+            "InternalName": "LavaHomeVolcanoFallingRock",
+            "Games": 5
+        },
+        {
+            "InternalName": "LavaSparksL",
+            "Games": 5
+        },
+        {
+            "InternalName": "Mogu",
+            "Games": 5
+        },
+        {
+            "InternalName": "MorphItemNeoFoo",
+            "Games": 5
+        },
+        {
+            "InternalName": "MorphItemNeoIce",
+            "Games": 5
+        },
+        {
+            "InternalName": "PipeModeCube",
+            "Games": 5
+        },
+        {
+            "InternalName": "PlaneCircularModeCube",
+            "Games": 5
+        },
+        {
+            "InternalName": "Poihana",
+            "Games": 5
+        },
+        {
+            "InternalName": "Pompon2Plant",
+            "Games": 5
+        },
+        {
+            "InternalName": "RockPlanetOrbitSky",
+            "Games": 5
+        },
+        {
+            "InternalName": "SandBreezeL",
+            "Games": 5
+        },
+        {
+            "InternalName": "SandBreezeS",
+            "Games": 5
+        },
+        {
+            "InternalName": "ScrewSwitch",
+            "Games": 5
+        },
+        {
+            "InternalName": "ScrewSwitchReverse",
+            "Games": 5
+        },
+        {
+            "InternalName": "SpaceDustL",
+            "Games": 5
+        },
+        {
+            "InternalName": "SpaceDustS",
+            "Games": 5
+        },
+        {
+            "InternalName": "StarPieceClusterBreak",
+            "Games": 5
+        },
+        {
+            "InternalName": "StarrySky",
+            "Games": 5
+        },
+        {
+            "InternalName": "Steam",
+            "Games": 5
+        },
+        {
+            "InternalName": "SunsetAir",
+            "Games": 5
+        },
+        {
+            "InternalName": "SuperSpinDriverGreen",
+            "Games": 5
+        },
+        {
+            "InternalName": "SwingRope",
+            "Games": 5
+        },
+        {
+            "InternalName": "TwilightAir",
+            "Games": 5
+        },
+        {
+            "InternalName": "TwinFallLakeWaterFall",
+            "Games": 5
+        },
+        {
+            "InternalName": "UFOBlueStarCupsule",
+            "Games": 5
+        },
+        {
+            "InternalName": "UFOKinokoLandingBlackSmoke",
+            "Games": 5
+        },
+        {
+            "InternalName": "VROrbit",
+            "Games": 5
+        },
+        {
+            "InternalName": "ValveSwitch",
+            "Games": 5
+        },
+        {
+            "InternalName": "WatchTowerRotateStep",
+            "Games": 5
+        },
+        {
+            "InternalName": "WaterDropBottom",
+            "Games": 5
+        },
+        {
+            "InternalName": "WaterDropMiddle",
+            "Games": 5
+        },
+        {
+            "InternalName": "WaterDropTop",
+            "Games": 5
+        },
+        {
+            "InternalName": "WaterLayerBreak",
+            "Games": 5
+        },
+        {
+            "InternalName": "WaterLeakPipe",
+            "Games": 5
+        },
+        {
+            "InternalName": "WaterfallL",
+            "Games": 5
+        },
+        {
+            "InternalName": "WaterfallS",
+            "Games": 5
+        },
+        {
+            "InternalName": "Anagon",
+            "ClassNameSMG1": "Anagon",
+            "ClassNameSMG2": "Anagon",
+            "Name": "Swimming Gringill",
+            "Notes": "A swimming eel-like enemy.",
+            "Category": "enemy",
+            "AreaShape": "Any",
+            "ListSMG1": "ObjInfo",
+            "ListSMG2": "ObjInfo",
+            "File": "Map",
+            "Games": 4,
+            "Progress": 2
+        },
+        {
+            "InternalName": "AstroDomeSkyB",
+            "ClassNameSMG1": "Sky",
+            "ClassNameSMG2": "Sky",
+            "Name": "Dome Sky B",
+            "Notes": "The sky model used in the Comet Observatory's Fountain and Engine Room domes.",
+            "Category": "background",
+            "AreaShape": "Any",
+            "ListSMG1": "ObjInfo",
+            "ListSMG2": "ObjInfo",
+            "File": "Map",
+            "Games": 4,
+            "Progress": 2
+        },
+        {
+            "InternalName": "AstroDomeSkyC",
+            "ClassNameSMG1": "Sky",
+            "ClassNameSMG2": "Sky",
+            "Name": "Dome Sky C",
+            "Notes": "The sky model used in the Comet Observatory's Kitchen and Garden domes.",
+            "Category": "background",
+            "AreaShape": "Any",
+            "ListSMG1": "ObjInfo",
+            "ListSMG2": "ObjInfo",
+            "File": "Map",
+            "Games": 4,
+            "Progress": 2
+        },
+        {
+            "InternalName": "CollectSwitchCtrl",
+            "ClassNameSMG1": "CollectSwitchCtrl",
+            "ClassNameSMG2": "CollectSwitchCtrl",
+            "Name": "Collectible Switch",
+            "Notes": "Activates a switch if the specified amount of a collectible hs been collected.",
+            "Category": "controller",
+            "AreaShape": "Any",
+            "ListSMG1": "ObjInfo",
+            "ListSMG2": "ObjInfo",
+            "File": "Map",
+            "Games": 4,
+            "Progress": 2
+        },
+        {
+            "InternalName": "CometNearOrbitSky",
+            "ClassNameSMG1": "Sky",
+            "ClassNameSMG2": "Sky",
+            "Name": "SMG1 Title Screen Sky",
+            "Notes": "The sky model used on the title screen and file select in Super Mario Galaxy.",
+            "Category": "background",
+            "AreaShape": "Any",
+            "ListSMG1": "ObjInfo",
+            "ListSMG2": "ObjInfo",
+            "File": "Map",
+            "Games": 4,
+            "Progress": 2
+        },
+        {
+            "InternalName": "ForbidJumpArea",
+            "ClassNameSMG1": "ForbidJumpArea",
+            "ClassNameSMG2": "ForbidJumpArea",
+            "Name": "No Shell Jumps Area",
+            "Notes": "An area that prevents \"dolphin\" jumps while riding a Koopa Shell.",
+            "Category": "areas",
+            "AreaShape": "Any",
+            "ListSMG1": "AreaObjInfo",
+            "ListSMG2": "AreaObjInfo",
+            "File": "Map",
+            "Games": 4,
+            "Progress": 2
+        },
+        {
+            "InternalName": "ForbidWaterSearchArea",
+            "ClassNameSMG1": "ForbidWaterSearchArea",
+            "ClassNameSMG2": "ForbidWaterSearchArea",
+            "Name": "No Edge Dive Area",
+            "Notes": "This prevents the player from performing a special dive action when jumping off an edge while above a WaterArea.",
+            "Category": "areas",
+            "AreaShape": "Any",
+            "ListSMG1": "AreaObjInfo",
+            "ListSMG2": "AreaObjInfo",
+            "File": "Map",
+            "Games": 4,
+            "Progress": 2
+        },
+        {
+            "InternalName": "JumpSwitchArea",
+            "ClassNameSMG1": "JumpSwitchArea",
+            "ClassNameSMG2": "JumpSwitchArea",
+            "Name": "Jump Switch Area",
+            "Notes": "Activates a switch if the player jumps inside this area.",
+            "Category": "areas",
+            "AreaShape": "Any",
+            "ListSMG1": "AreaObjInfo",
+            "ListSMG2": "AreaObjInfo",
+            "File": "Map",
+            "Games": 4,
+            "Progress": 2
+        },
+        {
+            "InternalName": "MorphItemCollectionFoo",
+            "ClassNameSMG1": "MorphItemCollection",
+            "ClassNameSMG2": "MorphItemCollection",
+            "Name": "Decorative Flying Star",
+            "Notes": "A Flying Star intended to be used in the power-up display room of Starship Mario.",
+            "Category": "levelfeature",
+            "AreaShape": "Any",
+            "ListSMG1": "ObjInfo",
+            "ListSMG2": "ObjInfo",
+            "File": "Map",
+            "Games": 4,
+            "Progress": 2
+        },
+        {
+            "InternalName": "MorphItemCollectionIce",
+            "ClassNameSMG1": "MorphItemCollection",
+            "ClassNameSMG2": "MorphItemCollection",
+            "Name": "Decorative Ice Flower",
+            "Notes": "An Ice Flower intended to be used in the power-up display room of Starship Mario.",
+            "Category": "levelfeature",
+            "AreaShape": "Any",
+            "ListSMG1": "ObjInfo",
+            "ListSMG2": "ObjInfo",
+            "File": "Map",
+            "Games": 4,
+            "Progress": 2
+        },
+        {
+            "InternalName": "MultipleChoiceDice",
+            "ClassNameSMG1": "MultipleChoiceDice",
+            "ClassNameSMG2": "MultipleChoiceDice",
+            "Name": "Switch Chance Cube",
+            "Notes": "A throwable dice cube with four red circles and two blue crosses on its sides. It activates a different switch depending on the side that it lands on.",
+            "Category": "levelfeature",
+            "AreaShape": "Any",
+            "ListSMG1": "ObjInfo",
+            "ListSMG2": "ObjInfo",
+            "File": "Map",
+            "Games": 4,
+            "Progress": 2
+        },
+        {
+            "InternalName": "OceanPhantomShipAir",
+            "ClassNameSMG1": "ProjectionMapAir",
+            "ClassNameSMG2": "ProjectionMapAir",
+            "Name": "Sunrise Atmosphere",
+            "Notes": "An unused sunrise atmosphere intended to be used in Deep Dark Galaxy.",
+            "Category": "background",
+            "AreaShape": "Any",
+            "ListSMG1": "ObjInfo",
+            "ListSMG2": "ObjInfo",
+            "File": "Map",
+            "Games": 4,
+            "Progress": 2
+        },
+        {
+            "InternalName": "PlayerSwitchCtrl",
+            "ClassNameSMG1": "PlayerSwitchCtrl",
+            "ClassNameSMG2": "PlayerSwitchCtrl",
+            "Name": "Mario/Luigi Switch",
+            "Notes": "Activates a switch depending on the current player character.",
+            "Category": "controller",
+            "AreaShape": "Any",
+            "ListSMG1": "ObjInfo",
+            "ListSMG2": "ObjInfo",
+            "File": "Map",
+            "Games": 4,
+            "Progress": 2
+        },
+        {
+            "InternalName": "PowerStarSpawner",
+            "ClassNameSMG1": "PowerStarSpawner",
+            "ClassNameSMG2": "PowerStarSpawner",
+            "Name": "Power Star Spawner",
+            "Notes": "Can be used to spawns a Power Star once it gets activated.",
+            "Category": "controller",
+            "AreaShape": "Any",
+            "ListSMG1": "ObjInfo",
+            "ListSMG2": "ObjInfo",
+            "File": "Map",
+            "Games": 4,
+            "Progress": 2
+        },
+        {
+            "InternalName": "QuakeEffectArea",
+            "ClassNameSMG1": "QuakeEffectArea",
+            "ClassNameSMG2": "QuakeEffectArea",
+            "Name": "Earthquake Area",
+            "Notes": "An area that periodically shakes the camera and plays a quaking sound effect while the player is inside it.",
+            "Category": "areas",
+            "AreaShape": "Any",
+            "ListSMG1": "AreaObjInfo",
+            "ListSMG2": "AreaObjInfo",
+            "File": "Map",
+            "Games": 4,
+            "Progress": 2
+        },
+        {
+            "InternalName": "SensorDetector",
+            "ClassNameSMG1": "SensorDetector",
+            "ClassNameSMG2": "SensorDetector",
+            "Name": "Sensor Detector",
+            "Notes": "An invisible object that activates a switch once it receives the specified message.",
+            "Category": "controller",
+            "AreaShape": "Any",
+            "ListSMG1": "ObjInfo",
+            "ListSMG2": "ObjInfo",
+            "File": "Map",
+            "Games": 4,
+            "Progress": 2
+        },
+        {
+            "InternalName": "ShellfishBlueChip",
+            "ClassNameSMG1": "Shellfish",
+            "ClassNameSMG2": "Shellfish",
+            "Name": "Clampy with Blue Star Chip",
+            "Notes": "An underwater clam that opens its mouth periodically; contains a Blue Star Chip inside.",
+            "Category": "enemy",
+            "AreaShape": "Any",
+            "ListSMG1": "ObjInfo",
+            "ListSMG2": "ObjInfo",
+            "File": "Map",
+            "Games": 4,
+            "Progress": 2
+        },
+        {
+            "InternalName": "ShellfishPurpleCoin",
+            "ClassNameSMG1": "Shellfish",
+            "ClassNameSMG2": "Shellfish",
+            "Name": "Clampy with Purple Coin",
+            "Notes": "An underwater clam that opens its mouth periodically; contains one Purple Coin inside.",
+            "Category": "enemy",
+            "AreaShape": "Any",
+            "ListSMG1": "ObjInfo",
+            "ListSMG2": "ObjInfo",
+            "File": "Map",
+            "Games": 4,
+            "Progress": 2
+        },
+        {
+            "InternalName": "StarDustSky",
+            "ClassNameSMG1": "Sky",
+            "ClassNameSMG2": "Sky",
+            "Name": "Original Space Junk Sky",
+            "Notes": "The original sky model from SMG1's Space Junk Galaxy.",
+            "Category": "background",
+            "AreaShape": "Any",
+            "ListSMG1": "ObjInfo",
+            "ListSMG2": "ObjInfo",
+            "File": "Map",
+            "Games": 4,
+            "Progress": 2
+        }
+    ]
+}

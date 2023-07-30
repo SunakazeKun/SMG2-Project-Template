@@ -2,7 +2,7 @@
 #include "pt/Util.h"
 
 /*
-* Authors: Aurum
+* Author: Aurum
 * Objects: ScaleMapObj class
 * Parameters:
 *  - Obj_arg0, float, 1000.0f: Minimum scale

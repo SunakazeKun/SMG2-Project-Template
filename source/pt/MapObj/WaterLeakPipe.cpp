@@ -1,7 +1,7 @@
 ﻿#include "pt/MapObj/WaterLeakPipe.h"
 
 /*
-* Authors: Aurum
+* Author: Aurum
 * Objects: WaterLeakPipe
 * Parameters:
 *  - Obj_arg0, float, 500.0f: Pipe height

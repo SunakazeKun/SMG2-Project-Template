@@ -2,7 +2,7 @@
 #include "pt/Util.h"
 
 /*
-* Authors: Aurum
+* Author: Aurum
 * Objects: JumpGuarder
 * Parameters:
 * - Obj_arg1, float, 16.0f: Launch velocity

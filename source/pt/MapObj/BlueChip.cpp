@@ -1,7 +1,7 @@
 ﻿#include "pt/MapObj/BlueChip.h"
 
 /*
-* Authors: Aurum
+* Author: Aurum
 * Objects: BlueChip, BlueChipGroup
 * Parameters: See YellowChip and YellowChipGroup
 * 

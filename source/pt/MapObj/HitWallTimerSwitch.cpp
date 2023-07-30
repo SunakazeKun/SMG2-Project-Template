@@ -1,7 +1,7 @@
 #include "pt/MapObj/HitWallTimerSwitch.h"
 
 /*
-* Authors: Aurum
+* Author: Aurum
 * Objects: HitWallTimerSwitch
 * Parameters:
 *  - Obj_arg0, long, 300: Activation time

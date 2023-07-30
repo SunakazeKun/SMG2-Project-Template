@@ -56,7 +56,6 @@ compiler_flags = [
     "-sdata2 0",
     "-align powerpc",
     "-func_align 4",
-    "-str pool",
     "-enum int",
     "-DGEKKO",
     "-DMTX_USE_PS",

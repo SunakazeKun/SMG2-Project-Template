@@ -2,7 +2,7 @@
 #include "pt/Util.h"
 
 /*
-* Authors: Aurum
+* Author: Aurum
 * Objects: CocoSambo
 * Parameters:
 * - Obj_arg0, float, 1800.0f: Appearance range

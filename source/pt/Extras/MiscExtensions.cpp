@@ -1,8 +1,9 @@
 #include "syati-light.h"
 
 /*
-* Authors: Aurum
+* Author: Aurum
 */
+
 namespace pt {
 	/*
 	* Error Message Fallback

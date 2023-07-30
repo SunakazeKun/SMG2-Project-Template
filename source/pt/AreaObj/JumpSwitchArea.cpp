@@ -1,4 +1,6 @@
 #include "pt/AreaObj/JumpSwitchArea.h"
+#include "Game/Util/ObjUtil.h"
+#include "Game/Util/PlayerUtil.h"
 
 /*
 * Authors: Someone, Aurum
@@ -9,34 +11,35 @@
 * 
 * An area that activates its SW_A event whenever the player jumps.
 */
+
 namespace pt {
-    JumpSwitchArea::JumpSwitchArea(const char *pName) : AreaObj(pName) {
-        mActivated = false;
-    }
+	JumpSwitchArea::JumpSwitchArea(const char *pName) : AreaObj(pName) {
+		mActivated = false;
+	}
 
-    void JumpSwitchArea::init(const JMapInfoIter &rIter) {
-        AreaObj::init(rIter);
-        MR::connectToSceneAreaObj(this);
-    }
+	void JumpSwitchArea::init(const JMapInfoIter &rIter) {
+		AreaObj::init(rIter);
+		MR::connectToSceneAreaObj(this);
+	}
 
-    void JumpSwitchArea::movement() {
-        if (!mActivated && isInVolume(*MR::getPlayerPos()) && MR::isPlayerJumpRising() && !MR::isPlayerSwingAction()) {
-            if (isOnSwitchA()) {
-                offSwitchA();
-            }
-            else {
-                onSwitchA();
-            }
+	void JumpSwitchArea::movement() {
+		if (!mActivated && isInVolume(*MR::getPlayerPos()) && MR::isPlayerJumpRising() && !MR::isPlayerSwingAction()) {
+			if (isOnSwitchA()) {
+				offSwitchA();
+			}
+			else {
+				onSwitchA();
+			}
 
-            mActivated = true;
-        }
+			mActivated = true;
+		}
 
-        if (MR::isOnGroundPlayer()) {
-            mActivated = false;
-        }
-    }
+		if (MR::isOnGroundPlayer()) {
+			mActivated = false;
+		}
+	}
 
-    const char* JumpSwitchArea::getManagerName() const {
-        return "SwitchArea";
-    }
+	const char* JumpSwitchArea::getManagerName() const {
+		return "SwitchArea";
+	}
 }

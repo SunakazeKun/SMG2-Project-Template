@@ -2,6 +2,7 @@
 
 #include "pt/MapObj/ChooChooTrain.h"
 #include "pt/MapObj/LavaBallRisingPlanetLava.h"
+#include "pt/MapObj/TransparentWall.h"
 
 /*
 * SMG2 actor class definitions for use with "NameObjFactory::createNameObj". We only need these declarations. The actual
@@ -39,6 +40,7 @@ namespace {
         { "GravityFallBlock", NameObjFactory::createNameObj<GravityFallBlock> },
         { "InvisiblePolygonObj", NameObjFactory::createNameObj<InvisiblePolygonObj> },
         { "JumpHole", NameObjFactory::createNameObj<JumpHole> },
+        { "TransparentWall", createExtActor<pt::TransparentWall> },
         { "ManholeCover", NameObjFactory::createNameObj<ManholeCover> },
         { "RailMoveTimerObj", NameObjFactory::createNameObj<RailMoveTimerObj> },
         { "RepeatTimerSwitchingBlock", NameObjFactory::createNameObj<RepeatTimerSwitchingBlock> },

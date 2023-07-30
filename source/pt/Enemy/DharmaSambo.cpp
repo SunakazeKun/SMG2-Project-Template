@@ -1,6 +1,16 @@
 ﻿#include "pt/Enemy/DharmaSambo.h"
 #include "pt/Util.h"
 
+/*
+* Author: Aurum
+* Objects: DharmaSambo
+* Parameters:
+*  - Obj_arg0, float, 800.0f: Appearance range
+*  - SW_APPEAR, use
+*  - SW_DEAD, use, write: Activated when killed
+*  - SW_AWAKE
+*/
+
 namespace {
 	const char* joint_name[4] = { "Spine1", "Spine2", "Spine3", "Spine4" };
 	const float hPursueEscapeDist[4] = { 100.0f, 200.0f, 300.0f, 400.0f };

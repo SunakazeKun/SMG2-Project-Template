@@ -2,7 +2,7 @@
 #include "pt/Util.h"
 
 /*
-* Authors: Aurum
+* Author: Aurum
 * Objects: FirePressureRadiate
 * Parameters:
 *  - Obj_arg0, float, 0.0f: Cannon rotation

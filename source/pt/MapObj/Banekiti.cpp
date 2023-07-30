@@ -1,7 +1,7 @@
 #include "pt/MapObj/Banekiti.h"
 
 /*
-* Authors: Aurum
+* Author: Aurum
 * Objects: Banekiti
 * Parameters:
 *  - path

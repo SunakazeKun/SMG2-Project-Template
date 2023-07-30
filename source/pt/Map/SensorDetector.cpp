@@ -14,40 +14,40 @@
 */
 
 namespace pt {
-    SensorDetector::SensorDetector(const char *pName) : LiveActor(pName) {
-        mMessage = 0;
-        mHitbox = 100.0f;
-        mNoRumble = false;
-    }
+	SensorDetector::SensorDetector(const char *pName) : LiveActor(pName) {
+		mMessage = 0;
+		mHitbox = 100.0f;
+		mNoRumble = false;
+	}
 
-    void SensorDetector::init(const JMapInfoIter &rIter) {
-        MR::initDefaultPos(this, rIter);
-        MR::connectToSceneMapObjMovement(this);
+	void SensorDetector::init(const JMapInfoIter &rIter) {
+		MR::initDefaultPos(this, rIter);
+		MR::connectToSceneMapObjMovement(this);
 
-        // Initialize sensor and message info
-        MR::getJMapInfoArg0NoInit(rIter, &mMessage);
-        MR::getJMapInfoArg1NoInit(rIter, &mHitbox);
-        MR::getJMapInfoArg2NoInit(rIter, &mNoRumble);
+		// Initialize sensor and message info
+		MR::getJMapInfoArg0NoInit(rIter, &mMessage);
+		MR::getJMapInfoArg1NoInit(rIter, &mHitbox);
+		MR::getJMapInfoArg2NoInit(rIter, &mNoRumble);
 
-        initHitSensor(1);
-        MR::addHitSensor(this, "Body", ATYPE_RECEIVER, 1, mHitbox, TVec3f(0.0f, 0.0f, 0.0f));
+		initHitSensor(1);
+		MR::addHitSensor(this, "Body", ATYPE_RECEIVER, 1, mHitbox, TVec3f(0.0f, 0.0f, 0.0f));
 
-        MR::needStageSwitchWriteDead(this, rIter);
-        makeActorAppeared();
-    }
+		MR::needStageSwitchWriteDead(this, rIter);
+		makeActorAppeared();
+	}
 
-    void SensorDetector::control() {
-        if (!mNoRumble && MR::isNearPlayerAnyTime(this, mHitbox + 50.0f)) {
-            MR::tryRumblePadMiddle(this, 0);
-        }
-    }
+	void SensorDetector::control() {
+		if (!mNoRumble && MR::isNearPlayerAnyTime(this, mHitbox + 50.0f)) {
+			MR::tryRumblePadMiddle(this, 0);
+		}
+	}
 
-    bool SensorDetector::receiveMessage(u32 msg, HitSensor *pSender, HitSensor *pReceiver) {
-        if (msg == mMessage) {
-            MR::onSwitchDead(this);
-            makeActorDead();
-        }
+	bool SensorDetector::receiveMessage(u32 msg, HitSensor *pSender, HitSensor *pReceiver) {
+		if (msg == mMessage) {
+			MR::onSwitchDead(this);
+			makeActorDead();
+		}
 
-        return false;
-    }
+		return false;
+	}
 }

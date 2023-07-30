@@ -1,7 +1,7 @@
 #include "pt/MapObj/DeadLeaves.h"
 
 /*
-* Authors: Aurum
+* Author: Aurum
 * Objects: DeadLeaves
 * Parameters:
 *  - Obj_arg0, list, -1: Item type

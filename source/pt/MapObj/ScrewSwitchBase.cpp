@@ -1,7 +1,7 @@
 #include "pt/MapObj/ScrewSwitchBase.h"
 
 /*
-* Authors: Aurum
+* Author: Aurum
 * Objects: ScrewSwitch, ScrewSwitchBase, ValveSwitch
 * Parameters:
 *  All objects:

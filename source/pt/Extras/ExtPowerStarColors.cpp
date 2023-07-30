@@ -6,13 +6,16 @@
 #include "Game/Util/StringUtil.h"
 
 /*
-* Authors: Aurum
+* Author: Aurum
+* 
+* New Power Star colors
 * 
 * This changes all code that apply Power Star colors to support new and custom colors as well. To accomplish this, the
-* PowerStarType in the scenario file is changed to easily configure the color for a star. The new types are Bronze, Red,
-* Blue and LegacyGreen. As the Green type from the base game has to be unlocked first, the LegacyGreen type was added in
-* to ignore these conditions effectively.
+* PowerStarType in the scenario file is changed to easily configure the color for a star. The new types are Bronze,
+* Red, Blue and LegacyGreen. As the Green type from the base game has to be unlocked first, the LegacyGreen type was
+* added in to ignore these conditions effectively.
 */
+
 namespace pt {
 	/*
 	* This is the function to retrieve the color ID based on the specified scenario's PowerStarType value. This function
